@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+  margin: none;
+}
+
+td {
+  border: 1px solid black;
+  margin: none;
+}
+
+table, td, th {
+  border-spacing: none;
+  border: 1px solid black;
+}
