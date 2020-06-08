@@ -1,6 +1,5 @@
 import { generateAdjList } from "./index";
 
-
 // BFS
 // 1. Set all nodes distance and predecessor equal to null EXCEPT the source
 // which we will set the distance to 0
@@ -23,20 +22,22 @@ export const bfs = async (grid, startRow, startCol) => {
   });
   let count = 1;
   const neighbors = generateAdjList(grid);
-  const animation = [];
+  const animations = [];
+  const predecessors = [...grid];
 
   while (queue.length !== 0) {
     let item = queue.shift();
     const adjacent = neighbors[item.row][item.col];
     for (let i = 0; i < adjacent.length; i++) {
       if (adjacent[i].distance === null) {
-        animation.push({ row: adjacent[i].row, col: adjacent[i].col });
+        animations.push({ row: adjacent[i].row, col: adjacent[i].col });
         adjacent[i].distance = count;
         adjacent[i].predecesor = { row: item.row, col: item.col };
+        predecessors[adjacent[i].row][adjacent[i].col] = ({ row: item.row, col: item.col });
         queue.push(adjacent[i]);
       }
     }
     count++;
   }
-  return animation;
+  return { animations, predecessors };
 };

@@ -5,7 +5,7 @@ import Board from "./components/Board"
 function App() {
   return (
     <div className="App">
-      <h1>Graphing Algorithm Visualization</h1>
+      <h1 style={{margin: "auto"}}>Graphing Algorithm Visualization</h1>
       <Board/>
     </div>
   );

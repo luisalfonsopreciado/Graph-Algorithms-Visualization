@@ -17,7 +17,7 @@ const generateNeighborsGrid = (rowNum, colNum) => {
 const getNeighbors = (grid, row, col, neighborsGrid) => {
   const cellNotInGraph = (row, col) => {
     const cellClasses = document.getElementById(`${row} ${col}`).classList;
-    return cellClasses.contains("Wall");
+    return cellClasses.contains("Wall") 
   };
   if (cellNotInGraph(row, col)) return [];
   let neighbors = [];
@@ -37,30 +37,6 @@ const getNeighbors = (grid, row, col, neighborsGrid) => {
   if (col < grid[row].length - 1 && !cellNotInGraph(row, col + 1)) {
     // E
     neighbors.push(neighborsGrid[row][col + 1]);
-  }
-  if (row > 0 && col > 0 && !cellNotInGraph(row - 1, col - 1)) {
-    // NW
-    neighbors.push(neighborsGrid[row - 1][col - 1]);
-  }
-  if (
-    row > 0 &&
-    col < grid[row].length - 1 &&
-    !cellNotInGraph(row - 1, col + 1)
-  ) {
-    // NE
-    neighbors.push(neighborsGrid[row - 1][col + 1]);
-  }
-  if (row < grid.length - 1 && col > 0 && !cellNotInGraph(row + 1, col - 1)) {
-    // SW
-    neighbors.push(neighborsGrid[row + 1][col - 1]);
-  }
-  if (
-    row < grid.length - 1 &&
-    col < grid[row].length - 1 &&
-    !cellNotInGraph(row + 1, col + 1)
-  ) {
-    // SE
-    neighbors.push(neighborsGrid[row + 1][col + 1]);
   }
 
   return neighbors;

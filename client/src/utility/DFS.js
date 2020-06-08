@@ -9,32 +9,37 @@ import { generateAdjList } from "./index";
 // and add it to the stack
 
 export const dfs = async (grid, startRow, startCol) => {
-    const stack = [];
-    stack.push({
+  const stack = [];
+  stack.push({
+    row: startRow,
+    col: startCol,
+    distance: 0,
+    predecesor: {
       row: startRow,
       col: startCol,
-      distance: 0,
-      predecesor: {
-        row: startRow,
-        col: startCol,
-      },
-    });
-    let count = 1;
-    const neighbors = generateAdjList(grid);
-    const animation = [];
-  
-    while (stack.length !== 0) {
-      let item = stack.pop();
-      const adjacent = neighbors[item.row][item.col];
-      for (let i = 0; i < adjacent.length; i++) {
-        if (adjacent[i].distance === null) {
-          animation.push({ row: adjacent[i].row, col: adjacent[i].col });
-          adjacent[i].distance = count;
-          adjacent[i].predecesor = { row: item.row, col: item.col };
-          stack.push(adjacent[i]);
-        }
+    },
+  });
+  let count = 1;
+  const neighbors = generateAdjList(grid);
+  const animations = [];
+  const predecessors = [...grid];
+
+  while (stack.length !== 0) {
+    let item = stack.pop();
+    const adjacent = neighbors[item.row][item.col];
+    for (let i = 0; i < adjacent.length; i++) {
+      if (adjacent[i].distance === null) {
+        animations.push({ row: adjacent[i].row, col: adjacent[i].col });
+        adjacent[i].distance = count;
+        adjacent[i].predecesor = { row: item.row, col: item.col };
+        predecessors[adjacent[i].row][adjacent[i].col] = {
+          row: item.row,
+          col: item.col,
+        };
+        stack.push(adjacent[i]);
       }
-      count++;
     }
-    return animation;
-  };
+    count++;
+  }
+  return { animations, predecessors };
+};

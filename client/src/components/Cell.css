@@ -17,6 +17,10 @@
   background-color: green;
 }
 
+.ShortestPath {
+  background-color: yellow;
+}
+
 .Searched {
   background-position: center;
   background-repeat: no-repeat;
