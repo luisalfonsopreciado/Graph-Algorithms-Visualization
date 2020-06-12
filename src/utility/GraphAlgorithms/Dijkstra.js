@@ -1,15 +1,14 @@
-import { generateAdjList } from "./index";
+import { generateAdjList } from "../index";
 
-// BFS
-// 1. Set all nodes distance and predecessor equal to null EXCEPT the source
-// which we will set the distance to 0
-// 2. Add the source to the queue
-// 3. While the Queue is not Empty
-// 4. Get the next Item in the queue
-// 5. Loop thru all its neighbors if we have not isited the node set its distance and predecesor
-// and add it to the queue
+// Dijkstra's
+// 1. Create Shortest Path Tree (SPT)
+// 2. Assign distance value to all vertices in the input graph: Inifinity if not the source else zero.
+// 3. While SPT does not include all vertices
+//  a) Pick vertex not in SPT that has minimum distance value
+//  b) Include the vertex to SPT
+//  c) Update distance value of all adjacent vertices of u
 
-export const bfs = async (grid, startRow, startCol) => {
+export const dijkstra = async (grid, startRow, startCol) => {
   const queue = [];
   queue.push({
     row: startRow,
@@ -31,6 +30,7 @@ export const bfs = async (grid, startRow, startCol) => {
     for (let i = 0; i < adjacent.length; i++) {
       if (adjacent[i].distance === null) {
         animations.push({ row: adjacent[i].row, col: adjacent[i].col });
+        // Since this is an unweightes graph, no point in comparing the distances
         adjacent[i].distance = count;
         adjacent[i].predecesor = { row: item.row, col: item.col };
         predecessors[adjacent[i].row][adjacent[i].col] = ({ row: item.row, col: item.col });

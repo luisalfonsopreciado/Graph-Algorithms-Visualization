@@ -1,16 +1,17 @@
-import { generateAdjList } from "./index";
-// DFS
+import { generateAdjList } from "../index";
+
+// BFS
 // 1. Set all nodes distance and predecessor equal to null EXCEPT the source
 // which we will set the distance to 0
-// 2. Add the source to the stack
-// 3. While the stack is not Empty
-// 4. Get the next Item in the stack
+// 2. Add the source to the queue
+// 3. While the Queue is not Empty
+// 4. Get the next Item in the queue
 // 5. Loop thru all its neighbors if we have not isited the node set its distance and predecesor
-// and add it to the stack
+// and add it to the queue
 
-export const dfs = async (grid, startRow, startCol) => {
-  const stack = [];
-  stack.push({
+export const bfs = async (grid, startRow, startCol) => {
+  const queue = [];
+  queue.push({
     row: startRow,
     col: startCol,
     distance: 0,
@@ -24,19 +25,16 @@ export const dfs = async (grid, startRow, startCol) => {
   const animations = [];
   const predecessors = [...grid];
 
-  while (stack.length !== 0) {
-    let item = stack.pop();
+  while (queue.length !== 0) {
+    let item = queue.shift();
     const adjacent = neighbors[item.row][item.col];
     for (let i = 0; i < adjacent.length; i++) {
       if (adjacent[i].distance === null) {
         animations.push({ row: adjacent[i].row, col: adjacent[i].col });
         adjacent[i].distance = count;
         adjacent[i].predecesor = { row: item.row, col: item.col };
-        predecessors[adjacent[i].row][adjacent[i].col] = {
-          row: item.row,
-          col: item.col,
-        };
-        stack.push(adjacent[i]);
+        predecessors[adjacent[i].row][adjacent[i].col] = ({ row: item.row, col: item.col });
+        queue.push(adjacent[i]);
       }
     }
     count++;

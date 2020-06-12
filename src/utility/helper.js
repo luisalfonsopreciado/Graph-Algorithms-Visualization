@@ -53,3 +53,10 @@ export const generateAdjList = (grid) => {
   }
   return list;
 };
+
+export const clone = (board) => {
+  const clone = [];
+  for (var i = 0; i < board.length; i++)
+    clone[i] = board[i].slice();
+  return clone;
+}

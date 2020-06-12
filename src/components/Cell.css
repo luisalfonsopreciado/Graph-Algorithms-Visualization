@@ -1,0 +1,86 @@
+.Cell {
+  margin: none;
+  color: red;
+  width: 15px;
+  height: 15px;
+}
+
+.Filled {
+  background-color: red;
+}
+
+.Wall{
+  animation-name: wallAnimation;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.Target {
+  background-color: rgb(158, 22, 124);
+}
+
+.ShortestPath {
+  background-color: lightgoldenrodyellow;
+}
+
+.Searched {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: visitedAnimation;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.FinalSearched{
+  background-color: rgba(80, 219, 138, 0.75);
+}
+
+@keyframes visitedAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(41, 41, 107, 0.75);
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: rgba(132, 150, 174, 0.75);
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(55, 162, 233, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: lightseagreen;
+  }
+}
+
+@keyframes wallAnimation {
+  0% {
+    transform: scale(.3);
+    background-color: rgb(12, 53, 71);
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: rgb(12, 53, 71);
+  }
+
+  100% {
+    transform: scale(1.0);
+    background-color: rgb(12, 53, 71);
+  }
+}

@@ -8,7 +8,10 @@ const Cell = ({
   isMouseDown,
   isMovingKeyItem,
   setIsMovingKeyItem,
-  setCoord
+  setCoord,
+  animationComplete,
+  predecessors,
+  drawShortestPath,
 }) => {
   let classes = ["Cell"];
   val === "s" && classes.push("Filled");
@@ -16,15 +19,18 @@ const Cell = ({
 
   const onMoveHandler = () => {
     const cell = document.getElementById(`${row} ${col}`);
-    if (isMouseDown && !isMovingKeyItem) {
+    if (isMouseDown && !isMovingKeyItem[0]) {
       cell.classList.add("Wall");
     }
-    if (isMovingKeyItem[0]) {
+    if (isMovingKeyItem[0] && !animationComplete) {
       if(isMovingKeyItem[1] === "t"){
         cell.classList.add("Target")
       }else{
         cell.classList.add("Filled")
       }
+    }
+    if(isMovingKeyItem[0] && animationComplete){
+      drawShortestPath(row, col, predecessors, 0, 0)
     }
   };
 
@@ -41,6 +47,7 @@ const Cell = ({
 
   const onClickHandler = () => {
     if (val === "t" || val === "s") {
+      
       setIsMovingKeyItem([true, val]);
     }
   };
@@ -61,7 +68,6 @@ const Cell = ({
       onMouseEnter={onMoveHandler}
       onMouseLeave={onLeaveHandler}
       onMouseUp={onMouseUpHandler}
-      draggable={false}
     ></td>
   );
 };
