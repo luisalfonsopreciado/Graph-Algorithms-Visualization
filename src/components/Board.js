@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react";
 import useGrid from "../hooks/useGrid";
 import Cell from "./Cell";
 import Button from "@material-ui/core/Button";
-import { bfs, dfs, clone, dijkstra, randomMaze } from "../utility/index";
+import { bfs, dfs, clone, dijkstra, randomMaze,recursiveDivision } from "../utility/index";
 import "./Board.css";
 
 const ROWS_INIT = 20;
@@ -130,6 +130,7 @@ const Board = () => {
         <Button onClick={() => doSearch(bfs)}>Do BFS</Button>
         <Button onClick={() => doSearch(dijkstra)}>Dijkstra</Button>
         <Button onClick={() => randomMaze(grid)}>Random Maze</Button>
+        <Button onClick={() => recursiveDivision(grid)}>Recursive Division</Button>
         <Button onClick={clear}>Clear</Button>
       </div>
       <table
