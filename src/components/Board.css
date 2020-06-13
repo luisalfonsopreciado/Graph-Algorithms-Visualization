@@ -1,5 +1,6 @@
-.Board{
-    margin: auto;
-    width: 1000px;
-    height: 400px;
+.Board {
+  display: grid;
+  margin: auto;
+  width: 1000px;
+  height: 400px;
 }

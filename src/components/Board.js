@@ -64,35 +64,31 @@ const Board = () => {
   const [predecessors, setPredecessors] = useState(null);
 
   let Grid = grid.map((row, rowNum) => {
-    return (
-      <tr>
-        {row.map((val, colNum) => {
-          return (
-            <Cell
-              key={[rowNum, colNum]}
-              val={val}
-              row={rowNum}
-              col={colNum}
-              isMouseDown={isMouseDown}
-              isMovingKeyItem={isMovingKeyItem}
-              setIsMovingKeyItem={setIsMovingKeyItem}
-              setCoord={setCoord}
-              animationComplete={animationComplete}
-              predecessors={predecessors}
-              drawShortestPath={() =>
-                drawShortestPath(
-                  rowNum,
-                  colNum,
-                  predecessors,
-                  initialCoords.startCol,
-                  initialCoords.startRow
-                )
-              }
-            />
-          );
-        })}
-      </tr>
-    );
+    return row.map((val, colNum) => {
+      return (
+        <Cell
+          key={[rowNum, colNum]}
+          val={val}
+          row={rowNum}
+          col={colNum}
+          isMouseDown={isMouseDown}
+          isMovingKeyItem={isMovingKeyItem}
+          setIsMovingKeyItem={setIsMovingKeyItem}
+          setCoord={setCoord}
+          animationComplete={animationComplete}
+          predecessors={predecessors}
+          drawShortestPath={() =>
+            drawShortestPath(
+              rowNum,
+              colNum,
+              predecessors,
+              initialCoords.startCol,
+              initialCoords.startRow
+            )
+          }
+        />
+      );
+    });
   });
 
   const doSearch = async (type) => {
@@ -153,23 +149,24 @@ const Board = () => {
         <Button onClick={() => doSearch(bfs)}>Do BFS</Button>
         <Button onClick={() => doSearch(dijkstra)}>Dijkstra</Button>
         <Button onClick={doRandomMaze}>Random Maze</Button>
-        <Button onClick={doRecursiveDivision}>
-          Recursive Division
-        </Button>
+        <Button onClick={doRecursiveDivision}>Recursive Division</Button>
         <Button onClick={clear}>Clear</Button>
       </div>
-      <table
+      <div
         onMouseDown={() => {
           setIsMouseDown(true);
         }}
         onMouseUp={() => {
           setIsMouseDown(false);
         }}
-        draggable={false}
         className="Board"
+        style={{
+          gridTemplateRows: `repeat(${ROWS_INIT}, 1fr)`,
+          gridTemplateColumns: `repeat(${COLS_INIT}, 1fr)`,
+        }}
       >
-        <tbody>{Grid}</tbody>
-      </table>
+        {Grid}
+      </div>
     </Fragment>
   );
 };
