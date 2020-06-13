@@ -67,6 +67,7 @@ const Cell = ({
       onMouseEnter={onMoveHandler}
       onMouseLeave={onLeaveHandler}
       onMouseUp={onMouseUpHandler}
+      draggable={false}
     ></div>
   );
 };
