@@ -9,6 +9,8 @@ export const recursiveDivision = async (grid) => {
 };
 
 const divide = async (col, row, width, height, orientation) => {
+  console.log("divide with starting coords", row, col);
+  console.log("divide with width and height", width, height);
   if (width < 2 || height < 2) return;
 
   const horizontal = orientation === HORIZONTAL;
@@ -24,9 +26,9 @@ const divide = async (col, row, width, height, orientation) => {
 
   // Where will the passage through the wall exist?
   const passCol =
-    whereCol + (horizontal ? Math.ceil(Math.random() * width) : 0); // Rand number between the col and width
+    whereCol + (horizontal ? Math.ceil(Math.random() * (width - 1)) : 0); // Rand number between the col and width
   const passRow =
-    whereRow + (horizontal ? 0 : Math.ceil(Math.random() * height)); // Rand number between the row and height
+    whereRow + (horizontal ? 0 : Math.ceil(Math.random() * (height - 1))); // Rand number between the row and height
 
   // How long will the wall be?
   const length = horizontal ? width : height;
@@ -37,19 +39,23 @@ const divide = async (col, row, width, height, orientation) => {
   let newCol = row;
   let newRow = col;
 
-  width = horizontal ? width : whereCol - col + 1;
-  height = horizontal ? whereRow - row + 1 : height;
-  await divide(newCol, newRow, width, height, chooseOrientation(width, height));
+  let oldwidth = width;
+  let oldheight = height;
+
+  width = horizontal ? width : whereCol - col;
+  height = horizontal ? whereRow - row : height;
+//   await divide(newCol, newRow, width, height, chooseOrientation(width, height));
 
   newCol = horizontal ? col : whereCol + 1;
   newRow = horizontal ? whereRow + 1 : row;
 
-  width = horizontal ? width : col + width - whereCol - 1;
-  height = horizontal ? row + height - whereRow - 1 : height;
-  //   await divide(newCol, newRow, width, height, chooseOrientation(width, height));
+  width = horizontal ? width : col + oldwidth - whereCol - 1;
+  height = horizontal ? row + oldheight - whereRow - 1 : height;
+  await divide(newCol, newRow, width, height, chooseOrientation(width, height));
 };
 
 const drawWall = (startRow, startCol, passRow, passCol, horizontal, length) => {
+  console.log("drawing with coords and length", startRow, startCol, length);
   for (let i = 0; i < length; i++) {
     const classes = document.getElementById(
       `${startRow + (horizontal ? 0 : i)} ${startCol + (horizontal ? i : 0)}`
@@ -59,7 +65,11 @@ const drawWall = (startRow, startCol, passRow, passCol, horizontal, length) => {
     }
   }
   const cell = document.getElementById(`${passRow} ${passCol}`);
-  if (cell) cell.classList.remove("Wall");
+  if (cell) {
+    cell.classList.remove("Wall");
+  } else {
+    console.log("INVALID PASS COORDS");
+  }
 };
 
 const chooseOrientation = (width, height) => {
@@ -73,7 +83,7 @@ const drawContourWalls = (grid) => {
   for (let i = 0; i < grid.length; i++) {
     let classes = document.getElementById(`${i} ${0}`).classList;
     classes.add("Wall");
-    classes = document.getElementById(`${i} ${grid[i].length - 1}`).classList;
+    classes = document.getElementById(`${i} ${grid[i].length - 1}`)
     classes.add("Wall");
   }
 
