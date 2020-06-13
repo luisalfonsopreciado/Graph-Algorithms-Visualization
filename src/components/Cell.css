@@ -1,15 +1,8 @@
-.Cell {
-  margin: none;
-  color: red;
-  width: 15px;
-  height: 15px;
-}
-
 .Filled {
   background-color: red;
 }
 
-.Wall{
+.Wall {
   animation-name: wallAnimation;
   animation-duration: 0.3s;
   animation-timing-function: ease-out;
@@ -42,8 +35,8 @@
   animation-play-state: running;
 }
 
-.FinalSearched{
-  background-color: rgba(80, 219, 138, 0.75);
+.FinalSearched {
+  background-color: lightseagreen;
 }
 
 @keyframes visitedAnimation {
@@ -70,7 +63,7 @@
 
 @keyframes wallAnimation {
   0% {
-    transform: scale(.3);
+    transform: scale(0.3);
     background-color: rgb(12, 53, 71);
   }
 
@@ -80,7 +73,7 @@
   }
 
   100% {
-    transform: scale(1.0);
+    transform: scale(1);
     background-color: rgb(12, 53, 71);
   }
 }

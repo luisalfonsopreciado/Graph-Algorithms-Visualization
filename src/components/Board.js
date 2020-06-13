@@ -2,7 +2,14 @@ import React, { useState, Fragment } from "react";
 import useGrid from "../hooks/useGrid";
 import Cell from "./Cell";
 import Button from "@material-ui/core/Button";
-import { bfs, dfs, clone, dijkstra, randomMaze,recursiveDivision } from "../utility/index";
+import {
+  bfs,
+  dfs,
+  clone,
+  dijkstra,
+  randomMaze,
+  recursiveDivision,
+} from "../utility/index";
 import "./Board.css";
 
 const ROWS_INIT = 20;
@@ -16,22 +23,30 @@ const drawShortestPath = (row, col, predecessors, colStart, rowStart) => {
   let currentRow = nextObj.row;
   for (let row = 0; row < predecessors.length; row++) {
     for (let col = 0; col < predecessors[row].length; col++) {
-      const classes = document.getElementById(`${row} ${col}`).classList;
-      if (classes.contains("ShortestPath")) {
-        classes.remove("ShortestPath");
-        // classes.add("FinalSearched");
+      const cell = document.getElementById(`${row} ${col}`);
+
+      if (cell) {
+        const classes = cell.classList;
+        if (classes.contains("ShortestPath")) {
+          classes.remove("ShortestPath");
+          // classes.add("FinalSearched");
+        }
       }
     }
   }
   while (currentCol !== colStart || currentRow !== rowStart) {
-    const classes = document.getElementById(`${currentRow} ${currentCol}`)
-      .classList;
-    classes.remove("Searched");
-    classes.add("ShortestPath");
+    const cell = document.getElementById(`${currentRow} ${currentCol}`);
+    if (cell) {
+      const classes = cell.classList;
+      classes.remove("Searched");
+      classes.add("ShortestPath");
 
-    const nextObj = predecessors[currentRow][currentCol];
-    currentCol = nextObj.col;
-    currentRow = nextObj.row;
+      const nextObj = predecessors[currentRow][currentCol];
+      currentCol = nextObj.col;
+      currentRow = nextObj.row;
+    } else {
+      break;
+    }
   }
 };
 
@@ -121,7 +136,15 @@ const Board = () => {
     resetGrid(ROWS_INIT, COLS_INIT, START_ROW, START_COL);
   };
 
-  console.log(grid);
+  const doRandomMaze = () => {
+    clear();
+    randomMaze(grid);
+  };
+
+  const doRecursiveDivision = () => {
+    clear();
+    recursiveDivision(grid);
+  };
 
   return (
     <Fragment>
@@ -129,8 +152,10 @@ const Board = () => {
         <Button onClick={() => doSearch(dfs)}>Do DFS</Button>
         <Button onClick={() => doSearch(bfs)}>Do BFS</Button>
         <Button onClick={() => doSearch(dijkstra)}>Dijkstra</Button>
-        <Button onClick={() => randomMaze(grid)}>Random Maze</Button>
-        <Button onClick={() => recursiveDivision(grid)}>Recursive Division</Button>
+        <Button onClick={doRandomMaze}>Random Maze</Button>
+        <Button onClick={doRecursiveDivision}>
+          Recursive Division
+        </Button>
         <Button onClick={clear}>Clear</Button>
       </div>
       <table

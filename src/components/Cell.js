@@ -13,7 +13,7 @@ const Cell = ({
   predecessors,
   drawShortestPath,
 }) => {
-  let classes = ["Cell"];
+  let classes = [];
   val === "s" && classes.push("Filled");
   val === "t" && classes.push("Target");
 
