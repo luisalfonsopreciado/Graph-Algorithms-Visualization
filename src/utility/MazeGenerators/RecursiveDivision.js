@@ -1,23 +1,41 @@
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-export const recursiveDivision = (grid) => {
+export const recursiveDivision = async (grid) => {
   drawContourWalls(grid);
   const width = grid[0].length - 2; // Subtract 2 since we drew a contour
   const height = grid.length - 2;
   let prohibitedCells = [];
-  divide(1, 1, width, height, chooseOrientation(width, height), prohibitedCells);
-  console.log(prohibitedCells)
-  for(let i = 0; i < prohibitedCells.length; i++){
-    const classes = document.getElementById(`${prohibitedCells[i][0]} ${prohibitedCells[i][1]}`).classList
-    classes.add("Filled")
-  }
+  divide(
+    1,
+    1,
+    width,
+    height,
+    chooseOrientation(width, height),
+    prohibitedCells
+  );
+  // console.log(prohibitedCells);
+  // for (let i = 0; i < prohibitedCells.length; i++) {
+  //   const cell = document.getElementById(
+  //     `${prohibitedCells[i][0]} ${prohibitedCells[i][1]}`
+  //   );
+  //   if (cell) {
+  //     cell.classList.add("Filled");
+  //   }
+  // }
+  // for (let i = 0; i < grid.length; i++) {
+  //   for (let j = 0; j < grid[i].length; j++) {
+  //     if (isProhibitedCoord(i, j, prohibitedCells)) {
+  //       console.log(i, j);
+  //     }
+  //   }
+  // }
 };
 
 const divide = (col, row, width, height, orientation, prohibited) => {
   //   console.log("divide with starting coords", row, col);
   //   console.log("divide with width and height", width, height);
-  if (width < 2 || height < 2) return;
+  if (width <= 2 || height <= 2 ) return;
 
   const horizontal = orientation === HORIZONTAL;
 
@@ -62,23 +80,38 @@ const divide = (col, row, width, height, orientation, prohibited) => {
     prohibited
   );
 
-  newCol = horizontal ? col : whereCol + 1;
-  newRow = horizontal ? whereRow + 1 : row;
+  let newCol2 = horizontal ? col : whereCol + 1;
+  let newRow2 = horizontal ? whereRow + 1 : row;
 
-  newwidth = horizontal ? width : col + width - whereCol - 1;
-  newheight = horizontal ? row + height - whereRow - 1 : height;
-  console.log(
-    "divide to be called with col row width height",
-    newCol,
-    newRow,
-    newwidth,
-    newheight
+  let newwidth2 = horizontal ? width : col + width - whereCol - 1;
+  let newheight2 = horizontal ? row + height - whereRow - 1 : height;
+  // console.log(
+  //   "divide to be called with col row width height",
+  //   newCol,
+  //   newRow,
+  //   newwidth,
+  //   newheight
+  // );
+  divide(
+    newCol2,
+    newRow2,
+    newwidth2,
+    newheight2,
+    chooseOrientation(newwidth2, newheight2),
+    prohibited
   );
-  // divide(newCol, newRow, newwidth, newheight, chooseOrientation(newwidth, newheight), prohibited);
 };
 
-const drawWall = (startRow, startCol, passRow, passCol, horizontal, length, prohibited) => {
-  console.log("drawing with coords and length", startRow, startCol, length);
+const drawWall = (
+  startRow,
+  startCol,
+  passRow,
+  passCol,
+  horizontal,
+  length,
+  prohibited
+) => {
+  // console.log("drawing with coords and length", startRow, startCol, length);
   for (let i = 0; i < length; i++) {
     const row = startRow + (horizontal ? 0 : i);
     const col = startCol + (horizontal ? i : 0);
@@ -88,16 +121,21 @@ const drawWall = (startRow, startCol, passRow, passCol, horizontal, length, proh
     if (
       cell &&
       !cell.classList.contains("Target") &&
-      !cell.classList.contains("Filled")
+      !cell.classList.contains("Filled") &&
+      !isProhibitedCoord(row, col, prohibited)
     ) {
       cell.classList.add("Wall");
     }
   }
+
   const cell = document.getElementById(`${passRow} ${passCol}`);
-  if (cell) {
+  if (cell && !isBorder(passRow, passCol)) {
+    // console.log(
+    //   isProhibitedCoord(passRow, passCol, prohibited),
+    //   passRow,
+    //   passCol
+    // );
     cell.classList.remove("Wall");
-  } else {
-    console.log("INVALID PASS COORDS", passRow, passCol);
   }
   updateProhibitedCells(passRow, passCol, horizontal, prohibited);
 };
@@ -126,7 +164,7 @@ const drawContourWalls = (grid) => {
 };
 
 const updateProhibitedCells = (row, col, horizontal, prohibited) => {
-  console.log("updateProhibited passCoords", row, col);
+  // console.log("updateProhibited passCoords", row, col);
   if (!horizontal) {
     prohibited.push([row, col + 1]);
     prohibited.push([row, col - 1]);
@@ -136,10 +174,13 @@ const updateProhibitedCells = (row, col, horizontal, prohibited) => {
   }
 };
 
-// const isProhibitedCoord = (row, col) => {
-//   for (let i = 0; i < prohibitedCells.length; i++) {
-//     if (prohibitedCells[i][0] === row && prohibitedCells[i][1] === col)
-//       return true;
-//   }
-//   return false;
-// };
+const isProhibitedCoord = (row, col, prohibited) => {
+  for (let i = 0; i < prohibited.length; i++) {
+    if (prohibited[i][0] === row && prohibited[i][1] === col) return true;
+  }
+  return false;
+};
+
+const isBorder = (row, col) => {
+  return row === 0 || row === 19 || col === 0 || col === 49;
+}
