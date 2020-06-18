@@ -1,5 +1,6 @@
 import { generateAdjList } from "../index";
 import { Queue } from "../DS/Queue";
+import { generateGraph } from "../index";
 
 // BFS
 // 1. Set all nodes distance and predecessor equal to null EXCEPT the source

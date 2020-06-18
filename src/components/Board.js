@@ -10,6 +10,7 @@ import {
   randomMaze,
   recursiveDivision,
   AStar,
+  generateGraph,
 } from "../utility/index";
 import "./Board.css";
 
@@ -101,7 +102,7 @@ const Board = () => {
       rowStart,
       colStart
     );
-
+    console.log(animations);
     setPredecessors(predecessors);
 
     let count = 0;
@@ -169,6 +170,30 @@ const Board = () => {
     }, 100);
   };
 
+  const test = () => {
+    const { graph, startNode } = generateGraph(grid);
+    const animations = graph.bfs(startNode);
+    animate(animations);
+  };
+
+  const animate = (animations) => {
+    let count = 0;
+
+    const intervalId = setInterval(() => {
+      const node = animations[count];
+
+      node.markSearched();
+      node.isTarget() && node.markShortestPath();
+
+      count++;
+
+      if (count >= animations.length) {
+        setAnimationComplete(true);
+        clearInterval(intervalId);
+      }
+    }, 3);
+  };
+
   return (
     <Fragment>
       <div style={{ margin: "auto" }}>
@@ -178,6 +203,7 @@ const Board = () => {
         <Button onClick={doRandomMaze}>Random Maze</Button>
         <Button onClick={doRecursiveDivision}>Recursive Division</Button>
         <Button onClick={doAStar}>A*</Button>
+        <Button onClick={test}>Test</Button>
         <Button onClick={clear}>Clear</Button>
       </div>
       <div

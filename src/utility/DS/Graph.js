@@ -1,7 +1,7 @@
 import { Queue } from "./Queue";
 
 // create a graph class
-class Graph {
+export class Graph {
   // defining vertex array and
   // adjacent list
   constructor(noOfVertices) {
@@ -28,7 +28,7 @@ class Graph {
 
     // Since graph is undirected,
     // add an edge from w to v also
-    this.AdjList.get(w).push(v);
+    // this.AdjList.get(w).push(v);
   }
   // printGraph()
   // Prints the vertex and adjacency list
@@ -56,6 +56,8 @@ class Graph {
   // function to performs BFS
   bfs(startingNode) {
     // create a visited array
+    const animations = [];
+
     var visited = [];
     for (var i = 0; i < this.noOfVertices; i++) visited[i] = false;
 
@@ -72,7 +74,7 @@ class Graph {
       var getQueueElement = q.dequeue();
 
       // passing the current vertex to callback funtion
-      console.log(getQueueElement);
+      // console.log(getQueueElement);
 
       // get the adjacent list for current vertex
       var get_List = this.AdjList.get(getQueueElement);
@@ -83,11 +85,15 @@ class Graph {
         var neigh = get_List[i];
 
         if (!visited[neigh]) {
+          neigh.predecessor = getQueueElement;
+          animations.push(neigh);
           visited[neigh] = true;
           q.enqueue(neigh);
         }
       }
     }
+
+    return animations;
   }
 
   // dfs(v)
@@ -113,44 +119,3 @@ class Graph {
     }
   }
 }
-
-// Using the above implemented graph class
-var g = new Graph(6);
-var vertices = ["A", "B", "C", "D", "E", "F"];
-
-// adding vertices
-for (var i = 0; i < vertices.length; i++) {
-  g.addVertex(vertices[i]);
-}
-
-// adding edges
-g.addEdge("A", "B");
-g.addEdge("A", "D");
-g.addEdge("A", "E");
-g.addEdge("B", "C");
-g.addEdge("D", "E");
-g.addEdge("E", "F");
-g.addEdge("E", "C");
-g.addEdge("C", "F");
-
-// prints all vertex and
-// its adjacency list
-// A -> B D E
-// B -> A C
-// C -> B E F
-// D -> A E
-// E -> A D F C
-// F -> E C
-g.printGraph();
-
-// prints
-// BFS
-// A B D E C F
-// console.log("BFS");
-// g.bfs("A");
-
-// prints
-// DFS
-// A B C E D F
-console.log("DFS");
-g.dfs("A");

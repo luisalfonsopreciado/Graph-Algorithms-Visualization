@@ -8,4 +8,8 @@ export * from "./MazeGenerators/RecursiveDivision"
 
 export * from "./helper"
 
+export * from "./generateGraph"
+
+export * from "./DS/Graph"
+export * from "./DS/Queue"
 
