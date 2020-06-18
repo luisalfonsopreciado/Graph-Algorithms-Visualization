@@ -1,4 +1,5 @@
 import { generateAdjList } from "../index";
+import { Queue } from "../DS/Queue";
 
 // BFS
 // 1. Set all nodes distance and predecessor equal to null EXCEPT the source
@@ -10,8 +11,8 @@ import { generateAdjList } from "../index";
 // and add it to the queue
 
 export const bfs = async (grid, startRow, startCol) => {
-  const queue = [];
-  queue.push({
+  var queue = new Queue();
+  queue.enqueue({
     row: startRow,
     col: startCol,
     distance: 0,
@@ -25,16 +26,19 @@ export const bfs = async (grid, startRow, startCol) => {
   const animations = [];
   const predecessors = [...grid];
 
-  while (queue.length !== 0) {
-    let item = queue.shift();
+  while (!queue.isEmpty()) {
+    let item = queue.dequeue();
     const adjacent = neighbors[item.row][item.col];
     for (let i = 0; i < adjacent.length; i++) {
       if (adjacent[i].distance === null) {
         animations.push({ row: adjacent[i].row, col: adjacent[i].col });
         adjacent[i].distance = count;
         adjacent[i].predecesor = { row: item.row, col: item.col };
-        predecessors[adjacent[i].row][adjacent[i].col] = ({ row: item.row, col: item.col });
-        queue.push(adjacent[i]);
+        predecessors[adjacent[i].row][adjacent[i].col] = {
+          row: item.row,
+          col: item.col,
+        };
+        queue.enqueue(adjacent[i]);
       }
     }
     count++;

@@ -9,6 +9,7 @@ import {
   dijkstra,
   randomMaze,
   recursiveDivision,
+  AStar,
 } from "../utility/index";
 import "./Board.css";
 
@@ -142,6 +143,32 @@ const Board = () => {
     recursiveDivision(grid);
   };
 
+  const doAStar = () => {
+    const animations = AStar(
+      initialCoords.startRow,
+      initialCoords.startCol,
+      targetCoords.targetRow,
+      targetCoords.targetCol,
+      grid
+    );
+    let count = 0;
+    const intervalId = setInterval(() => {
+      let row = animations[count].row;
+      let col = animations[count].col;
+      const cell = document.getElementById(`${row} ${col}`);
+      !cell.classList.contains("Filled") &&
+        !cell.classList.contains("Target") &&
+        cell.classList.add("Searched");
+
+      count++;
+
+      if (count >= animations.length) {
+        setAnimationComplete(true);
+        clearInterval(intervalId);
+      }
+    }, 100);
+  };
+
   return (
     <Fragment>
       <div style={{ margin: "auto" }}>
@@ -150,6 +177,7 @@ const Board = () => {
         <Button onClick={() => doSearch(dijkstra)}>Dijkstra</Button>
         <Button onClick={doRandomMaze}>Random Maze</Button>
         <Button onClick={doRecursiveDivision}>Recursive Division</Button>
+        <Button onClick={doAStar}>A*</Button>
         <Button onClick={clear}>Clear</Button>
       </div>
       <div
