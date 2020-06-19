@@ -99,15 +99,19 @@ export class Graph {
   // dfs(v)
   // Main DFS method
   dfs(startingNode) {
+    const animations = [];
+
     var visited = [];
     for (var i = 0; i < this.noOfVertices; i++) visited[i] = false;
 
-    this.DFSUtil(startingNode, visited);
+    this.DFSUtil(startingNode, visited, animations);
+
+    return animations;
   }
 
   // Recursive function which process and explore
   // all the adjacent vertex of the vertex with which it is called
-  DFSUtil(vert, visited) {
+  DFSUtil(vert, visited, animations) {
     visited[vert] = true;
     console.log(vert);
 
@@ -115,7 +119,70 @@ export class Graph {
 
     for (var i in get_neighbours) {
       var get_elem = get_neighbours[i];
-      if (!visited[get_elem]) this.DFSUtil(get_elem, visited);
+      if (!visited[get_elem]) {
+        get_elem.predecessor = vert;
+        animations.push(get_elem);
+        this.DFSUtil(get_elem, visited, animations);
+      }
     }
+  }
+
+  //dijkstra solve graph starting at s
+  dijkstra(startNode) {
+    const animations = [];
+
+    var solutions = {};
+    solutions[startNode] = startNode;
+    solutions[startNode].dist = 0;
+
+    while (true) {
+      const solutionKeys = Object.keys(solutions);
+
+      //for each existing solution
+      for (var n in solutionKeys) {
+        const key = solutionKeys[n];
+        const currentNode = solutions[key];
+
+        var currentdist = currentNode.dist;
+        var adj = this.AdjList.get(currentNode); // get neighbors
+
+        //for each of its adjacent nodes...
+        for (var a in adj) {
+          const adjacentNode = adj[a];
+
+          // if we haven't visited it set its distance to infinity
+          if (adjacentNode.predecessor == null) {
+            adjacentNode.dist = Infinity;
+          }
+
+          //If it's already in our SPT
+          if (solutions[adjacentNode]) continue;
+
+          solutions[adjacentNode] = adjacentNode;
+
+          //choose nearest node with lowest *total* cost
+          var d = 1 + currentdist;
+
+          if (d < adjacentNode.dist) {
+            animations.push(adjacentNode)
+            //reference parent
+            adjacentNode.predecessor = currentNode;
+            adjacentNode.dist = d;
+          }
+        }
+      }
+
+      //no more solutions
+      if (solutionKeys.length == this.noOfVertices) {
+        break;
+      }
+
+      // //extend parent's solution path
+      // solutions[nearest] = predecessor.concat(nearest);
+      // //extend parent's cost
+      // solutions[nearest].dist = dist;
+    }
+    console.log(animations);
+    return animations;
   }
 }
