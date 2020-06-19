@@ -1,4 +1,5 @@
 import { Queue } from "./Queue";
+import { MinHeap } from "../index";
 
 // create a graph class
 export class Graph {
@@ -81,8 +82,8 @@ export class Graph {
 
       // loop through the list and add the element to the
       // queue if it is not processed yet
-      for (var i in get_List) {
-        var neigh = get_List[i];
+      for (var n in get_List) {
+        var neigh = get_List[n];
 
         if (!visited[neigh]) {
           neigh.predecessor = getQueueElement;
@@ -131,56 +132,38 @@ export class Graph {
   dijkstra(startNode) {
     const animations = [];
 
-    var solutions = {};
-    solutions[startNode] = startNode;
-    solutions[startNode].dist = 0;
+    const heap = new MinHeap((item) => item.dist);
 
-    while (true) {
-      const solutionKeys = Object.keys(solutions);
+    // startNode.dist = 0;
+    // console.log(startNode);
+    heap.push(startNode);
 
+    console.log(heap.items.length);
+
+    while (!heap.isEmpty()) {
       //for each existing solution
-      for (var n in solutionKeys) {
-        const key = solutionKeys[n];
-        const currentNode = solutions[key];
+      const currentNode = heap.pop();
+      console.log(currentNode);
 
-        var currentdist = currentNode.dist;
-        var adj = this.AdjList.get(currentNode); // get neighbors
+      var currentdist = currentNode.dist;
+      var adj = this.AdjList.get(currentNode); // get neighbors
 
-        //for each of its adjacent nodes...
-        for (var a in adj) {
-          const adjacentNode = adj[a];
+      //for each of its adjacent nodes...
+      console.log("Adjacent Nodes:", adj);
+      for (var a in adj) {
+        const adjacentNode = adj[a];
 
-          // if we haven't visited it set its distance to infinity
-          if (adjacentNode.predecessor == null) {
-            adjacentNode.dist = Infinity;
-          }
-
-          //If it's already in our SPT
-          if (solutions[adjacentNode]) continue;
-
-          solutions[adjacentNode] = adjacentNode;
-
-          //choose nearest node with lowest *total* cost
-          var d = 1 + currentdist;
-
-          if (d < adjacentNode.dist) {
-            animations.push(adjacentNode)
-            //reference parent
-            adjacentNode.predecessor = currentNode;
-            adjacentNode.dist = d;
-          }
+        //choose nearest node with lowest *total* cost
+        var d = 1 + currentdist;
+        // console.log(heap.contains(adjacentNode))
+        if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
+          animations.push(adjacentNode);
+          heap.push(adjacentNode);
+          //reference parent
+          adjacentNode.predecessor = currentNode;
+          adjacentNode.dist = d;
         }
       }
-
-      //no more solutions
-      if (solutionKeys.length == this.noOfVertices) {
-        break;
-      }
-
-      // //extend parent's solution path
-      // solutions[nearest] = predecessor.concat(nearest);
-      // //extend parent's cost
-      // solutions[nearest].dist = dist;
     }
     console.log(animations);
     return animations;

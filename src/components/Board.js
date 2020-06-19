@@ -17,7 +17,7 @@ const START_ROW = Math.floor(ROWS_INIT / 2);
 const START_COL = Math.floor(COLS_INIT / 3);
 
 const Board = () => {
-  const { grid, setCoord, initialCoords, targetCoords } = useGrid(
+  const { grid, initialCoords, targetCoords } = useGrid(
     ROWS_INIT,
     COLS_INIT,
     START_ROW,
@@ -48,7 +48,7 @@ const Board = () => {
 
   const BFS = () => {
     const { startNode, graph } = generateGraph(nodeGrid);
-    graph.printGraph()
+    // graph.printGraph()
     const animations = graph.bfs(startNode);
     animate(animations);
   };
@@ -61,14 +61,13 @@ const Board = () => {
 
   const Dijkstra = () => {
     const { startNode, graph } = generateGraph(nodeGrid);
-    graph.printGraph()
     const animations = graph.dijkstra(startNode);
     animate(animations);
   };
 
   const clear = () => {
     setAnimationComplete(false);
-    resetGrid()
+    resetGrid();
   };
 
   const doRandomMaze = () => {

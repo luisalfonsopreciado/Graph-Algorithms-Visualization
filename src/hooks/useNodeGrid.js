@@ -1,6 +1,4 @@
 import { useRef } from "react";
-import { Graph } from "../utility/index";
-import { calculateNumVertices } from "../utility/index";
 import Node from "../utility/Node";
 
 const generateNodeGrid = (numRows, numCols) => {

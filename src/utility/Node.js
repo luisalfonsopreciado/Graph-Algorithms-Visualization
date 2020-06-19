@@ -1,27 +1,27 @@
 export default class Node {
-  
   constructor(row, col) {
     this.row = row;
     this.col = col;
     this.predecessor = null;
+    this.dist = Infinity;
   }
 
   toString() {
     return "(" + this.row + " " + this.col + ")";
   }
 
-  setWall(){
+  setWall() {
     if (this.isTarget() || this.isStart()) return;
     const cell = document.getElementById(`${this.row} ${this.col}`);
     cell.classList.add("Wall");
   }
 
-  setAsTarget(){
+  setAsTarget() {
     const cell = document.getElementById(`${this.row} ${this.col}`);
     cell.classList.add("Target");
   }
 
-  setAsStart(){
+  setAsStart() {
     const cell = document.getElementById(`${this.row} ${this.col}`);
     cell.classList.add("Filled");
   }
@@ -32,13 +32,13 @@ export default class Node {
     cell.classList.add("Searched");
   }
 
-  reset(){
+  reset() {
     const cell = document.getElementById(`${this.row} ${this.col}`);
-    cell.classList.remove("ShortestPath")
-    cell.classList.remove("Wall")
-    cell.classList.remove("Searched")
+    cell.classList.remove("ShortestPath");
+    cell.classList.remove("Wall");
+    cell.classList.remove("Searched");
     this.predecessor = null;
-    this.dist = null;
+    this.dist = Infinity;
   }
 
   isTarget() {
@@ -54,6 +54,10 @@ export default class Node {
   isWall() {
     const cell = document.getElementById(`${this.row} ${this.col}`);
     return cell.classList.contains("Wall");
+  }
+
+  isPartOfGraph() {
+    return !this.isWall();
   }
 
   markShortestPath() {
