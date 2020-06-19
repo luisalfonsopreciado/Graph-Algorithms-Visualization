@@ -4,6 +4,9 @@ export default class Node {
     this.col = col;
     this.predecessor = null;
     this.dist = Infinity;
+    this.g = 1;
+    this.h = null;
+    this.f = null;
   }
 
   toString() {

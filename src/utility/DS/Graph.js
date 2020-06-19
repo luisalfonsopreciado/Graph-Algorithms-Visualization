@@ -1,27 +1,18 @@
 import { Queue } from "./Queue";
 import { MinHeap } from "../index";
 
-// create a graph class
 export class Graph {
-  // defining vertex array and
-  // adjacent list
   constructor(noOfVertices) {
     this.noOfVertices = noOfVertices;
     this.AdjList = new Map();
   }
 
-  // functions to be implemented
-
-  // addVertex(v)
-  // add vertex to the graph
   addVertex(v) {
     // initialize the adjacent list with a
     // null array
     this.AdjList.set(v, []);
   }
 
-  // addEdge(v, w)
-  // add edge to the graph
   addEdge(v, w) {
     // get the list for vertex v and put the
     // vertex w denoting edge between v and w
@@ -31,8 +22,7 @@ export class Graph {
     // add an edge from w to v also
     // this.AdjList.get(w).push(v);
   }
-  // printGraph()
-  // Prints the vertex and adjacency list
+
   printGraph() {
     // get all the vertices
     var get_keys = this.AdjList.keys();
@@ -134,28 +124,22 @@ export class Graph {
 
     const heap = new MinHeap((item) => item.dist);
 
-    // startNode.dist = 0;
-    // console.log(startNode);
     heap.push(startNode);
-
-    console.log(heap.items.length);
 
     while (!heap.isEmpty()) {
       //for each existing solution
       const currentNode = heap.pop();
-      console.log(currentNode);
 
       var currentdist = currentNode.dist;
       var adj = this.AdjList.get(currentNode); // get neighbors
 
       //for each of its adjacent nodes...
-      console.log("Adjacent Nodes:", adj);
       for (var a in adj) {
         const adjacentNode = adj[a];
 
         //choose nearest node with lowest *total* cost
         var d = 1 + currentdist;
-        // console.log(heap.contains(adjacentNode))
+
         if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
           animations.push(adjacentNode);
           heap.push(adjacentNode);
@@ -165,7 +149,103 @@ export class Graph {
         }
       }
     }
-    console.log(animations);
     return animations;
+  }
+
+  aStar(startNode, targetNode) {
+    const animations = [];
+
+    const heap = new MinHeap((item) => item.f);
+    startNode.g = 0;
+    this.manhattanDistance(startNode, targetNode);
+
+    heap.push(startNode);
+
+    heap.print();
+
+    while (!heap.isEmpty()) {
+      const currentNode = heap.pop();
+
+      var currentdist = currentNode.dist;
+      var adj = this.AdjList.get(currentNode); // get neighbors
+
+      //for each of its adjacent nodes...
+      for (var a in adj) {
+        const adjacentNode = adj[a];
+
+        //choose nearest node with lowest *total* cost
+        var d = 1 + currentdist;
+
+        if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
+          animations.push(adjacentNode);
+          this.manhattanDistance(adjacentNode, targetNode);
+          heap.push(adjacentNode);
+          //reference parent
+          adjacentNode.predecessor = currentNode;
+          adjacentNode.dist = d;
+          if (adjacentNode.isTarget()) return animations;
+        }
+      }
+    }
+
+    return animations;
+  }
+
+  manhattanDistance(node, targetNode) {
+    const h =
+      Math.abs(node.col - targetNode.col) + Math.abs(node.row - targetNode.row);
+    node.h = h;
+    node.f = node.g + node.h;
+  }
+
+  bestFirstSearch(startNode, targetNode) {
+    const animations = [];
+
+    const heap = new MinHeap((item) => item.f);
+    startNode.g = 0;
+    this.euclideanDistance(startNode, targetNode);
+
+    heap.push(startNode);
+
+    heap.print();
+
+    while (!heap.isEmpty()) {
+      const currentNode = heap.pop();
+
+      var currentdist = currentNode.dist;
+      var adj = this.AdjList.get(currentNode); // get neighbors
+
+      //for each of its adjacent nodes...
+      for (var a in adj) {
+        const adjacentNode = adj[a];
+
+        //choose nearest node with lowest *total* cost
+        var d = 1 + currentdist;
+
+        if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
+          animations.push(adjacentNode);
+
+          this.euclideanDistance(adjacentNode, targetNode);
+
+          heap.push(adjacentNode);
+
+          //reference parent
+          adjacentNode.predecessor = currentNode;
+          adjacentNode.dist = d;
+          if (adjacentNode.isTarget()) return animations;
+        }
+      }
+    }
+
+    return animations;
+  }
+
+  euclideanDistance(node, targetNode) {
+    const h = Math.sqrt(
+      Math.pow(node.col - targetNode.col, 2) +
+        Math.pow(node.row - targetNode.row, 2)
+    );
+    node.h = Math.floor(h);
+    node.f = node.g + node.h;
   }
 }

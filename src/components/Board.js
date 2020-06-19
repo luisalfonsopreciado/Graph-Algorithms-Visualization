@@ -5,7 +5,6 @@ import Button from "@material-ui/core/Button";
 import {
   randomMaze,
   recursiveDivision,
-  AStar,
   generateGraph,
 } from "../utility/index";
 import "./Board.css";
@@ -17,7 +16,7 @@ const START_ROW = Math.floor(ROWS_INIT / 2);
 const START_COL = Math.floor(COLS_INIT / 3);
 
 const Board = () => {
-  const { grid, initialCoords, targetCoords } = useGrid(
+  const { grid } = useGrid(
     ROWS_INIT,
     COLS_INIT,
     START_ROW,
@@ -65,6 +64,19 @@ const Board = () => {
     animate(animations);
   };
 
+  const AStar = () => {
+    const { startNode, graph, targetNode } = generateGraph(nodeGrid);
+    const animations = graph.aStar(startNode, targetNode);
+    animate(animations);
+  };
+  
+
+  const bestFirstSearch = () => {
+    const { startNode, graph, targetNode } = generateGraph(nodeGrid);
+    const animations = graph.bestFirstSearch(startNode, targetNode);
+    animate(animations);
+  };
+
   const clear = () => {
     setAnimationComplete(false);
     resetGrid();
@@ -80,31 +92,6 @@ const Board = () => {
     recursiveDivision(nodeGrid);
   };
 
-  const doAStar = () => {
-    const animations = AStar(
-      initialCoords.startRow,
-      initialCoords.startCol,
-      targetCoords.targetRow,
-      targetCoords.targetCol,
-      grid
-    );
-    let count = 0;
-    const intervalId = setInterval(() => {
-      let row = animations[count].row;
-      let col = animations[count].col;
-      const cell = document.getElementById(`${row} ${col}`);
-      !cell.classList.contains("Filled") &&
-        !cell.classList.contains("Target") &&
-        cell.classList.add("Searched");
-
-      count++;
-
-      if (count >= animations.length) {
-        setAnimationComplete(true);
-        clearInterval(intervalId);
-      }
-    }, 100);
-  };
 
   const animate = (animations) => {
     let count = 0;
@@ -132,7 +119,8 @@ const Board = () => {
         <Button onClick={Dijkstra}>Dijkstra</Button>
         <Button onClick={doRandomMaze}>Random Maze</Button>
         <Button onClick={doRecursiveDivision}>Recursive Division</Button>
-        <Button onClick={doAStar}>A*</Button>
+        <Button onClick={AStar}>A*</Button>
+        <Button onClick={bestFirstSearch}>Greedy Best First Search</Button>
         <Button onClick={clear}>Clear</Button>
       </div>
       <div
