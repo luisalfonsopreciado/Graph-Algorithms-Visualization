@@ -1,5 +1,3 @@
-export * from "./GraphAlgorithms/AStar"
-
 export * from "./MazeGenerators/Random"
 export * from "./MazeGenerators/RecursiveDivision"
 
