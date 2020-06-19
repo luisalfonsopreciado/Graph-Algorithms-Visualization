@@ -1,4 +1,5 @@
 import { Queue } from "./Queue";
+import { MinHeap } from "../index";
 
 // create a graph class
 export class Graph {
@@ -81,8 +82,8 @@ export class Graph {
 
       // loop through the list and add the element to the
       // queue if it is not processed yet
-      for (var i in get_List) {
-        var neigh = get_List[i];
+      for (var n in get_List) {
+        var neigh = get_List[n];
 
         if (!visited[neigh]) {
           neigh.predecessor = getQueueElement;
@@ -99,15 +100,19 @@ export class Graph {
   // dfs(v)
   // Main DFS method
   dfs(startingNode) {
+    const animations = [];
+
     var visited = [];
     for (var i = 0; i < this.noOfVertices; i++) visited[i] = false;
 
-    this.DFSUtil(startingNode, visited);
+    this.DFSUtil(startingNode, visited, animations);
+
+    return animations;
   }
 
   // Recursive function which process and explore
   // all the adjacent vertex of the vertex with which it is called
-  DFSUtil(vert, visited) {
+  DFSUtil(vert, visited, animations) {
     visited[vert] = true;
     console.log(vert);
 
@@ -115,7 +120,52 @@ export class Graph {
 
     for (var i in get_neighbours) {
       var get_elem = get_neighbours[i];
-      if (!visited[get_elem]) this.DFSUtil(get_elem, visited);
+      if (!visited[get_elem]) {
+        get_elem.predecessor = vert;
+        animations.push(get_elem);
+        this.DFSUtil(get_elem, visited, animations);
+      }
     }
+  }
+
+  //dijkstra solve graph starting at s
+  dijkstra(startNode) {
+    const animations = [];
+
+    const heap = new MinHeap((item) => item.dist);
+
+    // startNode.dist = 0;
+    // console.log(startNode);
+    heap.push(startNode);
+
+    console.log(heap.items.length);
+
+    while (!heap.isEmpty()) {
+      //for each existing solution
+      const currentNode = heap.pop();
+      console.log(currentNode);
+
+      var currentdist = currentNode.dist;
+      var adj = this.AdjList.get(currentNode); // get neighbors
+
+      //for each of its adjacent nodes...
+      console.log("Adjacent Nodes:", adj);
+      for (var a in adj) {
+        const adjacentNode = adj[a];
+
+        //choose nearest node with lowest *total* cost
+        var d = 1 + currentdist;
+        // console.log(heap.contains(adjacentNode))
+        if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
+          animations.push(adjacentNode);
+          heap.push(adjacentNode);
+          //reference parent
+          adjacentNode.predecessor = currentNode;
+          adjacentNode.dist = d;
+        }
+      }
+    }
+    console.log(animations);
+    return animations;
   }
 }

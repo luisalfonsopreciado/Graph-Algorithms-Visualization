@@ -8,29 +8,31 @@ const Cell = ({
   isMouseDown,
   isMovingKeyItem,
   setIsMovingKeyItem,
-  setCoord,
   animationComplete,
-  predecessors,
-  drawShortestPath,
+  node,
 }) => {
   let classes = ["Cell"];
-  val === "s" && classes.push("Filled");
-  val === "t" && classes.push("Target");
+
+  if (node.row === 10 && node.col === 10) {
+    classes.push("Filled");
+  }
+  if (node.row === 10 && node.col === 30) {
+    classes.push("Target");
+  }
 
   const onMoveHandler = () => {
-    const cell = document.getElementById(`${row} ${col}`);
     if (isMouseDown && !isMovingKeyItem[0]) {
-      cell.classList.add("Wall");
+      node.setWall();
     }
     if (isMovingKeyItem[0] && !animationComplete) {
       if (isMovingKeyItem[1] === "t") {
-        cell.classList.add("Target");
+        node.setAsTarget();
       } else {
-        cell.classList.add("Filled");
+        node.setAsStart();
       }
     }
     if (isMovingKeyItem[0] && animationComplete) {
-      drawShortestPath(row, col, predecessors, 0, 0);
+      node.markShortestPath();
     }
   };
 
@@ -46,15 +48,18 @@ const Cell = ({
   };
 
   const onClickHandler = () => {
-    if (val === "t" || val === "s") {
-      setIsMovingKeyItem([true, val]);
+    if (node.isTarget()) {
+      setIsMovingKeyItem([true, "t"]);
+    }
+    if(node.isStart()){
+      setIsMovingKeyItem([true, "s"]);
     }
   };
 
   const onMouseUpHandler = () => {
     if (isMovingKeyItem[1]) {
       // Set coord and set IsNotmoving key item
-      setCoord(row, col, isMovingKeyItem[1]);
+      // setCoord(row, col, isMovingKeyItem[1]);
       setIsMovingKeyItem(false);
     }
   };

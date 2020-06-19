@@ -22,6 +22,7 @@ const useGrid = (numRows, numCols, startRow, startCol) => {
   const [grid, setGrid] = useState(
     createGrid(numRows, numCols, initialRow, initialCol)
   );
+
   const [initialCoords, setInitialCoords] = useState({
     startRow,
     startCol,
@@ -47,15 +48,24 @@ const useGrid = (numRows, numCols, startRow, startCol) => {
     for (let row = 0; row < numRows; row++) {
       for (let col = 0; col < numCols; col++) {
         const cell = document.getElementById(`${row} ${col}`);
-        if(!cell.classList.contains("Target") && !cell.classList.contains("Filled")){
-          cell.classList = ["Cell"]
+        if (
+          !cell.classList.contains("Target") &&
+          !cell.classList.contains("Filled")
+        ) {
+          cell.classList = ["Cell"];
         }
-       
       }
     }
   };
 
-  return { grid, setGrid, setCoord, resetGrid, initialCoords, targetCoords };
+  return {
+    grid,
+    setGrid,
+    setCoord,
+    resetGrid,
+    initialCoords,
+    targetCoords,
+  };
 };
 
 export default useGrid;
