@@ -1,9 +1,18 @@
 export default class Node {
+  
   constructor(row, col) {
     this.row = row;
     this.col = col;
     this.predecessor = null;
     this.dist = Infinity;
+    this.g = 1;
+    this.h = null;
+    this.f = null;
+  }
+
+  setClasses() {
+    const cell = document.getElementById(`${this.row} ${this.col}`);
+    this.classes = cell.classList;
   }
 
   toString() {
@@ -12,48 +21,45 @@ export default class Node {
 
   setWall() {
     if (this.isTarget() || this.isStart()) return;
-    const cell = document.getElementById(`${this.row} ${this.col}`);
-    cell.classList.add("Wall");
+    this.classes.add("Wall");
   }
 
   setAsTarget() {
-    const cell = document.getElementById(`${this.row} ${this.col}`);
-    cell.classList.add("Target");
+    this.classes.add("Target");
   }
 
   setAsStart() {
-    const cell = document.getElementById(`${this.row} ${this.col}`);
-    cell.classList.add("Filled");
+    this.classes.add("Filled");
   }
 
   markSearched() {
     if (this.isTarget()) return;
-    const cell = document.getElementById(`${this.row} ${this.col}`);
-    cell.classList.add("Searched");
+    this.classes.add("Searched");
   }
 
   reset() {
-    const cell = document.getElementById(`${this.row} ${this.col}`);
-    cell.classList.remove("ShortestPath");
-    cell.classList.remove("Wall");
-    cell.classList.remove("Searched");
+    this.classes.remove("ShortestPath");
+    this.classes.remove("Wall");
+    this.classes.remove("Searched");
     this.predecessor = null;
     this.dist = Infinity;
   }
 
+  clear() {
+    this.classes.remove("Target");
+    this.classes.remove("Filled");
+  }
+
   isTarget() {
-    const cell = document.getElementById(`${this.row} ${this.col}`);
-    return cell.classList.contains("Target");
+    return this.classes.contains("Target");
   }
 
   isStart() {
-    const cell = document.getElementById(`${this.row} ${this.col}`);
-    return cell.classList.contains("Filled");
+    return this.classes.contains("Filled");
   }
 
   isWall() {
-    const cell = document.getElementById(`${this.row} ${this.col}`);
-    return cell.classList.contains("Wall");
+    return this.classes.contains("Wall");
   }
 
   isPartOfGraph() {
@@ -61,10 +67,9 @@ export default class Node {
   }
 
   markShortestPath() {
-    const cell = document.getElementById(`${this.row} ${this.col}`);
     if (!this.isTarget() && !this.isStart()) {
-      cell.classList.remove("Searched");
-      cell.classList.add("ShortestPath");
+      this.classes.remove("Searched");
+      this.classes.add("ShortestPath");
     }
     if (this.predecessor != null) {
       this.predecessor.markShortestPath();

@@ -1,17 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Cell.css";
 
-const Cell = ({
-  val,
-  row,
-  col,
-  isMouseDown,
-  isMovingKeyItem,
-  setIsMovingKeyItem,
-  animationComplete,
-  node,
-}) => {
+const Cell = ({ isMouseDown, animationComplete, node }) => {
   let classes = ["Cell"];
+
+  useEffect(() => {
+    node.setClasses();
+  },[node])
+
+  console.log("Cell rendered");
 
   if (node.row === 10 && node.col === 10) {
     classes.push("Filled");
@@ -20,68 +17,28 @@ const Cell = ({
     classes.push("Target");
   }
 
-  const onMoveHandler = () => {
-    if (isMouseDown && !isMovingKeyItem[0]) {
-      node.setWall();
-    }
-    if (isMovingKeyItem[0] && !animationComplete) {
-      if (isMovingKeyItem[1] === "t") {
-        node.setAsTarget();
-      } else {
-        node.setAsStart();
-      }
-    }
-    if (isMovingKeyItem[0] && animationComplete) {
-      node.markShortestPath();
-    }
+  const onMouseEnterHandler = () => {
+    if (isMouseDown) node.setWall();
   };
 
-  const onLeaveHandler = () => {
-    const cell = document.getElementById(`${row} ${col}`);
-    if (isMouseDown && isMovingKeyItem[0]) {
-      if (isMovingKeyItem[1] === "t") {
-        cell.classList.remove("Target");
-      } else {
-        cell.classList.remove("Filled");
-      }
-    }
+  const onMouseLeaveHandler = () => {};
+
+  const onMouseDownHandler = () => {
+    node.setWall();
   };
 
-  const onClickHandler = () => {
-    if (node.isTarget()) {
-      setIsMovingKeyItem([true, "t"]);
-    }
-    if(node.isStart()){
-      setIsMovingKeyItem([true, "s"]);
-    }
-  };
-
-  const onMouseUpHandler = () => {
-    if (isMovingKeyItem[1]) {
-      // Set coord and set IsNotmoving key item
-      // setCoord(row, col, isMovingKeyItem[1]);
-      setIsMovingKeyItem(false);
-    }
-  };
+  const onMouseUpHandler = () => {};
 
   return (
     <div
       className={classes.join(" ")}
-      id={`${row} ${col}`}
-      onMouseDown={onClickHandler}
-      onMouseEnter={onMoveHandler}
-      onMouseLeave={onLeaveHandler}
+      id={`${node.row} ${node.col}`}
+      onMouseDown={onMouseDownHandler}
+      onMouseEnter={onMouseEnterHandler}
+      onMouseLeave={onMouseLeaveHandler}
       onMouseUp={onMouseUpHandler}
-      draggable={false}
     ></div>
   );
 };
 
-const compare = (prevState, nextState) => {
-  return (
-    prevState.val === nextState.val &&
-    prevState.isMouseDown === nextState.isMouseDown
-  );
-};
-
-export default React.memo(Cell, compare);
+export default React.memo(Cell, () => true);
