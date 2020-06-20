@@ -59,7 +59,7 @@ export default class Node {
   }
 
   isKeyValue(){
-    return this.isTarget() && this.isStart()
+    return this.isTarget() || this.isStart()
   }
 
   isWall() {

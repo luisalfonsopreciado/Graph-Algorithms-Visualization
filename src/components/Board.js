@@ -12,22 +12,32 @@ const Board = () => {
   const { nodeGrid, resetGrid } = useNodeGrid();
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [animating, setIsAnimating] = useState(true);
+  const [isMovingTarget, setIsMovingTarget] = useState(false);
+  const [isMovingStart, setIsMovingStart] = useState(false);
 
   const onMouseEnterHandler = (node) => {
-    if (isMouseDown) {
+    if (isMouseDown && !isMovingStart && !isMovingTarget) {
       node.setWall();
     }
+    if (isMouseDown && isMovingStart) node.setAsStart();
+    if(isMouseDown && isMovingTarget) node.setAsTarget();
   };
 
   const onMouseDownHandler = (node) => {
     setIsMouseDown(true);
-    if (!node.isKeyValue()) node.setWall();
+    if (!node.isKeyValue()) return node.setWall();
+    if (node.isStart()) return setIsMovingStart(true);
+    setIsMovingTarget(true);
   };
 
-  const onMouseLeaveHandler = () => {};
+  const onMouseLeaveHandler = (node) => {
+    if (isMovingStart || isMovingTarget) node.clear();
+  };
 
   const onMouseUpHandler = () => {
     setIsMouseDown(false);
+    setIsMovingStart(false);
+    setIsMovingTarget(false);
     console.log("Cell on mouse up");
   };
 
@@ -115,8 +125,6 @@ const Board = () => {
       }
     }, 10);
   };
-
-  
 
   return (
     <Fragment>
