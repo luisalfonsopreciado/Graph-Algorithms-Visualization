@@ -11,8 +11,8 @@ export default class Node {
   }
 
   setClasses() {
-    const cell = document.getElementById(`${this.row} ${this.col}`);
-    this.classes = cell.classList;
+    this.cell = document.getElementById(`${this.row} ${this.col}`);
+    this.classes = this.cell.classList;
   }
 
   toString() {
@@ -56,6 +56,10 @@ export default class Node {
 
   isStart() {
     return this.classes.contains("Filled");
+  }
+
+  isKeyValue(){
+    return this.isTarget() && this.isStart()
   }
 
   isWall() {
