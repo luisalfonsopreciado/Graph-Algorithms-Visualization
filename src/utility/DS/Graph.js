@@ -146,6 +146,7 @@ export class Graph {
           //reference parent
           adjacentNode.predecessor = currentNode;
           adjacentNode.dist = d;
+          if(adjacentNode.isTarget()) return animations;
         }
       }
     }

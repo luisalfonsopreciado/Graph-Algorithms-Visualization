@@ -37,6 +37,13 @@ export default class Node {
     this.classes.add("Searched");
   }
 
+  removeVisuals(){
+    this.classes.remove("ShortestPath");
+    this.classes.remove("Searched");
+    this.predecessor = null;
+    this.dist = Infinity;
+  }
+
   reset() {
     this.classes.remove("ShortestPath");
     this.classes.remove("Wall");

@@ -21,13 +21,22 @@ const useNodeGrid = () => {
   const nodeGrid = nodeGridRef.current;
 
   const resetGrid = () => {
-      for(let row in nodeGrid){
-          for(let col in nodeGrid[row]){
-              nodeGrid[row][col].reset();
-          }
+    for (let row in nodeGrid) {
+      for (let col in nodeGrid[row]) {
+        nodeGrid[row][col].reset();
       }
-  }
-  return { nodeGrid, resetGrid };
+    }
+  };
+
+  const removeVisuals = () => {
+    for (let row in nodeGrid) {
+      for (let col in nodeGrid[row]) {
+        nodeGrid[row][col].removeVisuals();
+      }
+    }
+  };
+
+  return { nodeGrid, resetGrid, removeVisuals };
 };
 
 export default useNodeGrid;

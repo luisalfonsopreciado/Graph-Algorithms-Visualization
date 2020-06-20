@@ -1,15 +1,16 @@
 import React, { useState, Fragment } from "react";
 import Cell from "./Cell";
-import Button from "@material-ui/core/Button";
 import * as util from "../utility/index";
 import "./Board.css";
 import useNodeGrid from "../hooks/useNodeGrid";
+import Navbar from "./Navigation/Toolbar/Toolbar";
 
 const ROWS_INIT = 20;
 const COLS_INIT = 50;
 
 const Board = () => {
-  const { nodeGrid, resetGrid } = useNodeGrid();
+  const [algorithm, setAlgorithm] = useState(util.DIJKSTRA);
+  const { nodeGrid, resetGrid, removeVisuals } = useNodeGrid();
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [animating, setIsAnimating] = useState(true);
   const [isMovingTarget, setIsMovingTarget] = useState(false);
@@ -20,7 +21,7 @@ const Board = () => {
       node.setWall();
     }
     if (isMouseDown && isMovingStart) node.setAsStart();
-    if(isMouseDown && isMovingTarget) node.setAsTarget();
+    if (isMouseDown && isMovingTarget) node.setAsTarget();
   };
 
   const onMouseDownHandler = (node) => {
@@ -56,44 +57,84 @@ const Board = () => {
     });
   });
 
-  const BFS = () => {
+  const executeAlgorithm = (type) => {
+    removeVisualization();
+    if (!animating) return;
     setIsAnimating(false);
+
+    let animations = [];
+    switch (algorithm) {
+      case util.BFS:
+        animations = BFS();
+        break;
+      case util.DFS:
+        animations = DFS();
+        break;
+      case util.ASTAR:
+        animations = AStar();
+        break;
+      case util.DIJKSTRA:
+        animations = Dijkstra();
+        break;
+      case util.GREEDY_BFS:
+        animations = bestFirstSearch();
+        break;
+      default:
+        animations = BFS();
+        break;
+    }
+    animate(animations);
+  };
+
+  const BFS = () => {
     const { startNode, graph } = util.generateGraph(nodeGrid);
     const animations = graph.bfs(startNode);
-    animate(animations);
+    return animations;
   };
 
   const DFS = () => {
-    setIsAnimating(false);
     const { startNode, graph } = util.generateGraph(nodeGrid);
     const animations = graph.dfs(startNode);
-    animate(animations);
+    return animations;
   };
 
   const Dijkstra = () => {
-    setIsAnimating(false);
     const { startNode, graph } = util.generateGraph(nodeGrid);
     const animations = graph.dijkstra(startNode);
-    animate(animations);
+    return animations;
   };
 
   const AStar = () => {
-    setIsAnimating(false);
     const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
     const animations = graph.aStar(startNode, targetNode);
-    animate(animations);
+    return animations;
   };
 
   const bestFirstSearch = () => {
-    setIsAnimating(false);
     const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
     const animations = graph.bestFirstSearch(startNode, targetNode);
-    animate(animations);
+    return animations;
   };
 
   const clear = () => {
     if (!animating) return;
     resetGrid();
+  };
+
+  const removeVisualization = () => {
+    if (!animating) return;
+    removeVisuals();
+  };
+
+  const generateMaze = (type) => {
+    switch (type) {
+      case util.RECURSIVE_DIVISON:
+        doRecursiveDivision();
+        break;
+      default:
+        doRandomMaze();
+        break;
+    }
   };
 
   const doRandomMaze = () => {
@@ -128,16 +169,15 @@ const Board = () => {
 
   return (
     <Fragment>
-      <div style={{ margin: "auto" }}>
-        <Button onClick={DFS}>Do DFS</Button>
-        <Button onClick={BFS}>Do BFS</Button>
-        <Button onClick={Dijkstra}>Dijkstra</Button>
-        <Button onClick={doRandomMaze}>Random Maze</Button>
-        <Button onClick={doRecursiveDivision}>Recursive Division</Button>
-        <Button onClick={AStar}>A*</Button>
-        <Button onClick={bestFirstSearch}>Greedy Best First Search</Button>
-        <Button onClick={clear}>Clear</Button>
-      </div>
+      <Navbar
+        setAlgorithm={setAlgorithm}
+        reset={clear}
+        algorithm={algorithm}
+        executeAlgorithm={executeAlgorithm}
+        clear={removeVisualization}
+        mazeGen={generateMaze}
+      />
+      <br />
       <div
         className="Board"
         style={{

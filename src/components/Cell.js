@@ -7,7 +7,7 @@ const Cell = ({ node, onMouseEnter, onMouseDown, onMouseLeave, onMouseUp }) => {
   useEffect(() => {
     console.log("Cell UseEffect");
     node.setClasses();
-  }, []);
+  }, [node]);
 
   if (node.row === 10 && node.col === 10) {
     classes.push("Filled");
