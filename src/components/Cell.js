@@ -25,7 +25,6 @@ const Cell = ({ isMouseDown, animationComplete, node }) => {
   const onMouseLeaveHandler = () => {};
 
   const onMouseDownHandler = () => {
-    console.log("Cell on mouse down")
     if (!node.isKeyValue()) node.setWall();
   };
 
@@ -46,4 +45,8 @@ const Cell = ({ isMouseDown, animationComplete, node }) => {
   );
 };
 
-export default React.memo(Cell, () => true);
+const compare = (prevProps, nextProps) => {
+  return prevProps.isMouseDown === nextProps.isMouseDown;
+}
+
+export default React.memo(Cell, compare);

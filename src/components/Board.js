@@ -96,6 +96,8 @@ const Board = () => {
     }, 10);
   };
 
+  
+
   return (
     <Fragment>
       <div style={{ margin: "auto" }}>
