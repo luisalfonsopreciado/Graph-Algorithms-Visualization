@@ -13,14 +13,34 @@ const Board = () => {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [animating, setIsAnimating] = useState(true);
 
+  const onMouseEnterHandler = (node) => {
+    if (isMouseDown) {
+      node.setWall();
+    }
+  };
+
+  const onMouseDownHandler = (node) => {
+    setIsMouseDown(true);
+    if (!node.isKeyValue()) node.setWall();
+  };
+
+  const onMouseLeaveHandler = () => {};
+
+  const onMouseUpHandler = () => {
+    setIsMouseDown(false);
+    console.log("Cell on mouse up");
+  };
+
   let Grid = nodeGrid.map((row, rowNum) => {
     return row.map((val, colNum) => {
       return (
         <Cell
           key={val}
           node={nodeGrid[rowNum][colNum]}
-          isMouseDown={isMouseDown}
-          animating={setIsAnimating}
+          onMouseEnter={onMouseEnterHandler}
+          onMouseDown={onMouseDownHandler}
+          onMouseUp={onMouseUpHandler}
+          onMouseLeave={onMouseLeaveHandler}
         />
       );
     });
@@ -111,14 +131,6 @@ const Board = () => {
         <Button onClick={clear}>Clear</Button>
       </div>
       <div
-        onMouseDown={() => {
-          console.log("MousDown B")
-          setIsMouseDown(true);
-        }}
-        onMouseUp={() => {
-          console.log("MousUp")
-          setIsMouseDown(false);
-        }}
         className="Board"
         style={{
           gridTemplateRows: `repeat(${ROWS_INIT}, 1fr)`,

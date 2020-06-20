@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import "./Cell.css";
 
-const Cell = ({ isMouseDown, animationComplete, node }) => {
+const Cell = ({ node, onMouseEnter, onMouseDown, onMouseLeave, onMouseUp }) => {
   let classes = ["Cell"];
 
   useEffect(() => {
-    console.log("Cell UseEffect")
+    console.log("Cell UseEffect");
     node.setClasses();
   }, []);
 
@@ -16,37 +16,16 @@ const Cell = ({ isMouseDown, animationComplete, node }) => {
     classes.push("Target");
   }
 
-  const onMouseEnterHandler = () => {
-    if (isMouseDown) {
-      node.setWall();
-    }
-  };
-
-  const onMouseLeaveHandler = () => {};
-
-  const onMouseDownHandler = () => {
-    if (!node.isKeyValue()) node.setWall();
-  };
-
-  const onMouseUpHandler = () => {
-    console.log("Cell on mouse up")
-  };
-
   return (
     <div
       className={classes.join(" ")}
       id={`${node.row} ${node.col}`}
-      onMouseDown={onMouseDownHandler}
-      onMouseEnter={onMouseEnterHandler}
-      onMouseLeave={onMouseLeaveHandler}
-      onMouseUp={onMouseUpHandler}
-    >
-    </div>
+      onMouseDown={() => onMouseDown(node)}
+      onMouseEnter={() => onMouseEnter(node)}
+      onMouseLeave={() => onMouseLeave(node)}
+      onMouseUp={() => onMouseUp(node)}
+    ></div>
   );
 };
 
-const compare = (prevProps, nextProps) => {
-  return prevProps.isMouseDown === nextProps.isMouseDown;
-}
-
-export default React.memo(Cell, compare);
+export default Cell;
