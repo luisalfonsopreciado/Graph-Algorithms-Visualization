@@ -110,9 +110,11 @@ const Board = () => {
       </div>
       <div
         onMouseDown={() => {
+          console.log("MousDown B")
           setIsMouseDown(true);
         }}
         onMouseUp={() => {
+          console.log("MousUp")
           setIsMouseDown(false);
         }}
         className="Board"

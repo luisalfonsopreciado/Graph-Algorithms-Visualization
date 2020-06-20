@@ -5,10 +5,9 @@ const Cell = ({ isMouseDown, animationComplete, node }) => {
   let classes = ["Cell"];
 
   useEffect(() => {
+    console.log("Cell UseEffect")
     node.setClasses();
-  },[node])
-
-  console.log("Cell rendered");
+  }, []);
 
   if (node.row === 10 && node.col === 10) {
     classes.push("Filled");
@@ -18,16 +17,21 @@ const Cell = ({ isMouseDown, animationComplete, node }) => {
   }
 
   const onMouseEnterHandler = () => {
-    if (isMouseDown) node.setWall();
+    if (isMouseDown) {
+      node.setWall();
+    }
   };
 
   const onMouseLeaveHandler = () => {};
 
   const onMouseDownHandler = () => {
-    node.setWall();
+    console.log("Cell on mouse down")
+    if (!node.isKeyValue()) node.setWall();
   };
 
-  const onMouseUpHandler = () => {};
+  const onMouseUpHandler = () => {
+    console.log("Cell on mouse up")
+  };
 
   return (
     <div
@@ -37,7 +41,8 @@ const Cell = ({ isMouseDown, animationComplete, node }) => {
       onMouseEnter={onMouseEnterHandler}
       onMouseLeave={onMouseLeaveHandler}
       onMouseUp={onMouseUpHandler}
-    ></div>
+    >
+    </div>
   );
 };
 

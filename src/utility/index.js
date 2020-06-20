@@ -1,8 +1,6 @@
 export * from "./MazeGenerators/Random"
 export * from "./MazeGenerators/RecursiveDivision"
 
-export * from "./helper"
-
 export * from "./generateGraph"
 
 export * from "./DS/Graph"
