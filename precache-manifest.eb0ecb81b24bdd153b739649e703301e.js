@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6032b2881100e16330338cb4e9473224",
+    "revision": "c9e81bd0bcedd1d7b25cd99f1dff0650",
     "url": "/Graph-Algorithms-Visualization/index.html"
   },
   {
-    "revision": "db25c8a6cae773f3497c",
+    "revision": "dc17ecda3b00b7ceabad",
     "url": "/Graph-Algorithms-Visualization/static/css/main.5f953d17.chunk.css"
   },
   {
-    "revision": "99ece7b748f8e7772926",
-    "url": "/Graph-Algorithms-Visualization/static/js/2.30e537cf.chunk.js"
+    "revision": "e2ae6ac23b57ba4ad64f",
+    "url": "/Graph-Algorithms-Visualization/static/js/2.61a0cf9e.chunk.js"
   },
   {
     "revision": "0749163b59fbee32225059cb60c18af6",
-    "url": "/Graph-Algorithms-Visualization/static/js/2.30e537cf.chunk.js.LICENSE.txt"
+    "url": "/Graph-Algorithms-Visualization/static/js/2.61a0cf9e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "db25c8a6cae773f3497c",
-    "url": "/Graph-Algorithms-Visualization/static/js/main.ffd6d138.chunk.js"
+    "revision": "dc17ecda3b00b7ceabad",
+    "url": "/Graph-Algorithms-Visualization/static/js/main.77d3eb84.chunk.js"
   },
   {
     "revision": "1ca3dfbda425795e2655",
