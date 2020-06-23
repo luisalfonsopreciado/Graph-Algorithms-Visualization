@@ -19,7 +19,7 @@ export default class Node {
   }
 
   setWall() {
-    if (this.isTarget() || this.isStart()) return;
+    if (this.isKeyValue()) return;
     this.classes.add("Wall");
   }
 
@@ -40,9 +40,15 @@ export default class Node {
     this.classes.add("Searched");
   }
 
+  markSearched2(){
+    if (this.isTarget()) return;
+    this.classes.add("Searched2");
+  }
+
   removeVisuals() {
     this.classes.remove("ShortestPath");
     this.classes.remove("Searched");
+    this.classes.remove("Searched2");
     this.predecessor = null;
     this.dist = Infinity;
   }
@@ -51,6 +57,7 @@ export default class Node {
     this.classes.remove("ShortestPath");
     this.classes.remove("Wall");
     this.classes.remove("Searched");
+    this.classes.remove("Searched2");
     this.classes.remove("SecondaryTarget");
     this.predecessor = null;
     this.dist = Infinity;
@@ -63,7 +70,7 @@ export default class Node {
   }
 
   isTarget() {
-    return this.classes.contains("Target");
+    return this.classes.contains("Target")
   }
 
   isStart() {
@@ -89,6 +96,7 @@ export default class Node {
   markShortestPath() {
     if (!this.isTarget() && !this.isStart()) {
       this.classes.remove("Searched");
+      this.classes.remove("Searched2");
       this.classes.add("ShortestPath");
     }
     if (this.predecessor != null) {

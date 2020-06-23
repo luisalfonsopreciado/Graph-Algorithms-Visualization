@@ -18,36 +18,50 @@ const Board = () => {
   const [isMovingStart, setIsMovingStart] = useState(false);
   const [settingSecondTarget, setSettingSecondTarget] = useState(false);
   const [hasSecondTarget, setHasSecondTarget] = useState(false);
+  const [numTargets, setNumTargets] = useState(1);
 
   const onMouseEnterHandler = (node) => {
     if (!animating) return;
     if (settingSecondTarget) {
       node.setAsSecondTarget();
     }
-    if (isMouseDown && !isMovingStart && !isMovingTarget && !isMovingSecondTarget) {
+    if (
+      isMouseDown &&
+      !isMovingStart &&
+      !isMovingTarget &&
+      !isMovingSecondTarget
+    ) {
       node.setWall();
     }
     if (isMouseDown && isMovingStart) node.setAsStart();
     if (isMouseDown && isMovingTarget) node.setAsTarget();
-    if(isMouseDown && isMovingSecondTarget) node.setAsSecondTarget();
+    if (isMouseDown && isMovingSecondTarget) node.setAsSecondTarget();
   };
 
   const onMouseDownHandler = (node) => {
     if (!animating) return;
     setIsMouseDown(true);
     if (settingSecondTarget) {
+      let num = numTargets;
+      setNumTargets(num + 1);
       setHasSecondTarget(true);
       return setSettingSecondTarget(false);
     }
     if (!node.isKeyValue()) return node.setWall();
     if (node.isStart()) return setIsMovingStart(true);
-    if(node.isTarget()) return setIsMovingTarget(true);
-    if(node.isSecondTarget()) return setIsMovingSecondTarget(true);
+    if (node.isTarget()) return setIsMovingTarget(true);
+    if (node.isSecondTarget()) return setIsMovingSecondTarget(true);
   };
 
   const onMouseLeaveHandler = (node) => {
     if (!animating) return;
-    if (isMovingStart || isMovingTarget || settingSecondTarget || isMovingSecondTarget) node.clear();
+    if (
+      isMovingStart ||
+      isMovingTarget ||
+      settingSecondTarget ||
+      isMovingSecondTarget
+    )
+      node.clear();
   };
 
   const onMouseUpHandler = () => {
@@ -117,7 +131,7 @@ const Board = () => {
   const Dijkstra = () => {
     const { startNode, graph } = util.generateGraph(nodeGrid);
     const animations = [];
-    graph.dijkstra(startNode, animations);
+    graph.dijkstra(startNode, animations, hasSecondTarget);
     return animations;
   };
 
@@ -135,6 +149,7 @@ const Board = () => {
 
   const clear = () => {
     if (!animating) return;
+    setHasSecondTarget(false);
     resetGrid();
   };
 
@@ -172,12 +187,14 @@ const Board = () => {
       return;
     }
     let count = 0;
+    let targetNum = 1;
 
     const intervalId = setInterval(() => {
       const node = animations[count];
 
-      node.markSearched();
-      node.isTarget() && node.markShortestPath();
+      targetNum % 2 === 0 ? node.markSearched() : node.markSearched2();
+      
+      (node.isTarget() || node.isSecondTarget()) && node.markShortestPath(); 
 
       count++;
 

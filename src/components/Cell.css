@@ -79,6 +79,20 @@
   animation-play-state: running;
 }
 
+.Searched2 {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: visitedAnimation2;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
 .FinalSearched {
   background-color: lightseagreen;
 }
@@ -102,6 +116,28 @@
   100% {
     transform: scale(1);
     background-color: lightseagreen;
+  }
+}
+
+@keyframes visitedAnimation2 {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(41, 41, 107, 0.75);
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: rgba(181, 159, 199, 0.75);
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(158, 95, 216, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgb(125, 29, 189);
   }
 }
 
