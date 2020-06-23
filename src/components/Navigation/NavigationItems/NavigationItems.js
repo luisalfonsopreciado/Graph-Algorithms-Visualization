@@ -12,7 +12,7 @@ const NavigationItems = ({
   toggleShowModal,
   algorithm,
   mazeGen,
-  openInfo,
+  settingSecondTarget,
   clear,
 }) => (
   <>
@@ -67,6 +67,7 @@ const NavigationItems = ({
         </DropItem>
       </DropDown>
     </Subnav>
+    <NavigationItem clicked={() => settingSecondTarget(true)}>Add Second Target</NavigationItem>
     <NavigationItem clicked={reset}>Reset</NavigationItem>
     <NavigationItem clicked={clear}>Clear Visualization</NavigationItem>
     <NavigationItem clicked={executeAlgorithm}>

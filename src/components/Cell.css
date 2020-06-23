@@ -46,6 +46,21 @@
   animation-play-state: running;
 }
 
+.SecondaryTarget{
+  background-image:url(second.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: specialNodes;
+  animation-duration: 2.0s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
 .ShortestPath {
   background-color: lightgoldenrodyellow;
 }

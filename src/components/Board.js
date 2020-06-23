@@ -14,28 +14,40 @@ const Board = () => {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [animating, setIsAnimating] = useState(true);
   const [isMovingTarget, setIsMovingTarget] = useState(false);
+  const [isMovingSecondTarget, setIsMovingSecondTarget] = useState(false);
   const [isMovingStart, setIsMovingStart] = useState(false);
+  const [settingSecondTarget, setSettingSecondTarget] = useState(false);
+  const [hasSecondTarget, setHasSecondTarget] = useState(false);
 
   const onMouseEnterHandler = (node) => {
     if (!animating) return;
-    if (isMouseDown && !isMovingStart && !isMovingTarget) {
+    if (settingSecondTarget) {
+      node.setAsSecondTarget();
+    }
+    if (isMouseDown && !isMovingStart && !isMovingTarget && !isMovingSecondTarget) {
       node.setWall();
     }
     if (isMouseDown && isMovingStart) node.setAsStart();
     if (isMouseDown && isMovingTarget) node.setAsTarget();
+    if(isMouseDown && isMovingSecondTarget) node.setAsSecondTarget();
   };
 
   const onMouseDownHandler = (node) => {
     if (!animating) return;
     setIsMouseDown(true);
+    if (settingSecondTarget) {
+      setHasSecondTarget(true);
+      return setSettingSecondTarget(false);
+    }
     if (!node.isKeyValue()) return node.setWall();
     if (node.isStart()) return setIsMovingStart(true);
-    setIsMovingTarget(true);
+    if(node.isTarget()) return setIsMovingTarget(true);
+    if(node.isSecondTarget()) return setIsMovingSecondTarget(true);
   };
 
   const onMouseLeaveHandler = (node) => {
     if (!animating) return;
-    if (isMovingStart || isMovingTarget) node.clear();
+    if (isMovingStart || isMovingTarget || settingSecondTarget || isMovingSecondTarget) node.clear();
   };
 
   const onMouseUpHandler = () => {
@@ -43,7 +55,7 @@ const Board = () => {
     setIsMouseDown(false);
     setIsMovingStart(false);
     setIsMovingTarget(false);
-    console.log("Cell on mouse up");
+    setIsMovingSecondTarget(false);
   };
 
   let Grid = nodeGrid.map((row, rowNum) => {
@@ -104,7 +116,8 @@ const Board = () => {
 
   const Dijkstra = () => {
     const { startNode, graph } = util.generateGraph(nodeGrid);
-    const animations = graph.dijkstra(startNode);
+    const animations = [];
+    graph.dijkstra(startNode, animations);
     return animations;
   };
 
@@ -184,6 +197,7 @@ const Board = () => {
         executeAlgorithm={executeAlgorithm}
         clear={removeVisualization}
         mazeGen={generateMaze}
+        settingSecondTarget={setSettingSecondTarget}
       />
       <br />
       <div

@@ -119,9 +119,7 @@ export class Graph {
   }
 
   //dijkstra solve graph starting at s
-  dijkstra(startNode) {
-    const animations = [];
-
+  dijkstra(startNode, animations) {
     const heap = new MinHeap((item) => item.dist);
 
     heap.push(startNode);
@@ -146,7 +144,7 @@ export class Graph {
           //reference parent
           adjacentNode.predecessor = currentNode;
           adjacentNode.dist = d;
-          if(adjacentNode.isTarget()) return animations;
+          if(adjacentNode.isTarget()) this.dijkstra(adjacentNode, animations);
         }
       }
     }
