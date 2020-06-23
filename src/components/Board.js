@@ -17,6 +17,7 @@ const Board = () => {
   const [isMovingStart, setIsMovingStart] = useState(false);
 
   const onMouseEnterHandler = (node) => {
+    if (!animating) return;
     if (isMouseDown && !isMovingStart && !isMovingTarget) {
       node.setWall();
     }
@@ -25,6 +26,7 @@ const Board = () => {
   };
 
   const onMouseDownHandler = (node) => {
+    if (!animating) return;
     setIsMouseDown(true);
     if (!node.isKeyValue()) return node.setWall();
     if (node.isStart()) return setIsMovingStart(true);
@@ -32,10 +34,12 @@ const Board = () => {
   };
 
   const onMouseLeaveHandler = (node) => {
+    if (!animating) return;
     if (isMovingStart || isMovingTarget) node.clear();
   };
 
   const onMouseUpHandler = () => {
+    if (!animating) return;
     setIsMouseDown(false);
     setIsMovingStart(false);
     setIsMovingTarget(false);
