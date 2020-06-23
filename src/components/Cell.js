@@ -3,6 +3,7 @@ import "./Cell.css";
 
 const Cell = ({ node, onMouseEnter, onMouseDown, onMouseLeave, onMouseUp }) => {
   let classes = ["Cell"];
+  let icon = null;
 
   useEffect(() => {
     console.log("Cell UseEffect");
@@ -24,7 +25,9 @@ const Cell = ({ node, onMouseEnter, onMouseDown, onMouseLeave, onMouseUp }) => {
       onMouseEnter={() => onMouseEnter(node)}
       onMouseLeave={() => onMouseLeave(node)}
       onMouseUp={() => onMouseUp(node)}
-    ></div>
+    >
+      {icon}
+    </div>
   );
 };
 
