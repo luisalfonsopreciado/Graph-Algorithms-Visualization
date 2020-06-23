@@ -150,6 +150,10 @@ const Board = () => {
   };
 
   const animate = (animations) => {
+    if (animations.length <= 0) {
+      setIsAnimating(true);
+      return;
+    }
     let count = 0;
 
     const intervalId = setInterval(() => {
