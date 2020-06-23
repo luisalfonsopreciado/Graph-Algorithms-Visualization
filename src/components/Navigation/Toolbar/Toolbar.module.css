@@ -1,6 +1,7 @@
 .Toolbar {
   overflow: hidden;
   background-color: rgb(8, 42, 57);
+  width: 100%;
 }
 .Toolbar a {
     float: left;

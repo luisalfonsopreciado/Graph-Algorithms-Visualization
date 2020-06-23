@@ -1,6 +1,9 @@
 .Board {
   display: grid;
   margin: auto;
-  width: 1000px;
+}
+
+.MainContainer{
+  min-width: 1000px;
   height: 400px;
 }

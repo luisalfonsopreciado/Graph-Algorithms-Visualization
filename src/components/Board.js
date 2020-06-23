@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import Cell from "./Cell";
 import * as util from "../utility/index";
 import "./Board.css";
@@ -168,7 +168,7 @@ const Board = () => {
   };
 
   return (
-    <Fragment>
+    <div className="MainContainer">
       <Navbar
         setAlgorithm={setAlgorithm}
         reset={clear}
@@ -187,7 +187,7 @@ const Board = () => {
       >
         {Grid}
       </div>
-    </Fragment>
+    </div>
   );
 };
 
