@@ -10,7 +10,7 @@ const COLS_INIT = 50;
 
 const Board = () => {
   const [algorithm, setAlgorithm] = useState(util.DIJKSTRA);
-  const { nodeGrid, resetGrid, removeVisuals } = useNodeGrid();
+  const { nodeGrid, resetGrid, removeVisuals, paintInDistance } = useNodeGrid();
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [animating, setIsAnimating] = useState(true);
   const [isMovingTarget, setIsMovingTarget] = useState(false);
@@ -34,7 +34,13 @@ const Board = () => {
       node.setWall();
     }
     if (isMouseDown && isMovingStart) node.setAsStart();
-    if (isMouseDown && isMovingTarget) node.setAsTarget();
+    if (isMouseDown && isMovingTarget) {
+      node.setAsTarget();
+      paintInDistance(node.dist);
+      node.markShortestPath();
+      
+      console.log(node.dist);  
+    }
     if (isMouseDown && isMovingSecondTarget) node.setAsSecondTarget();
   };
 
@@ -193,8 +199,8 @@ const Board = () => {
       const node = animations[count];
 
       targetNum % 2 === 0 ? node.markSearched() : node.markSearched2();
-      
-      (node.isTarget() || node.isSecondTarget()) && node.markShortestPath(); 
+
+      (node.isTarget() || node.isSecondTarget()) && node.markShortestPath();
 
       count++;
 

@@ -124,6 +124,8 @@ export class Graph {
 
     heap.push(startNode);
 
+    let finishedAnimating = false;
+
     while (!heap.isEmpty()) {
       //for each existing solution
       const currentNode = heap.pop();
@@ -139,7 +141,7 @@ export class Graph {
         var d = 1 + currentdist;
 
         if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
-          animations.push(adjacentNode);
+          if(!finishedAnimating) animations.push(adjacentNode);
           heap.push(adjacentNode);
           //reference parent
           adjacentNode.predecessor = currentNode;
@@ -147,8 +149,8 @@ export class Graph {
           if (adjacentNode.isTarget() || adjacentNode.isSecondTarget())
             if (hasSecond) {
               this.dijkstra(adjacentNode, animations);
-            } else {
-              return animations;
+            } else{
+              finishedAnimating = true;
             }
         }
       }

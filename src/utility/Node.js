@@ -25,6 +25,7 @@ export default class Node {
 
   setAsTarget() {
     this.classes.add("Target");
+    this.markShortestPath();
   }
 
   setAsStart() {
@@ -45,12 +46,22 @@ export default class Node {
     this.classes.add("Searched2");
   }
 
+  markSearched2Done(){
+    if (this.isTarget() || this.isStart()) return;
+    this.classes.add("Searched2Done");
+  }
+
   removeVisuals() {
     this.classes.remove("ShortestPath");
     this.classes.remove("Searched");
     this.classes.remove("Searched2");
+    this.classes.remove("Searched2Done");
     this.predecessor = null;
     this.dist = Infinity;
+  }
+
+  removeClasses(){
+    this.classes.forEach(item => (item !== "Cell" && item !== "Wall") && this.classes.remove(item))
   }
 
   reset() {
@@ -59,6 +70,7 @@ export default class Node {
     this.classes.remove("Searched");
     this.classes.remove("Searched2");
     this.classes.remove("SecondaryTarget");
+    this.classes.remove("Searched2Done")
     this.predecessor = null;
     this.dist = Infinity;
   }
@@ -67,6 +79,9 @@ export default class Node {
     this.classes.remove("Target");
     this.classes.remove("Filled");
     this.classes.remove("SecondaryTarget");
+    this.classes.remove("Searched2")
+    this.classes.remove("Searched")
+    this.classes.remove("Searched2Done")
   }
 
   isTarget() {
@@ -97,6 +112,7 @@ export default class Node {
     if (!this.isTarget() && !this.isStart()) {
       this.classes.remove("Searched");
       this.classes.remove("Searched2");
+      this.classes.remove("Searched2Done");
       this.classes.add("ShortestPath");
     }
     if (this.predecessor != null) {

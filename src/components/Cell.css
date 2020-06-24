@@ -93,6 +93,10 @@
   animation-play-state: running;
 }
 
+.Searched2Done{
+  background-color: rgb(125, 29, 189);
+}
+
 .FinalSearched {
   background-color: lightseagreen;
 }

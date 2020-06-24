@@ -36,7 +36,20 @@ const useNodeGrid = () => {
     }
   };
 
-  return { nodeGrid, resetGrid, removeVisuals };
+  const paintInDistance = (dist) => {
+    if (dist === Infinity) return;
+    for (let row in nodeGrid) {
+      for (let col in nodeGrid[row]) {
+        if (nodeGrid[row][col].dist <= dist) {
+          nodeGrid[row][col].markSearched2Done();
+        } else {
+          nodeGrid[row][col].removeClasses();
+        }
+      }
+    }
+  };
+
+  return { nodeGrid, resetGrid, removeVisuals, paintInDistance };
 };
 
 export default useNodeGrid;
