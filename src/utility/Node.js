@@ -24,16 +24,18 @@ export default class Node {
   }
 
   setAsTarget() {
-    this.reset();
+    this.classes.remove("Wall");
     this.classes.add("Target");
     this.markShortestPath();
   }
 
   setAsStart() {
+    this.classes.remove("Wall");
     this.classes.add("Filled");
   }
 
   setAsSecondTarget() {
+    this.classes.remove("Wall");
     this.classes.add("SecondaryTarget")
   }
 

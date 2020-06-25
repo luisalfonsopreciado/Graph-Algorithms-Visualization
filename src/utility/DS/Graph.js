@@ -59,6 +59,7 @@ export class Graph {
     visited[startingNode] = true;
     q.enqueue(startingNode);
 
+    let dist = 1;
     // loop until queue is element
     while (!q.isEmpty()) {
       // get the element from the queue
@@ -77,11 +78,13 @@ export class Graph {
 
         if (!visited[neigh]) {
           neigh.predecessor = getQueueElement;
+          neigh.dist = dist;
           animations.push(neigh);
           visited[neigh] = true;
           q.enqueue(neigh);
         }
       }
+      dist++;
     }
 
     return animations;
@@ -89,7 +92,7 @@ export class Graph {
 
   // dfs(v)
   // Main DFS method
-  dfs(startingNode) {
+  dfs(startingNode, withAnimation) {
     const animations = [];
 
     var visited = [];
@@ -104,7 +107,6 @@ export class Graph {
   // all the adjacent vertex of the vertex with which it is called
   DFSUtil(vert, visited, animations) {
     visited[vert] = true;
-    console.log(vert);
 
     var get_neighbours = this.AdjList.get(vert);
 
@@ -185,7 +187,10 @@ export class Graph {
         var d = 1 + currentdist;
 
         if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
-          if (!withAnimation) {console.log("Got here");adjacentNode.markSearched2Done();}
+          if (!withAnimation) {
+            console.log("Got here");
+            adjacentNode.markSearched2Done();
+          }
           animations.push(adjacentNode);
           this.manhattanDistance(adjacentNode, targetNode);
           heap.push(adjacentNode);
@@ -210,7 +215,7 @@ export class Graph {
     node.f = node.g + node.h;
   }
 
-  bestFirstSearch(startNode, targetNode) {
+  bestFirstSearch(startNode, targetNode, withAnimation) {
     const animations = [];
 
     const heap = new MinHeap((item) => item.f);
@@ -235,6 +240,7 @@ export class Graph {
         var d = 1 + currentdist;
 
         if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
+          if (!withAnimation) adjacentNode.markSearched2Done();
           animations.push(adjacentNode);
 
           this.euclideanDistance(adjacentNode, targetNode);
@@ -244,7 +250,10 @@ export class Graph {
           //reference parent
           adjacentNode.predecessor = currentNode;
           adjacentNode.dist = d;
-          if (adjacentNode.isTarget()) return animations;
+          if (adjacentNode.isTarget()) {
+            if (!withAnimation) adjacentNode.markShortestPath();
+            return animations;
+          }
         }
       }
     }

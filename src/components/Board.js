@@ -28,20 +28,30 @@ const Board = () => {
   const [prevAlgorithm, setPrevAlgorithm] = useState(util.DIJKSTRA);
 
   const handleTargetMove = (node) => {
+    node.setAsTarget();
     switch (prevAlgorithm) {
       case util.DIJKSTRA:
-        node.setAsTarget();
         paintInDistance(node.dist);
         node.markShortestPath();
-        console.log(node.dist);
         break;
       case util.ASTAR:
-        node.setAsTarget();
-        resetDistance();  
+        resetDistance();
         AStar(false);
         break;
+      case util.GREEDY_BFS:
+        resetDistance();
+        bestFirstSearch(false);
+        break;
+      case util.BFS:
+        paintInDistance(node.dist);
+        node.markShortestPath();
+        break;
+      case util.DFS:
+        resetDistance();
+        DFS(false);
+        node.markShortestPath();
+        break;
       default:
-        console.log("Default Prev Algo");
     }
   };
 
@@ -128,7 +138,7 @@ const Board = () => {
         animations = BFS();
         break;
       case util.DFS:
-        animations = DFS();
+        animations = DFS(true);
         break;
       case util.ASTAR:
         animations = AStar(true);
@@ -137,7 +147,7 @@ const Board = () => {
         animations = Dijkstra();
         break;
       case util.GREEDY_BFS:
-        animations = bestFirstSearch();
+        animations = bestFirstSearch(true);
         break;
       default:
         animations = BFS();
@@ -152,9 +162,9 @@ const Board = () => {
     return animations;
   };
 
-  const DFS = () => {
+  const DFS = (withAnimation) => {
     const { startNode, graph } = util.generateGraph(nodeGrid);
-    const animations = graph.dfs(startNode);
+    const animations = graph.dfs(startNode, withAnimation);
     return animations;
   };
 
@@ -174,20 +184,26 @@ const Board = () => {
     return animations;
   };
 
-  const bestFirstSearch = () => {
+  const bestFirstSearch = (withAnimation) => {
     const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
-    const animations = graph.bestFirstSearch(startNode, targetNode);
+    const animations = graph.bestFirstSearch(
+      startNode,
+      targetNode,
+      withAnimation
+    );
     return animations;
   };
 
   const clear = () => {
     if (!animating) return;
     setHasSecondTarget(false);
+    setPrevAlgorithm(null);
     resetGrid();
   };
 
   const removeVisualization = () => {
     if (!animating) return;
+    setPrevAlgorithm(null);
     removeVisuals();
   };
 
