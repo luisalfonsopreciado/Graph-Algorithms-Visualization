@@ -141,7 +141,7 @@ export class Graph {
         var d = 1 + currentdist;
 
         if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
-          if(!finishedAnimating) animations.push(adjacentNode);
+          if (!finishedAnimating) animations.push(adjacentNode);
           heap.push(adjacentNode);
           //reference parent
           adjacentNode.predecessor = currentNode;
@@ -149,7 +149,7 @@ export class Graph {
           if (adjacentNode.isTarget() || adjacentNode.isSecondTarget())
             if (hasSecond) {
               this.dijkstra(adjacentNode, animations);
-            } else{
+            } else {
               finishedAnimating = true;
             }
         }
@@ -158,7 +158,8 @@ export class Graph {
     return animations;
   }
 
-  aStar(startNode, targetNode) {
+  aStar(startNode, targetNode, withAnimation) {
+    !withAnimation && console.log("NO ANIMATION");
     const animations = [];
 
     const heap = new MinHeap((item) => item.f);
@@ -170,11 +171,12 @@ export class Graph {
     heap.print();
 
     while (!heap.isEmpty()) {
+      console.log(heap);
       const currentNode = heap.pop();
 
       var currentdist = currentNode.dist;
       var adj = this.AdjList.get(currentNode); // get neighbors
-
+      console.log(adj);
       //for each of its adjacent nodes...
       for (var a in adj) {
         const adjacentNode = adj[a];
@@ -183,13 +185,17 @@ export class Graph {
         var d = 1 + currentdist;
 
         if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
+          if (!withAnimation) {console.log("Got here");adjacentNode.markSearched2Done();}
           animations.push(adjacentNode);
           this.manhattanDistance(adjacentNode, targetNode);
           heap.push(adjacentNode);
           //reference parent
           adjacentNode.predecessor = currentNode;
           adjacentNode.dist = d;
-          if (adjacentNode.isTarget()) return animations;
+          if (adjacentNode.isTarget()) {
+            if (!withAnimation) adjacentNode.markShortestPath();
+            return animations;
+          }
         }
       }
     }

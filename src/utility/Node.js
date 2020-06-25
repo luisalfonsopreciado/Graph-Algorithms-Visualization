@@ -24,6 +24,7 @@ export default class Node {
   }
 
   setAsTarget() {
+    this.reset();
     this.classes.add("Target");
     this.markShortestPath();
   }

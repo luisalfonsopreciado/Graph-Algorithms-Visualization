@@ -10,7 +10,13 @@ const COLS_INIT = 50;
 
 const Board = () => {
   const [algorithm, setAlgorithm] = useState(util.DIJKSTRA);
-  const { nodeGrid, resetGrid, removeVisuals, paintInDistance } = useNodeGrid();
+  const {
+    nodeGrid,
+    resetGrid,
+    removeVisuals,
+    paintInDistance,
+    resetDistance,
+  } = useNodeGrid();
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [animating, setIsAnimating] = useState(true);
   const [isMovingTarget, setIsMovingTarget] = useState(false);
@@ -19,8 +25,28 @@ const Board = () => {
   const [settingSecondTarget, setSettingSecondTarget] = useState(false);
   const [hasSecondTarget, setHasSecondTarget] = useState(false);
   const [numTargets, setNumTargets] = useState(1);
+  const [prevAlgorithm, setPrevAlgorithm] = useState(util.DIJKSTRA);
+
+  const handleTargetMove = (node) => {
+    switch (prevAlgorithm) {
+      case util.DIJKSTRA:
+        node.setAsTarget();
+        paintInDistance(node.dist);
+        node.markShortestPath();
+        console.log(node.dist);
+        break;
+      case util.ASTAR:
+        node.setAsTarget();
+        resetDistance();  
+        AStar(false);
+        break;
+      default:
+        console.log("Default Prev Algo");
+    }
+  };
 
   const onMouseEnterHandler = (node) => {
+    console.log("Entering");
     if (!animating) return;
     if (settingSecondTarget) {
       node.setAsSecondTarget();
@@ -35,11 +61,7 @@ const Board = () => {
     }
     if (isMouseDown && isMovingStart) node.setAsStart();
     if (isMouseDown && isMovingTarget) {
-      node.setAsTarget();
-      paintInDistance(node.dist);
-      node.markShortestPath();
-      
-      console.log(node.dist);  
+      handleTargetMove(node);
     }
     if (isMouseDown && isMovingSecondTarget) node.setAsSecondTarget();
   };
@@ -60,6 +82,7 @@ const Board = () => {
   };
 
   const onMouseLeaveHandler = (node) => {
+    console.log("Leaving");
     if (!animating) return;
     if (
       isMovingStart ||
@@ -97,6 +120,7 @@ const Board = () => {
     removeVisualization();
     if (!animating) return;
     setIsAnimating(false);
+    setPrevAlgorithm(algorithm);
 
     let animations = [];
     switch (algorithm) {
@@ -107,7 +131,7 @@ const Board = () => {
         animations = DFS();
         break;
       case util.ASTAR:
-        animations = AStar();
+        animations = AStar(true);
         break;
       case util.DIJKSTRA:
         animations = Dijkstra();
@@ -141,9 +165,12 @@ const Board = () => {
     return animations;
   };
 
-  const AStar = () => {
+  const AStar = (withAnimation) => {
     const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
-    const animations = graph.aStar(startNode, targetNode);
+    console.log("Start", startNode);
+    console.log("target", targetNode);
+    console.log("Graph", graph);
+    const animations = graph.aStar(startNode, targetNode, withAnimation);
     return animations;
   };
 

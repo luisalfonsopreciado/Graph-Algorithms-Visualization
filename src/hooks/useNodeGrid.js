@@ -49,7 +49,18 @@ const useNodeGrid = () => {
     }
   };
 
-  return { nodeGrid, resetGrid, removeVisuals, paintInDistance };
+  const resetDistance = () => {
+    for (let row in nodeGrid) {
+      for (let col in nodeGrid[row]) {
+        nodeGrid[row][col].dist = Infinity;
+        if (!nodeGrid[row][col].isKeyValue()) {
+          nodeGrid[row][col].removeClasses();
+        }
+      }
+    }
+  };
+
+  return { nodeGrid, resetGrid, removeVisuals, paintInDistance, resetDistance };
 };
 
 export default useNodeGrid;
