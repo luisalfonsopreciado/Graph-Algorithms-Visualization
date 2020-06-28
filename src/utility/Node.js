@@ -9,6 +9,10 @@ export default class Node {
     this.f = null;
   }
 
+  removeClass(s) {
+    this.classes.remove(s);
+  }
+
   setClasses() {
     this.cell = document.getElementById(`${this.row} ${this.col}`);
     this.classes = this.cell.classList;
@@ -35,7 +39,7 @@ export default class Node {
 
   setAsSecondTarget() {
     this.classes.remove("Wall");
-    this.classes.add("SecondaryTarget")
+    this.classes.add("SecondaryTarget");
   }
 
   markSearched() {
@@ -43,12 +47,12 @@ export default class Node {
     this.classes.add("Searched");
   }
 
-  markSearched2(){
+  markSearched2() {
     if (this.isTarget()) return;
     this.classes.add("Searched2");
   }
 
-  markSearched2Done(){
+  markSearched2Done() {
     if (this.isTarget() || this.isStart()) return;
     this.classes.add("Searched2Done");
   }
@@ -62,8 +66,10 @@ export default class Node {
     this.dist = Infinity;
   }
 
-  removeClasses(){
-    this.classes.forEach(item => (item !== "Cell" && item !== "Wall") && this.classes.remove(item))
+  removeClasses() {
+    this.classes.forEach(
+      (item) => item !== "Cell" && item !== "Wall" && this.classes.remove(item)
+    );
   }
 
   reset() {
@@ -72,29 +78,20 @@ export default class Node {
     this.classes.remove("Searched");
     this.classes.remove("Searched2");
     this.classes.remove("SecondaryTarget");
-    this.classes.remove("Searched2Done")
+    this.classes.remove("Searched2Done");
     this.predecessor = null;
     this.dist = Infinity;
   }
 
-  clear() {
-    this.classes.remove("Target");
-    this.classes.remove("Filled");
-    this.classes.remove("SecondaryTarget");
-    this.classes.remove("Searched2")
-    this.classes.remove("Searched")
-    this.classes.remove("Searched2Done")
-  }
-
   isTarget() {
-    return this.classes.contains("Target")
+    return this.classes.contains("Target");
   }
 
   isStart() {
     return this.classes.contains("Filled");
   }
 
-  isSecondTarget(){
+  isSecondTarget() {
     return this.classes.contains("SecondaryTarget");
   }
 

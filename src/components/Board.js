@@ -57,7 +57,6 @@ const Board = () => {
   };
 
   const onMouseEnterHandler = (node) => {
-    console.log("Entering");
     if (!animating) return;
     if (settingSecondTarget) {
       node.setAsSecondTarget();
@@ -68,10 +67,10 @@ const Board = () => {
       !isMovingTarget &&
       !isMovingSecondTarget
     ) {
-      if(canPlaceWall) node.setWall();
+      if (canPlaceWall) node.setWall();
     }
-    if (isMouseDown && isMovingStart) node.setAsStart();
-    if (isMouseDown && isMovingTarget) {
+    if (isMouseDown && isMovingStart && !node.isTarget()) node.setAsStart();
+    if (isMouseDown && isMovingTarget && !node.isStart()) {
       handleTargetMove(node);
     }
     if (isMouseDown && isMovingSecondTarget) node.setAsSecondTarget();
@@ -87,7 +86,7 @@ const Board = () => {
       return setSettingSecondTarget(false);
     }
     if (!node.isKeyValue() && canPlaceWall) return node.setWall();
-    if (node.isStart()) return setIsMovingStart(true);
+    if (node.isStart() && canPlaceWall) return setIsMovingStart(true);
     if (node.isTarget()) return setIsMovingTarget(true);
     if (node.isSecondTarget()) return setIsMovingSecondTarget(true);
   };
@@ -99,8 +98,10 @@ const Board = () => {
       isMovingTarget ||
       settingSecondTarget ||
       isMovingSecondTarget
-    )
-      node.clear();
+    ) {
+      if (isMovingStart) node.removeClass("Filled");
+      if (isMovingTarget) node.removeClass("Target");
+    }
   };
 
   const onMouseUpHandler = () => {
