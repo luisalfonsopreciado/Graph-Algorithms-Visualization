@@ -24,7 +24,6 @@ export default class Node {
   }
 
   setAsTarget() {
-    this.classes.remove("Wall");
     this.classes.add("Target");
     this.markShortestPath();
   }

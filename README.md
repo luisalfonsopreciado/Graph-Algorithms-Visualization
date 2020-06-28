@@ -22,3 +22,5 @@ In addition, I implemented a recursive division maze generating algorithm.
 - You can move the target and start node at your leisure.
 
 - You can add walls by clicking on a valid cell.
+
+- Once the animation is complete, you can move the target node to further visualize the algorithm.

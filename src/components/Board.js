@@ -26,6 +26,7 @@ const Board = () => {
   const [hasSecondTarget, setHasSecondTarget] = useState(false);
   const [numTargets, setNumTargets] = useState(1);
   const [prevAlgorithm, setPrevAlgorithm] = useState(util.DIJKSTRA);
+  const [canPlaceWall, setCanPlaceWall] = useState(true);
 
   const handleTargetMove = (node) => {
     node.setAsTarget();
@@ -67,7 +68,7 @@ const Board = () => {
       !isMovingTarget &&
       !isMovingSecondTarget
     ) {
-      node.setWall();
+      if(canPlaceWall) node.setWall();
     }
     if (isMouseDown && isMovingStart) node.setAsStart();
     if (isMouseDown && isMovingTarget) {
@@ -85,14 +86,13 @@ const Board = () => {
       setHasSecondTarget(true);
       return setSettingSecondTarget(false);
     }
-    if (!node.isKeyValue()) return node.setWall();
+    if (!node.isKeyValue() && canPlaceWall) return node.setWall();
     if (node.isStart()) return setIsMovingStart(true);
     if (node.isTarget()) return setIsMovingTarget(true);
     if (node.isSecondTarget()) return setIsMovingSecondTarget(true);
   };
 
   const onMouseLeaveHandler = (node) => {
-    console.log("Leaving");
     if (!animating) return;
     if (
       isMovingStart ||
@@ -131,6 +131,7 @@ const Board = () => {
     if (!animating) return;
     setIsAnimating(false);
     setPrevAlgorithm(algorithm);
+    setCanPlaceWall(false);
 
     let animations = [];
     switch (algorithm) {
@@ -177,9 +178,6 @@ const Board = () => {
 
   const AStar = (withAnimation) => {
     const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
-    console.log("Start", startNode);
-    console.log("target", targetNode);
-    console.log("Graph", graph);
     const animations = graph.aStar(startNode, targetNode, withAnimation);
     return animations;
   };
@@ -196,6 +194,7 @@ const Board = () => {
 
   const clear = () => {
     if (!animating) return;
+    setCanPlaceWall(true);
     setHasSecondTarget(false);
     setPrevAlgorithm(null);
     resetGrid();
@@ -203,6 +202,7 @@ const Board = () => {
 
   const removeVisualization = () => {
     if (!animating) return;
+    setCanPlaceWall(true);
     setPrevAlgorithm(null);
     removeVisuals();
   };
