@@ -58,10 +58,7 @@ export default class Node {
   }
 
   removeVisuals() {
-    this.classes.remove("ShortestPath");
-    this.classes.remove("Searched");
-    this.classes.remove("Searched2");
-    this.classes.remove("Searched2Done");
+    this.remove(["ShortestPath", "Searched", "Searched2", "Searched2Done"])
     this.predecessor = null;
     this.dist = Infinity;
   }
@@ -73,12 +70,8 @@ export default class Node {
   }
 
   reset() {
-    this.classes.remove("ShortestPath");
-    this.classes.remove("Wall");
-    this.classes.remove("Searched");
-    this.classes.remove("Searched2");
-    this.classes.remove("SecondaryTarget");
-    this.classes.remove("Searched2Done");
+    this.remove(["ShortestPath", "Wall", "Searched"]);
+    this.remove(["Searched2", "SecondaryTarget", "Searched2Done"]);
     this.predecessor = null;
     this.dist = Infinity;
   }
@@ -109,13 +102,15 @@ export default class Node {
 
   markShortestPath() {
     if (!this.isTarget() && !this.isStart()) {
-      this.classes.remove("Searched");
-      this.classes.remove("Searched2");
-      this.classes.remove("Searched2Done");
+      this.remove(["Searched", "Searched2", "Searched2Done"]);
       this.classes.add("ShortestPath");
     }
     if (this.predecessor != null) {
       this.predecessor.markShortestPath();
     }
+  }
+
+  remove(classes) {
+    for (let i in classes) this.classes.remove(classes[i]);
   }
 }

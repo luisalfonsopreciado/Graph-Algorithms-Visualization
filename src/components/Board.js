@@ -8,7 +8,7 @@ import Navbar from "./Navigation/Toolbar/Toolbar";
 const ROWS_INIT = 20;
 const COLS_INIT = 50;
 
-const Board = () => {
+const Board = ({ openDialog }) => {
   const [algorithm, setAlgorithm] = useState(util.DIJKSTRA);
   const {
     nodeGrid,
@@ -258,6 +258,7 @@ const Board = () => {
   return (
     <div className="MainContainer">
       <Navbar
+        openDialog={openDialog}
         setAlgorithm={setAlgorithm}
         reset={clear}
         algorithm={algorithm}

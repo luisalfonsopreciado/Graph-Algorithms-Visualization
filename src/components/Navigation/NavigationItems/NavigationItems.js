@@ -9,14 +9,14 @@ const NavigationItems = ({
   setAlgorithm,
   reset,
   executeAlgorithm,
-  toggleShowModal,
   algorithm,
   mazeGen,
   settingSecondTarget,
+  openDialog,
   clear,
 }) => (
   <>
-    <NavigationItem clicked={toggleShowModal}>GRAPH ALGORITHMS</NavigationItem>
+    <NavigationItem clicked={openDialog}>GRAPH ALGORITHMS</NavigationItem>
     <Subnav title="Algorithms">
       <DropDown title={cts.DIJKSTRA}>
         <DropItem clicked={() => setAlgorithm(cts.DIJKSTRA)}>Select</DropItem>
