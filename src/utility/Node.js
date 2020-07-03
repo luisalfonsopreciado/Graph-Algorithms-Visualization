@@ -58,7 +58,7 @@ export default class Node {
   }
 
   removeVisuals() {
-    this.remove(["ShortestPath", "Searched", "Searched2", "Searched2Done"])
+    this.remove(["ShortestPath", "Searched", "Searched2", "Searched2Done"]);
     this.predecessor = null;
     this.dist = Infinity;
   }
@@ -94,8 +94,11 @@ export default class Node {
     for (let i in classes) this.classes.remove(classes[i]);
   }
 
-  is(name){
+  is(name) {
     return this.classes.contains(name);
   }
 
+  add(name) {
+    this.classes.add(name);
+  }
 }

@@ -29,8 +29,6 @@ const Board = ({ openDialog }) => {
   const [canPlaceWall, setCanPlaceWall] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  console.log(isDeleting);
-
   const handleTargetMove = (node) => {
     node.setAsTarget();
     switch (prevAlgorithm) {
@@ -213,35 +211,20 @@ const Board = ({ openDialog }) => {
   };
 
   const generateMaze = (type) => {
+    if (!animating) return;
+    clear();
+
     switch (type) {
       case util.RECURSIVE_DIVISON:
-        doRecursiveDivision();
+        util.recursiveDivision(nodeGrid);
         break;
       case util.DRAW_COUNTOUR:
-        doContour();
+        util.drawContourWalls(nodeGrid);
         break;
       default:
-        doRandomMaze();
+        util.randomMaze(nodeGrid);
         break;
     }
-  };
-
-  const doRandomMaze = () => {
-    if (!animating) return;
-    clear();
-    util.randomMaze(nodeGrid);
-  };
-
-  const doContour = () => {
-    if (!animating) return;
-    clear();
-    util.drawContourWalls(nodeGrid);
-  };
-
-  const doRecursiveDivision = () => {
-    if (!animating) return;
-    clear();
-    util.recursiveDivision(nodeGrid);
   };
 
   const animate = (animations) => {
@@ -257,7 +240,8 @@ const Board = ({ openDialog }) => {
 
       targetNum % 2 === 0 ? node.markSearched() : node.markSearched2();
 
-      (node.is("Target") || node.is("SecondaryTarget")) && node.markShortestPath();
+      (node.is("Target") || node.is("SecondaryTarget")) &&
+        node.markShortestPath();
 
       count++;
 
