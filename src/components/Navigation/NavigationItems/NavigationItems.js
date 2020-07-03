@@ -14,6 +14,7 @@ const NavigationItems = ({
   settingSecondTarget,
   openDialog,
   clear,
+  setDeleting
 }) => (
   <>
     <NavigationItem clicked={openDialog}>GRAPH ALGORITHMS</NavigationItem>
@@ -75,6 +76,17 @@ const NavigationItems = ({
         </DropItem>
       </DropDown>
     </Subnav>
+    <Subnav title="Draw">
+    <DropDown title="Options">
+        <DropItem clicked={() => setDeleting(true)}>
+          Delete Wall
+        </DropItem>
+        <DropItem clicked={() => setDeleting(false)}>
+          Draw Wall
+        </DropItem>
+      </DropDown>
+    </Subnav>
+   
     <NavigationItem clicked={() => settingSecondTarget(true)}>Add Second Target</NavigationItem>
     <NavigationItem clicked={reset}>Reset</NavigationItem>
     <NavigationItem clicked={clear}>Clear Visualization</NavigationItem>

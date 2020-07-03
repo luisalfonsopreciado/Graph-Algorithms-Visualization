@@ -3,7 +3,6 @@ import { drawContourWalls } from "./Contour";
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-
 export const recursiveDivision = async (grid) => {
   drawContourWalls(grid);
   const width = grid[0].length - 2; // Subtract 2 since we drew a contour

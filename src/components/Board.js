@@ -27,6 +27,9 @@ const Board = ({ openDialog }) => {
   const [numTargets, setNumTargets] = useState(1);
   const [prevAlgorithm, setPrevAlgorithm] = useState(util.DIJKSTRA);
   const [canPlaceWall, setCanPlaceWall] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  console.log(isDeleting);
 
   const handleTargetMove = (node) => {
     node.setAsTarget();
@@ -78,6 +81,7 @@ const Board = ({ openDialog }) => {
 
   const onMouseDownHandler = (node) => {
     if (!animating) return;
+    if (isDeleting) return node.remove(["Wall"]);
     setIsMouseDown(true);
     if (settingSecondTarget) {
       let num = numTargets;
@@ -267,6 +271,7 @@ const Board = ({ openDialog }) => {
   return (
     <div className="MainContainer">
       <Navbar
+        setDeleting={setIsDeleting}
         openDialog={openDialog}
         setAlgorithm={setAlgorithm}
         reset={clear}
