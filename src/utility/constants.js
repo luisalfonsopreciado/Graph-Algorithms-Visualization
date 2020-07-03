@@ -6,3 +6,4 @@ export const DFS = "Depth First Search"
 
 export const RAND_MAZE = "Random Maze"
 export const RECURSIVE_DIVISON = "Recursive Division"
+export const DRAW_COUNTOUR = "Contour Walls"

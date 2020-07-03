@@ -213,6 +213,9 @@ const Board = ({ openDialog }) => {
       case util.RECURSIVE_DIVISON:
         doRecursiveDivision();
         break;
+      case util.DRAW_COUNTOUR:
+        doContour();
+        break;
       default:
         doRandomMaze();
         break;
@@ -223,6 +226,12 @@ const Board = ({ openDialog }) => {
     if (!animating) return;
     clear();
     util.randomMaze(nodeGrid);
+  };
+
+  const doContour = () => {
+    if (!animating) return;
+    clear();
+    util.drawContourWalls(nodeGrid);
   };
 
   const doRecursiveDivision = () => {

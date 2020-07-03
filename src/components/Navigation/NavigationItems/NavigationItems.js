@@ -66,6 +66,14 @@ const NavigationItems = ({
           Learn More
         </DropItem>
       </DropDown>
+      <DropDown title={cts.DRAW_COUNTOUR}>
+        <DropItem clicked={() => mazeGen(cts.DRAW_COUNTOUR)}>
+          Generate
+        </DropItem>
+        <DropItem clicked={() => alert(cts.DRAW_COUNTOUR)}>
+          Learn More
+        </DropItem>
+      </DropDown>
     </Subnav>
     <NavigationItem clicked={() => settingSecondTarget(true)}>Add Second Target</NavigationItem>
     <NavigationItem clicked={reset}>Reset</NavigationItem>

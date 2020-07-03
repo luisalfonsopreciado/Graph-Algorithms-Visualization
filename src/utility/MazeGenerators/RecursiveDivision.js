@@ -1,5 +1,8 @@
+import { drawContourWalls } from "./Contour";
+
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
+
 
 export const recursiveDivision = async (grid) => {
   drawContourWalls(grid);
@@ -17,7 +20,7 @@ export const recursiveDivision = async (grid) => {
 };
 
 const divide = (col, row, width, height, orientation, prohibited) => {
-  if (width <= 2 || height <= 2 ) return;
+  if (width <= 2 || height <= 2) return;
 
   const horizontal = orientation === HORIZONTAL;
 
@@ -87,7 +90,6 @@ const drawWall = (
   length,
   prohibited
 ) => {
- 
   for (let i = 0; i < length; i++) {
     const row = startRow + (horizontal ? 0 : i);
     const col = startCol + (horizontal ? i : 0);
@@ -118,22 +120,6 @@ const chooseOrientation = (width, height) => {
   return VERTICAL;
 };
 
-const drawContourWalls = (grid) => {
-  for (let i = 0; i < grid.length; i++) {
-    let classes = document.getElementById(`${i} ${0}`).classList;
-    classes.add("Wall");
-    classes = document.getElementById(`${i} ${grid[i].length - 1}`).classList;
-    classes.add("Wall");
-  }
-
-  for (let j = 0; j < grid[0].length; j++) {
-    let classes = document.getElementById(`${0} ${j}`).classList;
-    classes.add("Wall");
-    classes = document.getElementById(`${grid.length - 1} ${j}`).classList;
-    classes.add("Wall");
-  }
-};
-
 const updateProhibitedCells = (row, col, horizontal, prohibited) => {
   if (!horizontal) {
     prohibited.push([row, col + 1]);
@@ -153,4 +139,4 @@ const isProhibitedCoord = (row, col, prohibited) => {
 
 const isBorder = (row, col) => {
   return row === 0 || row === 19 || col === 0 || col === 49;
-}
+};
