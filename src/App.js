@@ -21,6 +21,7 @@ function App() {
     <div className={classes.App}>
       <Board openDialog={handleDialogOpen}/>
       <CustomDialog
+        title="Welcome"
         isOpen={isOpen}
         handleClose={handleDialogClose}
         className={classes.customDialog}

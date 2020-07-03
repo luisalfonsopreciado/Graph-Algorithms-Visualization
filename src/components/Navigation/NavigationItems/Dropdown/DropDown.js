@@ -3,11 +3,11 @@ import "./DropDown.css";
 
 const DropDown = ({ children, clicked, moreInfo, title }) => {
   return (
-    <div class="dropdown">
-      <button class="dropbtn">
+    <div className="dropdown">
+      <button className="dropbtn">
         {title}
       </button>
-      <div class="dropdown-content">
+      <div className="dropdown-content">
         {children}
       </div>
     </div>

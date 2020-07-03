@@ -3,9 +3,9 @@ import "./Subnav.css";
 
 const Subnav = ({ children, title }) => {
   return (
-    <div class="subnav">
-      <button class="subnavbtn">{title}</button>
-      <div class="subnav-content">{children}</div>
+    <div className="subnav">
+      <button className="subnavbtn">{title}</button>
+      <div className="subnav-content">{children}</div>
     </div>
   );
 };

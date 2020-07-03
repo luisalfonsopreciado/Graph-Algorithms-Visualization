@@ -93,6 +93,10 @@
   animation-play-state: running;
 }
 
+.Red{
+  background-color: red;
+}
+
 .Searched2Done{
   background-color: rgb(125, 29, 189);
 }

@@ -24,7 +24,7 @@ export const CustomDialog = ({
         fullWidth
         maxWidth="md"
         open={isOpen}
-        onclose={handleClose}
+        onClose={handleClose}
         aria-labelledby="max-width-dialog-title"
       >
         <DialogTitle id="max-width-dialog-title">{title}</DialogTitle>
