@@ -2,7 +2,7 @@ import { Graph } from "./index";
 
 const getNeighbors = (grid, row, col) => {
   const cellNotInGraph = (row, col) => {
-    return grid[row][col].isWall();
+    return grid[row][col].is("Wall");
   };
 
   if (cellNotInGraph(row, col)) return [];
@@ -57,9 +57,9 @@ export const generateGraph = (nodesGrid) => {
     for (let col = 0; col < nodesGrid[row].length; col++) {
       const currentNode = nodesGrid[row][col];
 
-      if (!currentNode.isWall()) {
-        if (currentNode.isStart()) startNode = currentNode;
-        if(currentNode.isTarget()) targetNode = currentNode;
+      if (!currentNode.is("Wall")) {
+        if (currentNode.is("Start")) startNode = currentNode;
+        if(currentNode.is("Target")) targetNode = currentNode;
         const neighbors = getNeighbors(nodesGrid, row, col);
 
         for (let i in neighbors) {

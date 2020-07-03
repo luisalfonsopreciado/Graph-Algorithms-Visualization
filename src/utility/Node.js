@@ -34,7 +34,7 @@ export default class Node {
 
   setAsStart() {
     this.classes.remove("Wall");
-    this.classes.add("Filled");
+    this.classes.add("Start");
   }
 
   setAsSecondTarget() {
@@ -43,17 +43,17 @@ export default class Node {
   }
 
   markSearched() {
-    if (this.isTarget()) return;
+    if (this.is("Target")) return;
     this.classes.add("Searched");
   }
 
   markSearched2() {
-    if (this.isTarget()) return;
+    if (this.is("Target")) return;
     this.classes.add("Searched2");
   }
 
   markSearched2Done() {
-    if (this.isTarget() || this.isStart()) return;
+    if (this.is("Target") || this.is("Start")) return;
     this.classes.add("Searched2Done");
   }
 
@@ -76,32 +76,12 @@ export default class Node {
     this.dist = Infinity;
   }
 
-  isTarget() {
-    return this.classes.contains("Target");
-  }
-
-  isStart() {
-    return this.classes.contains("Filled");
-  }
-
-  isSecondTarget() {
-    return this.classes.contains("SecondaryTarget");
-  }
-
   isKeyValue() {
-    return this.isTarget() || this.isStart() || this.isSecondTarget();
-  }
-
-  isWall() {
-    return this.classes.contains("Wall");
-  }
-
-  isPartOfGraph() {
-    return !this.isWall();
+    return this.is("Target") || this.is("Start") || this.is("SecondaryTarget");
   }
 
   markShortestPath() {
-    if (!this.isTarget() && !this.isStart()) {
+    if (!this.is("Target") && !this.is("Start")) {
       this.remove(["Searched", "Searched2", "Searched2Done"]);
       this.classes.add("ShortestPath");
     }
@@ -113,4 +93,9 @@ export default class Node {
   remove(classes) {
     for (let i in classes) this.classes.remove(classes[i]);
   }
+
+  is(name){
+    return this.classes.contains(name);
+  }
+
 }

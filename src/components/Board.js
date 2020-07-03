@@ -72,8 +72,8 @@ const Board = ({ openDialog }) => {
     ) {
       if (canPlaceWall) node.setWall();
     }
-    if (isMouseDown && isMovingStart && !node.isTarget()) node.setAsStart();
-    if (isMouseDown && isMovingTarget && !node.isStart()) {
+    if (isMouseDown && isMovingStart && !node.is("Target")) node.setAsStart();
+    if (isMouseDown && isMovingTarget && !node.is("Start")) {
       handleTargetMove(node);
     }
     if (isMouseDown && isMovingSecondTarget) node.setAsSecondTarget();
@@ -90,9 +90,9 @@ const Board = ({ openDialog }) => {
       return setSettingSecondTarget(false);
     }
     if (!node.isKeyValue() && canPlaceWall) return node.setWall();
-    if (node.isStart() && canPlaceWall) return setIsMovingStart(true);
-    if (node.isTarget()) return setIsMovingTarget(true);
-    if (node.isSecondTarget()) return setIsMovingSecondTarget(true);
+    if (node.is("Start") && canPlaceWall) return setIsMovingStart(true);
+    if (node.is("Target")) return setIsMovingTarget(true);
+    if (node.is("SecondaryTarget")) return setIsMovingSecondTarget(true);
   };
 
   const onMouseLeaveHandler = (node) => {
@@ -103,7 +103,7 @@ const Board = ({ openDialog }) => {
       settingSecondTarget ||
       isMovingSecondTarget
     ) {
-      if (isMovingStart) node.removeClass("Filled");
+      if (isMovingStart) node.removeClass("Start");
       if (isMovingTarget) node.removeClass("Target");
     }
   };
@@ -257,7 +257,7 @@ const Board = ({ openDialog }) => {
 
       targetNum % 2 === 0 ? node.markSearched() : node.markSearched2();
 
-      (node.isTarget() || node.isSecondTarget()) && node.markShortestPath();
+      (node.is("Target") || node.is("SecondaryTarget")) && node.markShortestPath();
 
       count++;
 

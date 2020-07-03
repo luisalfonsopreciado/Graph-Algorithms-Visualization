@@ -11,7 +11,7 @@ const Cell = ({ node, onMouseEnter, onMouseDown, onMouseLeave, onMouseUp }) => {
   }, [node]);
 
   if (node.row === 10 && node.col === 10) {
-    classes.push("Filled");
+    classes.push("Start");
   }
   if (node.row === 10 && node.col === 30) {
     classes.push("Target");

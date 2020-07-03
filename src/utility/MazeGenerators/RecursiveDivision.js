@@ -3,22 +3,37 @@ import { drawContourWalls } from "./Contour";
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-export const recursiveDivision = async (grid) => {
+export const recursiveDivision = (grid) => {
   drawContourWalls(grid);
   const width = grid[0].length - 2; // Subtract 2 since we drew a contour
   const height = grid.length - 2;
   let prohibitedCells = [];
-  divide(
-    1,
-    1,
+  let corners = [];
+  corners.push({
+    row: 1,
+    col: 1,
     width,
     height,
-    chooseOrientation(width, height),
-    prohibitedCells
-  );
+    orientation: chooseOrientation(width, height),
+    prohibited: prohibitedCells,
+    corners: corners,
+  });
+
+  while (corners.length !== 0) {
+    const corner = corners.shift();
+    const {
+      row,
+      col,
+      width,
+      height,
+      orientation,
+      prohibited,
+    } = corner;
+    divide(row, col, width, height, orientation, prohibited, corners);
+  }
 };
 
-const divide = (col, row, width, height, orientation, prohibited) => {
+const divide = (col, row, width, height, orientation, prohibited, corners) => {
   if (width <= 2 || height <= 2) return;
 
   const horizontal = orientation === HORIZONTAL;
@@ -55,29 +70,29 @@ const divide = (col, row, width, height, orientation, prohibited) => {
 
   let newwidth = horizontal ? width : whereCol - col;
   let newheight = horizontal ? whereRow - row : height;
-  divide(
-    newCol,
-    newRow,
-    newwidth,
-    newheight,
-    chooseOrientation(newwidth, newheight),
-    prohibited
-  );
+  
+  corners.push({
+    col: newCol,
+    row: newRow,
+    height: newheight,
+    width: newwidth,
+    orientation: chooseOrientation(newwidth, newheight),
+    prohibited,
+  });
 
   let newCol2 = horizontal ? col : whereCol + 1;
   let newRow2 = horizontal ? whereRow + 1 : row;
 
   let newwidth2 = horizontal ? width : col + width - whereCol - 1;
   let newheight2 = horizontal ? row + height - whereRow - 1 : height;
-
-  divide(
-    newCol2,
-    newRow2,
-    newwidth2,
-    newheight2,
-    chooseOrientation(newwidth2, newheight2),
-    prohibited
-  );
+  corners.push({
+    col: newCol2,
+    row: newRow2,
+    height: newheight2,
+    width: newwidth2,
+    orientation: chooseOrientation(newwidth2, newheight2),
+    prohibited,
+  });
 };
 
 const drawWall = (
@@ -98,7 +113,7 @@ const drawWall = (
     if (
       cell &&
       !cell.classList.contains("Target") &&
-      !cell.classList.contains("Filled") &&
+      !cell.classList.contains("Start") &&
       !isProhibitedCoord(row, col, prohibited)
     ) {
       cell.classList.add("Wall");

@@ -148,7 +148,7 @@ export class Graph {
           //reference parent
           adjacentNode.predecessor = currentNode;
           adjacentNode.dist = d;
-          if (adjacentNode.isTarget() || adjacentNode.isSecondTarget())
+          if (adjacentNode.is("Target") || adjacentNode.is("SecondaryTarget"))
             if (hasSecond) {
               this.dijkstra(adjacentNode, animations);
             } else {
@@ -197,7 +197,7 @@ export class Graph {
           //reference parent
           adjacentNode.predecessor = currentNode;
           adjacentNode.dist = d;
-          if (adjacentNode.isTarget()) {
+          if (adjacentNode.is("Target")) {
             if (!withAnimation) adjacentNode.markShortestPath();
             return animations;
           }
@@ -250,7 +250,7 @@ export class Graph {
           //reference parent
           adjacentNode.predecessor = currentNode;
           adjacentNode.dist = d;
-          if (adjacentNode.isTarget()) {
+          if (adjacentNode.is("Target")) {
             if (!withAnimation) adjacentNode.markShortestPath();
             return animations;
           }

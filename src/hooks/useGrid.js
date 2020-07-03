@@ -50,7 +50,7 @@ const useGrid = (numRows, numCols, startRow, startCol) => {
         const cell = document.getElementById(`${row} ${col}`);
         if (
           !cell.classList.contains("Target") &&
-          !cell.classList.contains("Filled")
+          !cell.classList.contains("Start")
         ) {
           cell.classList = ["Cell"];
         }
