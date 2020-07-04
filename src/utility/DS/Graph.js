@@ -160,8 +160,8 @@ export class Graph {
   }
 
   aStar(startNode, targetNode, withAnimation) {
-    if(targetNode === null) return;
-    
+    if (targetNode === null) return;
+
     const animations = [];
 
     const heap = new MinHeap((item) => item.f);
@@ -173,12 +173,11 @@ export class Graph {
     heap.print();
 
     while (!heap.isEmpty()) {
-      console.log(heap);
       const currentNode = heap.pop();
 
       var currentdist = currentNode.dist;
       var adj = this.AdjList.get(currentNode); // get neighbors
-      console.log(adj);
+
       //for each of its adjacent nodes...
       for (var a in adj) {
         const adjacentNode = adj[a];
@@ -187,10 +186,8 @@ export class Graph {
         var d = 1 + currentdist;
 
         if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
-          if (!withAnimation) {
-            console.log("Got here");
-            adjacentNode.markSearched2Done();
-          }
+          if (!withAnimation) adjacentNode.markSearched2Done();
+
           animations.push(adjacentNode);
           this.manhattanDistance(adjacentNode, targetNode);
           heap.push(adjacentNode);
@@ -216,7 +213,7 @@ export class Graph {
   }
 
   bestFirstSearch(startNode, targetNode, withAnimation) {
-    if(targetNode === null) return;
+    if (targetNode === null) return;
     const animations = [];
 
     const heap = new MinHeap((item) => item.f);
@@ -269,5 +266,30 @@ export class Graph {
     );
     node.h = Math.floor(h);
     node.f = node.g + node.h;
+  }
+
+  dStar(startNode, targetNode) {
+    const queue = new Queue();
+    const animations = [];
+
+    targetNode.dist = 0;
+    queue.enqueue(targetNode);
+
+    while (!queue.isEmpty()) {
+      const currentNode = queue.dequeue();
+      const adj = this.AdjList.get(currentNode); // get neighbors
+      for (let neighbor of adj) {
+        const dist = 1 + currentNode.dist;
+        if (dist < neighbor.dist) {
+          animations.push(neighbor);
+          neighbor.dist = dist;
+          neighbor.predecessor = currentNode;
+          if (neighbor === startNode) return animations;
+          queue.enqueue(neighbor);
+        }
+      }
+    }
+
+    return animations;
   }
 }

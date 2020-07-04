@@ -4,9 +4,28 @@ import { CustomDialog } from "./components/UI/CustomDialog/CustomDialog";
 import Paper from "@material-ui/core/Paper";
 import classes from "./App.module.css";
 import Footer from "./components/Footer/Footer";
+import configureAlgorithmStore from "./hooks-store/algorithm";
+import { useStore } from "./hooks-store/store";
+import marked from "marked";
+configureAlgorithmStore();
 
 function App() {
   const [isOpen, setIsOpen] = useState(true);
+  const [markdown, setMarkdown] = useState(null);
+  const [state] = useStore();
+
+  console.log(state);
+  useEffect(() => {
+    const getMarkdown = async () => {
+      const info = await import(`./info/${state.algorithm}.md`);
+      const res = await fetch(info.default);
+      const text = await res.text();
+      const markdown = marked(text);
+      setMarkdown(markdown);
+    };
+    getMarkdown();
+  }, [state.algorithm]);
+
   useEffect(() => {
     handleDialogOpen();
   }, []);
@@ -18,6 +37,7 @@ function App() {
   const handleDialogClose = () => {
     setIsOpen(false);
   };
+
   return (
     <>
       <div className={classes.App}>
@@ -39,6 +59,9 @@ function App() {
             <p>For a better Experience, Use use browser to full width</p>
           </Paper>
         </CustomDialog>
+      </div>
+      <div>
+        <article dangerouslySetInnerHTML={{ __html: markdown }}></article>
       </div>
       <Footer />
     </>

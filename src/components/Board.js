@@ -4,12 +4,13 @@ import * as util from "../utility/index";
 import "./Board.css";
 import useNodeGrid from "../hooks/useNodeGrid";
 import Navbar from "./Navigation/Toolbar/Toolbar";
+import { useStore } from "../hooks-store/store";
 
 const ROWS_INIT = 20;
 const COLS_INIT = 50;
 
 const Board = ({ openDialog }) => {
-  const [algorithm, setAlgorithm] = useState(util.DIJKSTRA);
+  const { algorithm } = useStore()[0];
   const {
     nodeGrid,
     resetGrid,
@@ -153,6 +154,9 @@ const Board = ({ openDialog }) => {
       case util.GREEDY_BFS:
         animations = bestFirstSearch(true);
         break;
+      case util.DSTAR:
+        animations = DStar();
+        break;
       default:
         animations = BFS();
         break;
@@ -182,6 +186,13 @@ const Board = ({ openDialog }) => {
   const AStar = (withAnimation) => {
     const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
     const animations = graph.aStar(startNode, targetNode, withAnimation);
+    return animations;
+  };
+
+  const DStar = () => {
+    const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
+    console.log(startNode);
+    const animations = graph.dStar(startNode, targetNode);
     return animations;
   };
 
@@ -257,7 +268,6 @@ const Board = ({ openDialog }) => {
       <Navbar
         setDeleting={setIsDeleting}
         openDialog={openDialog}
-        setAlgorithm={setAlgorithm}
         reset={clear}
         algorithm={algorithm}
         executeAlgorithm={executeAlgorithm}

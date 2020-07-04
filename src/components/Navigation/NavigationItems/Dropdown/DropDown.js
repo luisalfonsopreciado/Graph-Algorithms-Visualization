@@ -1,7 +1,7 @@
 import React from "react";
 import "./DropDown.css";
 
-const DropDown = ({ children, clicked, moreInfo, title }) => {
+const DropDown = ({ children, title }) => {
   return (
     <div className="dropdown">
       <button className="dropbtn">
