@@ -1,6 +1,7 @@
 .Cell{
   width: 25px;
   height: 25px;
+  background-color: rgb(226, 226, 226);
   border-top: 1px solid black;
   border-left: 1px solid black;
 }
@@ -83,7 +84,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  animation-name: visitedAnimation2;
+  animation-name: visitedAnimation;
   animation-duration: 2s;
   animation-timing-function: ease-out;
   animation-delay: 0;
@@ -98,7 +99,7 @@
 }
 
 .Searched2Done{
-  background-color: rgb(125, 29, 189);
+  background-color: rgb(11, 122, 170);
 }
 
 .FinalSearched {
@@ -113,39 +114,17 @@
   }
 
   50% {
-    background-color: rgba(132, 150, 174, 0.75);
+    background-color: rgb(148, 191, 210);
   }
 
   75% {
     transform: scale(1.2);
-    background-color: rgba(55, 162, 233, 0.75);
+    background-color: rgb(46, 102, 126);
   }
 
   100% {
     transform: scale(1);
-    background-color: lightseagreen;
-  }
-}
-
-@keyframes visitedAnimation2 {
-  0% {
-    transform: scale(0.3);
-    background-color: rgba(41, 41, 107, 0.75);
-    border-radius: 100%;
-  }
-
-  50% {
-    background-color: rgba(181, 159, 199, 0.75);
-  }
-
-  75% {
-    transform: scale(1.2);
-    background-color: rgba(158, 95, 216, 0.75);
-  }
-
-  100% {
-    transform: scale(1);
-    background-color: rgb(125, 29, 189);
+    background-color: rgb(11, 122, 170);
   }
 }
 

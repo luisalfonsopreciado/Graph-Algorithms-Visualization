@@ -15,7 +15,7 @@
   }
   
   .navbar p:hover, .dropdown:hover .dropbtn {
-    background-color: red;
+    background-color: rgba(176, 196, 222, 0.796);
     
   }
   

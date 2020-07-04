@@ -1,6 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Heebo&display=swap");
 * {
+  margin: 0;
   box-sizing: border-box;
-  margin: 0px;
-  font-family: "Heebo", sans-serif;
 }

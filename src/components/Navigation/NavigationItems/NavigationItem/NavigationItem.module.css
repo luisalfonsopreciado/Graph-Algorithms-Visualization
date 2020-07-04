@@ -15,7 +15,7 @@
 }
 
 .navbar p:hover, .NavigationItem:hover .Btn {
-  background-color: red;
+  background-color: rgba(176, 196, 222, 0.796);
   
 }
 

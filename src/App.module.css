@@ -1,7 +1,8 @@
 .App {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
@@ -18,5 +19,3 @@
   min-width: 1200px;
   padding-bottom: 10px;
 }
-
-

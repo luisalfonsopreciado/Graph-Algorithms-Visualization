@@ -24,32 +24,32 @@ export default class Node {
 
   setWall() {
     if (this.isKeyValue()) return;
-    this.classes.add("Wall");
+    this.add("Wall");
   }
 
   setAsTarget() {
-    this.classes.add("Target");
+    this.add("Target");
     this.markShortestPath();
   }
 
   setAsSecondTarget() {
-    this.classes.remove("Wall");
-    this.classes.add("SecondaryTarget");
+    this.remove("Wall");
+    this.add("SecondaryTarget");
   }
 
   markSearched() {
     if (this.is("Target")) return;
-    this.classes.add("Searched");
+    this.add("Searched");
   }
 
   markSearched2() {
     if (this.is("Target")) return;
-    this.classes.add("Searched2");
+    this.add("Searched2");
   }
 
   markSearched2Done() {
     if (this.is("Target") || this.is("Start")) return;
-    this.classes.add("Searched2Done");
+    this.add("Searched2Done");
   }
 
   removeVisuals() {
@@ -78,7 +78,7 @@ export default class Node {
   markShortestPath() {
     if (!this.is("Target") && !this.is("Start")) {
       this.remove(["Searched", "Searched2", "Searched2Done"]);
-      this.classes.add("ShortestPath");
+      this.add("ShortestPath");
     }
     if (this.predecessor != null) {
       this.predecessor.markShortestPath();

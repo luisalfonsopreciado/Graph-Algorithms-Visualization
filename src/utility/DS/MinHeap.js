@@ -16,36 +16,20 @@ export class MinHeap {
 
     if (parentIndex < 0) parentIndex = 0;
 
-    // console.log("ParentIndex", parentIndex);
-
     let parentVal = this.selector(this.items[parentIndex]);
     const pushedVal = this.selector(this.items[i]);
 
-    // console.log("ParentVal, parentIndex:", parentVal, parentIndex);
-    // console.log("PushedVal", pushedVal);
-
     while (i > 0 && parentVal > pushedVal) {
       parentIndex = Math.floor((i + 1) / 2 - 1);
-      // console.log(
-      //   "INSIDE LOOP ParentVal, parentIndex:",
-      //   parentVal,
-      //   parentIndex
-      // );
 
       this.swap(i, parentIndex);
 
       i = parentIndex;
-      // console.log(
-      //   "New INSIDE LOOP parentIndex:",
-      //   Math.max(Math.floor((i + 1) / 2 - 1), 0)
-      // );
 
       parentVal = this.selector(
         this.items[Math.max(Math.floor((i + 1) / 2 - 1), 0)]
       );
     }
-
-    // this.print();
   }
 
   swap(i, j) {
@@ -55,23 +39,16 @@ export class MinHeap {
   }
 
   pop() {
-    // console.log("Items before pop:", this.items);
     if (this.items.length <= 1) return this.items.pop(); //If it is the last element pop it
     const ret = this.items[0]; // What we will return
     let temp = this.items.pop();
     this.items[0] = temp; // Place last element in array at front
 
-    // console.log("Items after pop:", this.items); // Good till here
     let i = 0; // We adjust heap from top to down
 
     while (true) {
       let rightChildIndex = (i + 1) * 2;
       let leftChildIndex = (i + 1) * 2 - 1;
-
-      // console.log("rightIndex", rightChildIndex);
-      // console.log("rightValue", this.items[rightChildIndex]);
-      // console.log("leftIndex", leftChildIndex);
-      // console.log("leftValue", this.items[leftChildIndex]);
       let lowest = rightChildIndex;
 
       if (
@@ -143,53 +120,3 @@ export class MinHeap {
     }
   }
 }
-
-// const heap = new MinHeap((x) => x.dist);
-// heap.heapify([6, 3, 6, 9, 43, 0, 8, 0, 8]);
-// console.log(heap);
-// console.log(heap.isEmpty());
-
-// heap.heapify([1, 2, 7, 4, 8, 0, 4, 2, 7, 3]);
-
-// heap.heapify([
-//   { dist: 1 },
-//   { dist: 2 },
-//   { dist: 7 },
-//   { dist: 4 },
-//   { dist: 8 },
-//   { dist: 0 },
-//   { dist: 4 },
-//   { dist: 2 },
-//   { dist: 7 },
-//   { dist: 3 },
-// ]);
-
-// heap.heapify([
-//   { dist: 1 },
-//   { dist: 2 },
-//   { dist: 7 },
-//   { dist: 4 },
-//   { dist: 8 },
-//   { dist: 0 },
-//   { dist: 4 },
-//   { dist: 2 },
-//   { dist: 7 },
-//   { dist: 3 },
-//   { dist: 23 },
-//   { dist: 200 },
-//   { dist: -1 },
-// ]);
-
-// heap.print();
-// // const a = heap.pop()
-// // heap.pop()
-// // heap.pop()
-
-// console.log(heap.items);
-
-// while (!heap.isEmpty()) {
-//   // console.log("Length", heap.items.length);
-//   const a = heap.pop();
-//   console.log("Value:", a);
-//   // console.log("Length", heap.items.length);
-// }

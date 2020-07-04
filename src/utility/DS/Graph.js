@@ -66,7 +66,6 @@ export class Graph {
       var getQueueElement = q.dequeue();
 
       // passing the current vertex to callback funtion
-      // console.log(getQueueElement);
 
       // get the adjacent list for current vertex
       var get_List = this.AdjList.get(getQueueElement);
@@ -162,7 +161,7 @@ export class Graph {
 
   aStar(startNode, targetNode, withAnimation) {
     if(targetNode === null) return;
-    !withAnimation && console.log("NO ANIMATION");
+    
     const animations = [];
 
     const heap = new MinHeap((item) => item.f);

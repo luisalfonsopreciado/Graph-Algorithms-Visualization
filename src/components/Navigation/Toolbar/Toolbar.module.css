@@ -1,18 +1,6 @@
 .Toolbar {
   overflow: hidden;
-  background-color: rgb(8, 42, 57);
-  width: 100%;
+  background-color: rgb(24, 54, 94);
+  min-width: 1300px;
 }
-.Toolbar a {
-    float: left;
-    font-size: 16px;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-
-.Toolbar a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
-  }
 

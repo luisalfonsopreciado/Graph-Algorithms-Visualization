@@ -5,10 +5,7 @@ const Cell = ({ node, onMouseEnter, onMouseDown, onMouseLeave, onMouseUp }) => {
   let classes = ["Cell"];
   let icon = null;
 
-  useEffect(() => {
-    console.log("Cell UseEffect");
-    node.setClasses();
-  }, [node]);
+  useEffect(() => node.setClasses(), [node]);
 
   if (node.row === 10 && node.col === 10) {
     classes.push("Start");

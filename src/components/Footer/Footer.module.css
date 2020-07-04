@@ -1,0 +1,23 @@
+.Footer {
+    min-width: 1300px;
+    height: 60px;
+    background-color:  rgb(24, 54, 94);
+}
+.Icons{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+
+}
+.IconContainer{
+   padding: 10px;
+   width: 100%;
+   height: 100%
+
+}
+.FooterTitle{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    color: white;
+}

@@ -17,7 +17,7 @@ const NavigationItems = ({
   setDeleting
 }) => (
   <>
-    <NavigationItem clicked={openDialog}>GRAPH ALGORITHMS</NavigationItem>
+    <NavigationItem clicked={openDialog}>ABOUT</NavigationItem>
     <Subnav title="Algorithms">
       <DropDown title={cts.DIJKSTRA}>
         <DropItem clicked={() => setAlgorithm(cts.DIJKSTRA)}>Select</DropItem>
@@ -87,10 +87,10 @@ const NavigationItems = ({
       </DropDown>
     </Subnav>
    
-    <NavigationItem clicked={() => settingSecondTarget(true)}>Add Second Target</NavigationItem>
+    {/* <NavigationItem clicked={() => settingSecondTarget(true)}>Add Second Target</NavigationItem> */}
     <NavigationItem clicked={reset}>Reset</NavigationItem>
     <NavigationItem clicked={clear}>Clear Visualization</NavigationItem>
-    <NavigationItem clicked={executeAlgorithm}>
+    <NavigationItem clicked={executeAlgorithm} style={{color: "red"}}>
       Visualize {algorithm}!
     </NavigationItem>
   </>

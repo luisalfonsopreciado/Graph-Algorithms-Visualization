@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Cell from "./Cell";
+import Cell from "./Cell/Cell";
 import * as util from "../utility/index";
 import "./Board.css";
 import useNodeGrid from "../hooks/useNodeGrid";
@@ -253,7 +253,7 @@ const Board = ({ openDialog }) => {
   };
 
   return (
-    <div className="MainContainer">
+    <>
       <Navbar
         setDeleting={setIsDeleting}
         openDialog={openDialog}
@@ -275,7 +275,7 @@ const Board = ({ openDialog }) => {
       >
         {Grid}
       </div>
-    </div>
+    </>
   );
 };
 
