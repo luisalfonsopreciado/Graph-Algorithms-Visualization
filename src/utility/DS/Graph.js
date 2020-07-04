@@ -161,6 +161,7 @@ export class Graph {
   }
 
   aStar(startNode, targetNode, withAnimation) {
+    if(targetNode === null) return;
     !withAnimation && console.log("NO ANIMATION");
     const animations = [];
 
@@ -216,6 +217,7 @@ export class Graph {
   }
 
   bestFirstSearch(startNode, targetNode, withAnimation) {
+    if(targetNode === null) return;
     const animations = [];
 
     const heap = new MinHeap((item) => item.f);

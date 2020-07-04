@@ -70,7 +70,7 @@ const Board = ({ openDialog }) => {
     ) {
       if (canPlaceWall) node.setWall();
     }
-    if (isMouseDown && isMovingStart && !node.is("Target")) node.setAsStart();
+    if (isMouseDown && isMovingStart && !node.is("Target")) node.add("Start");
     if (isMouseDown && isMovingTarget && !node.is("Start")) {
       handleTargetMove(node);
     }

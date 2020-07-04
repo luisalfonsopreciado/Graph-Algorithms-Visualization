@@ -32,11 +32,6 @@ export default class Node {
     this.markShortestPath();
   }
 
-  setAsStart() {
-    this.classes.remove("Wall");
-    this.classes.add("Start");
-  }
-
   setAsSecondTarget() {
     this.classes.remove("Wall");
     this.classes.add("SecondaryTarget");
