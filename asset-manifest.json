@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/Graph-Algorithms-Visualization/static/css/main.931dd20e.chunk.css",
-    "main.js": "/Graph-Algorithms-Visualization/static/js/main.821bd700.chunk.js",
-    "main.js.map": "/Graph-Algorithms-Visualization/static/js/main.821bd700.chunk.js.map",
+    "main.css": "/Graph-Algorithms-Visualization/static/css/main.d0322481.chunk.css",
+    "main.js": "/Graph-Algorithms-Visualization/static/js/main.1172070f.chunk.js",
+    "main.js.map": "/Graph-Algorithms-Visualization/static/js/main.1172070f.chunk.js.map",
     "runtime-main.js": "/Graph-Algorithms-Visualization/static/js/runtime-main.e69b6c27.js",
     "runtime-main.js.map": "/Graph-Algorithms-Visualization/static/js/runtime-main.e69b6c27.js.map",
-    "static/js/2.9fecf84b.chunk.js": "/Graph-Algorithms-Visualization/static/js/2.9fecf84b.chunk.js",
-    "static/js/2.9fecf84b.chunk.js.map": "/Graph-Algorithms-Visualization/static/js/2.9fecf84b.chunk.js.map",
+    "static/js/2.4d9a2b34.chunk.js": "/Graph-Algorithms-Visualization/static/js/2.4d9a2b34.chunk.js",
+    "static/js/2.4d9a2b34.chunk.js.map": "/Graph-Algorithms-Visualization/static/js/2.4d9a2b34.chunk.js.map",
     "index.html": "/Graph-Algorithms-Visualization/index.html",
-    "precache-manifest.848ebc50e66bd387fbb78237230b8cb1.js": "/Graph-Algorithms-Visualization/precache-manifest.848ebc50e66bd387fbb78237230b8cb1.js",
+    "precache-manifest.a0f7cfdac1803875efe308a444549fc8.js": "/Graph-Algorithms-Visualization/precache-manifest.a0f7cfdac1803875efe308a444549fc8.js",
     "service-worker.js": "/Graph-Algorithms-Visualization/service-worker.js",
-    "static/css/main.931dd20e.chunk.css.map": "/Graph-Algorithms-Visualization/static/css/main.931dd20e.chunk.css.map",
-    "static/js/2.9fecf84b.chunk.js.LICENSE.txt": "/Graph-Algorithms-Visualization/static/js/2.9fecf84b.chunk.js.LICENSE.txt",
+    "static/css/main.d0322481.chunk.css.map": "/Graph-Algorithms-Visualization/static/css/main.d0322481.chunk.css.map",
+    "static/js/2.4d9a2b34.chunk.js.LICENSE.txt": "/Graph-Algorithms-Visualization/static/js/2.4d9a2b34.chunk.js.LICENSE.txt",
     "static/media/Cell.css": "/Graph-Algorithms-Visualization/static/media/target.f4350bfb.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.e69b6c27.js",
-    "static/js/2.9fecf84b.chunk.js",
-    "static/css/main.931dd20e.chunk.css",
-    "static/js/main.821bd700.chunk.js"
+    "static/js/2.4d9a2b34.chunk.js",
+    "static/css/main.d0322481.chunk.css",
+    "static/js/main.1172070f.chunk.js"
   ]
 }
