@@ -15,6 +15,7 @@ const NavigationItems = ({
   openDialog,
   clear,
   setDeleting,
+  setAddingWeight
 }) => {
   const dispatch = useStore(false)[1];
   return (
@@ -100,6 +101,10 @@ const NavigationItems = ({
         <DropDown title="Options">
           <DropItem clicked={() => setDeleting(true)}>Delete Wall</DropItem>
           <DropItem clicked={() => setDeleting(false)}>Draw Wall</DropItem>
+        </DropDown>
+        <DropDown title="Add Weight">
+          <DropItem clicked={() => setAddingWeight(true)}>Add Weight</DropItem>
+          <DropItem clicked={() => setAddingWeight(false)}>Draw Wall</DropItem>
         </DropDown>
       </Subnav>
 

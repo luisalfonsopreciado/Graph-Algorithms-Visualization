@@ -29,6 +29,7 @@ const Board = ({ openDialog }) => {
   const [prevAlgorithm, setPrevAlgorithm] = useState(util.DIJKSTRA);
   const [canPlaceWall, setCanPlaceWall] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [addingWeight, setAddingWeight] = useState(false);
 
   const handleTargetMove = (node) => {
     node.setAsTarget();
@@ -80,6 +81,7 @@ const Board = ({ openDialog }) => {
 
   const onMouseDownHandler = (node) => {
     if (!animating) return;
+    if (addingWeight) return node.add("Weight");
     if (isDeleting) return node.remove(["Wall"]);
     setIsMouseDown(true);
     if (settingSecondTarget) {
@@ -136,6 +138,7 @@ const Board = ({ openDialog }) => {
     setIsAnimating(false);
     setPrevAlgorithm(algorithm);
     setCanPlaceWall(false);
+    setAddingWeight(false)
 
     let animations = [];
     switch (algorithm) {
@@ -274,6 +277,7 @@ const Board = ({ openDialog }) => {
         clear={removeVisualization}
         mazeGen={generateMaze}
         settingSecondTarget={setSettingSecondTarget}
+        setAddingWeight={setAddingWeight}
       />
       <br />
       <div

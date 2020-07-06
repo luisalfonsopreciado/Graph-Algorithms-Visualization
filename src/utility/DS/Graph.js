@@ -139,7 +139,7 @@ export class Graph {
         const adjacentNode = adj[a];
 
         //choose nearest node with lowest *total* cost
-        var d = 1 + currentdist;
+        var d = adjacentNode.getWeight() + currentdist;
 
         if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
           if (!finishedAnimating) animations.push(adjacentNode);
@@ -170,8 +170,6 @@ export class Graph {
 
     heap.push(startNode);
 
-    heap.print();
-
     while (!heap.isEmpty()) {
       const currentNode = heap.pop();
 
@@ -183,7 +181,7 @@ export class Graph {
         const adjacentNode = adj[a];
 
         //choose nearest node with lowest *total* cost
-        var d = 1 + currentdist;
+        var d = adjacentNode.getWeight() + currentdist;
 
         if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
           if (!withAnimation) adjacentNode.markSearched2Done();
@@ -222,8 +220,6 @@ export class Graph {
 
     heap.push(startNode);
 
-    heap.print();
-
     while (!heap.isEmpty()) {
       const currentNode = heap.pop();
 
@@ -235,7 +231,7 @@ export class Graph {
         const adjacentNode = adj[a];
 
         //choose nearest node with lowest *total* cost
-        var d = 1 + currentdist;
+        var d = adjacentNode.getWeight() + currentdist;
 
         if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
           if (!withAnimation) adjacentNode.markSearched2Done();
