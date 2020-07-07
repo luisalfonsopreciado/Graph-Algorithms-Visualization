@@ -14,8 +14,7 @@ const NavigationItems = ({
   settingSecondTarget,
   openDialog,
   clear,
-  setDeleting,
-  setAddingWeight
+  setUserAction,
 }) => {
   const dispatch = useStore(false)[1];
   return (
@@ -23,7 +22,11 @@ const NavigationItems = ({
       <NavigationItem clicked={openDialog}>ABOUT</NavigationItem>
       <Subnav title="Algorithms">
         <DropDown title={cts.DIJKSTRA}>
-          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.DIJKSTRA })}>Select</DropItem>
+          <DropItem
+            clicked={() => dispatch("SET_ALGO", { algo: cts.DIJKSTRA })}
+          >
+            Select
+          </DropItem>
           <DropItem
             clicked={() => dispatch("SET_ALGO", { algo: cts.DIJKSTRA })}
           >
@@ -31,13 +34,17 @@ const NavigationItems = ({
           </DropItem>
         </DropDown>
         <DropDown title={cts.ASTAR}>
-          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.ASTAR })}>Select</DropItem>
+          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.ASTAR })}>
+            Select
+          </DropItem>
           <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.ASTAR })}>
             Learn More
           </DropItem>
         </DropDown>
         <DropDown title={cts.GREEDY_BFS}>
-          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.GREEDY_BFS })}>
+          <DropItem
+            clicked={() => dispatch("SET_ALGO", { algo: cts.GREEDY_BFS })}
+          >
             Select
           </DropItem>
           <DropItem
@@ -47,19 +54,25 @@ const NavigationItems = ({
           </DropItem>
         </DropDown>
         <DropDown title={cts.BFS}>
-          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.BFS })}>Select</DropItem>
+          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.BFS })}>
+            Select
+          </DropItem>
           <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.BFS })}>
             Learn More
           </DropItem>
         </DropDown>
         <DropDown title={cts.DFS}>
-          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.DFS })}>Select</DropItem>
+          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.DFS })}>
+            Select
+          </DropItem>
           <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.DFS })}>
             Learn More
           </DropItem>
         </DropDown>
         <DropDown title={cts.DSTAR}>
-          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.DSTAR })}>Select</DropItem>
+          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.DSTAR })}>
+            Select
+          </DropItem>
           <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.DSTAR })}>
             Learn More
           </DropItem>
@@ -99,12 +112,20 @@ const NavigationItems = ({
       </Subnav>
       <Subnav title="Draw">
         <DropDown title="Options">
-          <DropItem clicked={() => setDeleting(true)}>Delete Wall</DropItem>
-          <DropItem clicked={() => setDeleting(false)}>Draw Wall</DropItem>
+          <DropItem clicked={() => setUserAction(cts.DELETING)}>
+            Delete Wall
+          </DropItem>
+          <DropItem clicked={() => setUserAction(cts.PLACING_WALLS)}>
+            Draw Wall
+          </DropItem>
         </DropDown>
         <DropDown title="Add Weight">
-          <DropItem clicked={() => setAddingWeight(true)}>Add Weight</DropItem>
-          <DropItem clicked={() => setAddingWeight(false)}>Draw Wall</DropItem>
+          <DropItem clicked={() => setUserAction(cts.ADDING_WEIGHT)}>
+            Add Weight
+          </DropItem>
+          <DropItem clicked={() => setUserAction(cts.PLACING_WALLS)}>
+            Draw Wall
+          </DropItem>
         </DropDown>
       </Subnav>
 
