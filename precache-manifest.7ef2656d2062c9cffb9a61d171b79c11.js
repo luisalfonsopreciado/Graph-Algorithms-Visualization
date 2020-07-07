@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ccfed7fb3a0e9bb9073ab83b4ceecc64",
+    "revision": "4ad0697a8697cfae6e5736047cecde9f",
     "url": "/Graph-Algorithms-Visualization/index.html"
   },
   {
-    "revision": "7bfea8c3a89e6e9bd891",
-    "url": "/Graph-Algorithms-Visualization/static/css/main.39677f5d.chunk.css"
+    "revision": "141554382af2b0b88147",
+    "url": "/Graph-Algorithms-Visualization/static/css/main.840520c2.chunk.css"
   },
   {
     "revision": "4e485ce2a67bcba40801",
@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/js/3.3f1053a2.chunk.js"
   },
   {
-    "revision": "2487518c7a3e189b0357",
-    "url": "/Graph-Algorithms-Visualization/static/js/4.3c753ce5.chunk.js"
+    "revision": "04f40b59c0db8dae4d19",
+    "url": "/Graph-Algorithms-Visualization/static/js/4.e23ebf6f.chunk.js"
   },
   {
     "revision": "b177dc822ad66c0ccfdf",
@@ -40,8 +40,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/js/6.78772caa.chunk.js"
   },
   {
-    "revision": "d20bcebfc61f03b9178c",
-    "url": "/Graph-Algorithms-Visualization/static/js/7.65fd3a05.chunk.js"
+    "revision": "1a71d924e0ff8dd80fee",
+    "url": "/Graph-Algorithms-Visualization/static/js/7.ede61909.chunk.js"
   },
   {
     "revision": "8cb206a46cedcb71cae2",
@@ -52,20 +52,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/js/9.3a3f86c1.chunk.js"
   },
   {
-    "revision": "7bfea8c3a89e6e9bd891",
-    "url": "/Graph-Algorithms-Visualization/static/js/main.b8c4b8f1.chunk.js"
+    "revision": "141554382af2b0b88147",
+    "url": "/Graph-Algorithms-Visualization/static/js/main.2828162b.chunk.js"
   },
   {
-    "revision": "cb47276df67fea2adce3",
-    "url": "/Graph-Algorithms-Visualization/static/js/runtime-main.8f5d8345.js"
+    "revision": "3d9521c4a9105dcea786",
+    "url": "/Graph-Algorithms-Visualization/static/js/runtime-main.46fcc078.js"
   },
   {
     "revision": "bef5e8085ce48c735de463da3857a1de",
     "url": "/Graph-Algorithms-Visualization/static/media/A*.bef5e808.md"
   },
   {
-    "revision": "95fda78f53252f7aadbcb240de7ea86a",
-    "url": "/Graph-Algorithms-Visualization/static/media/Breadth First Search.95fda78f.md"
+    "revision": "c486865ba3894b515add7e6c27cc075f",
+    "url": "/Graph-Algorithms-Visualization/static/media/Breadth First Search.c486865b.md"
   },
   {
     "revision": "03454e6c3ddafc6562e0e3485264e2ec",
@@ -76,8 +76,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/media/D*.02956398.md"
   },
   {
-    "revision": "89f1c725adac239b24efa2c74f9ecf61",
-    "url": "/Graph-Algorithms-Visualization/static/media/Depth First Search.89f1c725.md"
+    "revision": "e22f20ad248e7cd5c6560df094e217ed",
+    "url": "/Graph-Algorithms-Visualization/static/media/Depth First Search.e22f20ad.md"
   },
   {
     "revision": "532bfb7164930cb61cf7c9f7d60368ce",
@@ -106,5 +106,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "f4350bfb0295c6b94ec47f8684b19a1f",
     "url": "/Graph-Algorithms-Visualization/static/media/target.f4350bfb.svg"
+  },
+  {
+    "revision": "e0c305a132b274d9420ea21a3e5475de",
+    "url": "/Graph-Algorithms-Visualization/static/media/weight.e0c305a1.svg"
   }
 ]);
