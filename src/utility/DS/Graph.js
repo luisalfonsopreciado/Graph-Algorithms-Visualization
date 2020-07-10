@@ -120,7 +120,7 @@ export class Graph {
   }
 
   //dijkstra solve graph starting at s
-  dijkstra(startNode, animations, hasSecond) {
+  dijkstra(startNode, animations, hasSecond, withAnimation) {
     const heap = new MinHeap((item) => item.dist);
 
     heap.push(startNode);
@@ -143,16 +143,23 @@ export class Graph {
 
         if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
           if (!finishedAnimating) animations.push(adjacentNode);
+          if (!withAnimation) adjacentNode.markSearched2Done();
           heap.push(adjacentNode);
           //reference parent
           adjacentNode.predecessor = currentNode;
           adjacentNode.dist = d;
-          if (adjacentNode.is("Target") || adjacentNode.is("SecondaryTarget"))
+          if (adjacentNode.is("Target") || adjacentNode.is("SecondaryTarget")) {
+            if (!withAnimation) {
+              adjacentNode.markShortestPath();
+              return [];
+            }
+
             if (hasSecond) {
               this.dijkstra(adjacentNode, animations);
             } else {
               finishedAnimating = true;
             }
+          }
         }
       }
     }

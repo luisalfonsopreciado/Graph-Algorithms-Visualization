@@ -34,8 +34,8 @@ const Board = ({ openDialog }) => {
     node.setAsTarget();
     switch (prevAlgorithm) {
       case util.DIJKSTRA:
-        paintInDistance(node.dist);
-        node.markShortestPath();
+        resetDistance();
+        Dijkstra(false);
         break;
       case util.ASTAR:
         resetDistance();
@@ -156,7 +156,7 @@ const Board = ({ openDialog }) => {
         animations = AStar(true);
         break;
       case util.DIJKSTRA:
-        animations = Dijkstra();
+        animations = Dijkstra(true);
         break;
       case util.GREEDY_BFS:
         animations = bestFirstSearch(true);
@@ -183,10 +183,10 @@ const Board = ({ openDialog }) => {
     return animations;
   };
 
-  const Dijkstra = () => {
+  const Dijkstra = (withAnimation) => {
     const { startNode, graph } = util.generateGraph(nodeGrid);
     const animations = [];
-    graph.dijkstra(startNode, animations, hasSecondTarget);
+    graph.dijkstra(startNode, animations, hasSecondTarget, withAnimation);
     return animations;
   };
 
