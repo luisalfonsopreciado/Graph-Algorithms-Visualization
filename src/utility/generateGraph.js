@@ -40,6 +40,6 @@ export const generateGraph = (nodesGrid) => {
       }
     }
   }
-  startNode.dist = 0;
+  if(startNode) startNode.dist = 0;
   return { graph, startNode, targetNode };
 };

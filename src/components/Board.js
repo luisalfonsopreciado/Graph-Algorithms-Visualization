@@ -15,7 +15,6 @@ const Board = ({ openDialog }) => {
     nodeGrid,
     resetGrid,
     removeVisuals,
-    paintInDistance,
     resetDistance,
   } = useNodeGrid();
   const [isMouseDown, setIsMouseDown] = useState(false);
@@ -26,12 +25,13 @@ const Board = ({ openDialog }) => {
   const [settingSecondTarget, setSettingSecondTarget] = useState(false);
   const [hasSecondTarget, setHasSecondTarget] = useState(false);
   const [numTargets, setNumTargets] = useState(1);
-  const [prevAlgorithm, setPrevAlgorithm] = useState(util.DIJKSTRA);
+  const [prevAlgorithm, setPrevAlgorithm] = useState();
   const [canPlaceWall, setCanPlaceWall] = useState(true);
   const [userAction, setUserAction] = useState(util.PLACING_WALLS);
 
-  const handleTargetMove = (node) => {
-    node.setAsTarget();
+  const handleKeyNodeMove = (node, type) => {
+    if (type === "Target") node.setAsTarget();
+    if (type === "Start") node.add("Start");
     switch (prevAlgorithm) {
       case util.DIJKSTRA:
         resetDistance();
@@ -46,13 +46,12 @@ const Board = ({ openDialog }) => {
         bestFirstSearch(false);
         break;
       case util.BFS:
-        paintInDistance(node.dist);
-        node.markShortestPath();
+        resetDistance();
+        BFS(false)
         break;
       case util.DFS:
         resetDistance();
         DFS(false);
-        node.markShortestPath();
         break;
       case util.DSTAR:
         resetDistance();
@@ -75,9 +74,11 @@ const Board = ({ openDialog }) => {
     ) {
       if (canPlaceWall) node.setWall();
     }
-    if (isMouseDown && isMovingStart && !node.is("Target")) node.add("Start");
+    if (isMouseDown && isMovingStart && !node.is("Target")) {
+      handleKeyNodeMove(node, "Start");
+    }
     if (isMouseDown && isMovingTarget && !node.is("Start")) {
-      handleTargetMove(node);
+      handleKeyNodeMove(node, "Target");
     }
     if (isMouseDown && isMovingSecondTarget) node.setAsSecondTarget();
   };
@@ -95,7 +96,7 @@ const Board = ({ openDialog }) => {
       return setSettingSecondTarget(false);
     }
     if (!node.isKeyValue() && canPlaceWall) return node.setWall();
-    if (node.is("Start") && canPlaceWall) return setIsMovingStart(true);
+    if (node.is("Start")) return setIsMovingStart(true);
     if (node.is("Target")) return setIsMovingTarget(true);
     if (node.is("SecondaryTarget")) return setIsMovingSecondTarget(true);
   };
@@ -147,7 +148,7 @@ const Board = ({ openDialog }) => {
     let animations = [];
     switch (algorithm) {
       case util.BFS:
-        animations = BFS();
+        animations = BFS(true);
         break;
       case util.DFS:
         animations = DFS(true);
@@ -165,15 +166,15 @@ const Board = ({ openDialog }) => {
         animations = DStar(true);
         break;
       default:
-        animations = BFS();
+        animations = BFS(true);
         break;
     }
     animate(animations, algorithm);
   };
 
-  const BFS = () => {
+  const BFS = (withAnimation) => {
     const { startNode, graph } = util.generateGraph(nodeGrid);
-    const animations = graph.bfs(startNode);
+    const animations = graph.bfs(startNode, withAnimation);
     return animations;
   };
 

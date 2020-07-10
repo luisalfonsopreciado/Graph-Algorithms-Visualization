@@ -45,7 +45,7 @@ export class Graph {
 
   // bfs(v)
   // function to performs BFS
-  bfs(startingNode) {
+  bfs(startingNode, withAnimation) {
     // create a visited array
     const animations = [];
 
@@ -78,6 +78,8 @@ export class Graph {
         if (!visited[neigh]) {
           neigh.predecessor = getQueueElement;
           neigh.dist = dist;
+          if (!withAnimation) neigh.markSearched2Done();
+          if (neigh.is("Target") && !withAnimation) neigh.markShortestPath();
           animations.push(neigh);
           visited[neigh] = true;
           q.enqueue(neigh);
@@ -92,19 +94,20 @@ export class Graph {
   // dfs(v)
   // Main DFS method
   dfs(startingNode, withAnimation) {
+    if (!startingNode) return [];
     const animations = [];
 
     var visited = [];
     for (var i = 0; i < this.noOfVertices; i++) visited[i] = false;
 
-    this.DFSUtil(startingNode, visited, animations);
+    this.DFSUtil(startingNode, visited, animations, withAnimation);
 
-    return animations;
+    return withAnimation ? animations : [];
   }
 
   // Recursive function which process and explore
   // all the adjacent vertex of the vertex with which it is called
-  DFSUtil(vert, visited, animations) {
+  DFSUtil(vert, visited, animations, withAnimation) {
     visited[vert] = true;
 
     var get_neighbours = this.AdjList.get(vert);
@@ -113,6 +116,11 @@ export class Graph {
       var get_elem = get_neighbours[i];
       if (!visited[get_elem]) {
         get_elem.predecessor = vert;
+        if (!withAnimation) get_elem.markSearched2Done();
+        
+        if (get_elem.is("Target") && !withAnimation) {
+          get_elem.markShortestPath();
+        }
         animations.push(get_elem);
         this.DFSUtil(get_elem, visited, animations);
       }
@@ -121,6 +129,7 @@ export class Graph {
 
   //dijkstra solve graph starting at s
   dijkstra(startNode, animations, hasSecond, withAnimation) {
+    if (!startNode) return [];
     const heap = new MinHeap((item) => item.dist);
 
     heap.push(startNode);
@@ -167,7 +176,8 @@ export class Graph {
   }
 
   aStar(startNode, targetNode, withAnimation) {
-    if (targetNode === null) return;
+    if (startNode === null) return [];
+    if (targetNode === null) return [];
 
     const animations = [];
 
@@ -218,7 +228,8 @@ export class Graph {
   }
 
   bestFirstSearch(startNode, targetNode, withAnimation) {
-    if (targetNode === null) return;
+    if (startNode === null) return [];
+    if (targetNode === null) return [];
     const animations = [];
 
     const heap = new MinHeap((item) => item.f);
@@ -272,6 +283,8 @@ export class Graph {
   }
 
   dStar(startNode, targetNode, withAnimation) {
+    if (targetNode === null) return [];
+
     const queue = new Queue();
     const animations = [];
 
