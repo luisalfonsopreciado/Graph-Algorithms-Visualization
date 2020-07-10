@@ -54,6 +54,10 @@ const Board = ({ openDialog }) => {
         DFS(false);
         node.markShortestPath();
         break;
+      case util.DSTAR:
+        resetDistance();
+        DStar(false);
+        break;
       default:
     }
   };
@@ -80,7 +84,8 @@ const Board = ({ openDialog }) => {
 
   const onMouseDownHandler = (node) => {
     if (!animating) return;
-    if (userAction === util.ADDING_WEIGHT) return !node.isKeyValue() && node.add("Weight");
+    if (userAction === util.ADDING_WEIGHT)
+      return !node.isKeyValue() && node.add("Weight");
     if (userAction === util.DELETING) return node.remove(["Wall", "Weight"]);
     setIsMouseDown(true);
     if (settingSecondTarget) {
@@ -157,13 +162,13 @@ const Board = ({ openDialog }) => {
         animations = bestFirstSearch(true);
         break;
       case util.DSTAR:
-        animations = DStar();
+        animations = DStar(true);
         break;
       default:
         animations = BFS();
         break;
     }
-    animate(animations);
+    animate(animations, algorithm);
   };
 
   const BFS = () => {
@@ -191,10 +196,9 @@ const Board = ({ openDialog }) => {
     return animations;
   };
 
-  const DStar = () => {
+  const DStar = (withAnimation) => {
     const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
-    console.log(startNode);
-    const animations = graph.dStar(startNode, targetNode);
+    const animations = graph.dStar(startNode, targetNode, withAnimation);
     return animations;
   };
 
@@ -240,7 +244,7 @@ const Board = ({ openDialog }) => {
     }
   };
 
-  const animate = (animations) => {
+  const animate = (animations, algorithm) => {
     if (animations.length <= 0) {
       setIsAnimating(true);
       return;
@@ -255,6 +259,8 @@ const Board = ({ openDialog }) => {
 
       (node.is("Target") || node.is("SecondaryTarget")) &&
         node.markShortestPath();
+
+      node.is("Start") && algorithm === util.DSTAR && node.markShortestPath();
 
       count++;
 
@@ -291,4 +297,8 @@ const Board = ({ openDialog }) => {
   );
 };
 
-export default Board;
+const compare = (prevProps, nextProps) => {
+  return true;
+};
+
+export default React.memo(Board, compare);

@@ -53,6 +53,7 @@ const useNodeGrid = () => {
     for (let row in nodeGrid) {
       for (let col in nodeGrid[row]) {
         nodeGrid[row][col].dist = Infinity;
+        nodeGrid[row][col].predecessor =null;
         if (!nodeGrid[row][col].isKeyValue()) {
           nodeGrid[row][col].removeClasses();
         }

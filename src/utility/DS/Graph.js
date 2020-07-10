@@ -264,7 +264,7 @@ export class Graph {
     node.f = node.g + node.h;
   }
 
-  dStar(startNode, targetNode) {
+  dStar(startNode, targetNode, withAnimation) {
     const queue = new Queue();
     const animations = [];
 
@@ -276,11 +276,18 @@ export class Graph {
       const adj = this.AdjList.get(currentNode); // get neighbors
       for (let neighbor of adj) {
         const dist = 1 + currentNode.dist;
-        if (dist < neighbor.dist) {
+        if (dist < neighbor.dist || neighbor.is("Start")) {
+          if (!withAnimation) neighbor.markSearched2Done();
           animations.push(neighbor);
           neighbor.dist = dist;
           neighbor.predecessor = currentNode;
-          if (neighbor === startNode) return animations;
+          if (neighbor === startNode) {
+            if (!withAnimation) {
+              neighbor.markShortestPath();
+              return [];
+            }
+            return animations;
+          }
           queue.enqueue(neighbor);
         }
       }
