@@ -11,12 +11,7 @@ const COLS_INIT = 50;
 
 const Board = ({ openDialog }) => {
   const { algorithm } = useStore()[0];
-  const {
-    nodeGrid,
-    resetGrid,
-    removeVisuals,
-    resetDistance,
-  } = useNodeGrid();
+  const { nodeGrid, resetGrid, removeVisuals, resetDistance } = useNodeGrid();
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [animating, setIsAnimating] = useState(true);
   const [isMovingTarget, setIsMovingTarget] = useState(false);
@@ -26,7 +21,6 @@ const Board = ({ openDialog }) => {
   const [hasSecondTarget, setHasSecondTarget] = useState(false);
   const [numTargets, setNumTargets] = useState(1);
   const [prevAlgorithm, setPrevAlgorithm] = useState();
-  const [canPlaceWall, setCanPlaceWall] = useState(true);
   const [userAction, setUserAction] = useState(util.PLACING_WALLS);
 
   const handleKeyNodeMove = (node, type) => {
@@ -47,7 +41,7 @@ const Board = ({ openDialog }) => {
         break;
       case util.BFS:
         resetDistance();
-        BFS(false)
+        BFS(false);
         break;
       case util.DFS:
         resetDistance();
@@ -64,23 +58,18 @@ const Board = ({ openDialog }) => {
   const onMouseEnterHandler = (node) => {
     if (!animating) return;
     if (settingSecondTarget) {
-      node.setAsSecondTarget();
-    }
-    if (
-      isMouseDown &&
-      !isMovingStart &&
-      !isMovingTarget &&
-      !isMovingSecondTarget
-    ) {
-      if (canPlaceWall) node.setWall();
+      return node.setAsSecondTarget();
     }
     if (isMouseDown && isMovingStart && !node.is("Target")) {
-      handleKeyNodeMove(node, "Start");
+      return handleKeyNodeMove(node, "Start");
     }
     if (isMouseDown && isMovingTarget && !node.is("Start")) {
-      handleKeyNodeMove(node, "Target");
+      return handleKeyNodeMove(node, "Target");
     }
-    if (isMouseDown && isMovingSecondTarget) node.setAsSecondTarget();
+    if (isMouseDown && isMovingSecondTarget) return node.setAsSecondTarget();
+    if (userAction === util.PLACING_WALLS && isMouseDown) {
+      return node.setWall();
+    }
   };
 
   const onMouseDownHandler = (node) => {
@@ -95,7 +84,7 @@ const Board = ({ openDialog }) => {
       setHasSecondTarget(true);
       return setSettingSecondTarget(false);
     }
-    if (!node.isKeyValue() && canPlaceWall) return node.setWall();
+    if (!node.isKeyValue()) return node.setWall();
     if (node.is("Start")) return setIsMovingStart(true);
     if (node.is("Target")) return setIsMovingTarget(true);
     if (node.is("SecondaryTarget")) return setIsMovingSecondTarget(true);
@@ -142,8 +131,7 @@ const Board = ({ openDialog }) => {
     if (!animating) return;
     setIsAnimating(false);
     setPrevAlgorithm(algorithm);
-    setCanPlaceWall(false);
-    setUserAction(util.VISUALIZING);
+    setUserAction(util.PLACING_WALLS);
 
     let animations = [];
     switch (algorithm) {
@@ -215,7 +203,6 @@ const Board = ({ openDialog }) => {
 
   const clear = () => {
     if (!animating) return;
-    setCanPlaceWall(true);
     setHasSecondTarget(false);
     setPrevAlgorithm(null);
     resetGrid();
@@ -223,7 +210,6 @@ const Board = ({ openDialog }) => {
 
   const removeVisualization = () => {
     if (!animating) return;
-    setCanPlaceWall(true);
     setPrevAlgorithm(null);
     removeVisuals();
   };

@@ -56,6 +56,7 @@ export default class Node {
 
   setWall() {
     if (this.isKeyValue()) return;
+    this.remove(["Searched", "Searched2"])
     this.add("Wall");
   }
 
