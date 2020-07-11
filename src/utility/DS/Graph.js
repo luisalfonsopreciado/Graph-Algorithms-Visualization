@@ -117,7 +117,7 @@ export class Graph {
       if (!visited[get_elem]) {
         get_elem.predecessor = vert;
         if (!withAnimation) get_elem.markSearched2Done();
-        
+
         if (get_elem.is("Target") && !withAnimation) {
           get_elem.markShortestPath();
         }
@@ -193,6 +193,9 @@ export class Graph {
       var currentdist = currentNode.dist;
       var adj = this.AdjList.get(currentNode); // get neighbors
 
+      animations.push(currentNode);
+      if (!withAnimation) currentNode.markSearched2Done();
+
       //for each of its adjacent nodes...
       for (var a in adj) {
         const adjacentNode = adj[a];
@@ -201,15 +204,13 @@ export class Graph {
         var d = adjacentNode.getWeight() + currentdist;
 
         if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
-          if (!withAnimation) adjacentNode.markSearched2Done();
-
-          animations.push(adjacentNode);
           this.manhattanDistance(adjacentNode, targetNode);
           heap.push(adjacentNode);
           //reference parent
           adjacentNode.predecessor = currentNode;
           adjacentNode.dist = d;
           if (adjacentNode.is("Target")) {
+            animations.push(adjacentNode);
             if (!withAnimation) adjacentNode.markShortestPath();
             return animations;
           }
@@ -244,6 +245,9 @@ export class Graph {
       var currentdist = currentNode.dist;
       var adj = this.AdjList.get(currentNode); // get neighbors
 
+      if (!withAnimation) currentNode.markSearched2Done();
+      animations.push(currentNode);
+
       //for each of its adjacent nodes...
       for (var a in adj) {
         const adjacentNode = adj[a];
@@ -252,9 +256,6 @@ export class Graph {
         var d = adjacentNode.getWeight() + currentdist;
 
         if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
-          if (!withAnimation) adjacentNode.markSearched2Done();
-          animations.push(adjacentNode);
-
           this.euclideanDistance(adjacentNode, targetNode);
 
           heap.push(adjacentNode);
@@ -263,6 +264,7 @@ export class Graph {
           adjacentNode.predecessor = currentNode;
           adjacentNode.dist = d;
           if (adjacentNode.is("Target")) {
+            animations.push(adjacentNode);
             if (!withAnimation) adjacentNode.markShortestPath();
             return animations;
           }
