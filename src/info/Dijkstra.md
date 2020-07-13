@@ -1,14 +1,16 @@
 ### Dijkstra Shortest Path Algorithm
 
-Dijkstra's algorithms is a set of steps we can use to find the shortest path between two verices in a weighted graph.
+Dijkstra's algorithms, considered as the father of all pathfinding algorithms is one of the most important and must know if you want to understand more advanced graph traversal algorithms.
 
-**Step 1**: Start at the beginning vertex by marking it with a distance of 0, because it's 0 units from the start. Call this vertex your current vertex, and put a circle around it indicating as such.
+#### Dijkstra's algorithm works as follows:
+
+**Step 1**: Start at the beginning vertex by marking it with a distance of 0, because it's 0 units from the start. Call this vertex your current vertex, and explore this node.
 
 **Step 2**: Identify all of the vertices that are connected to the current vertex with an edge. Calculate their distance to the end by adding the weight of the edge to the mark on the current vertex. Mark each of the vertices with their corresponding distance, but only change a vertex's mark if it's less than a previous mark. Each time you mark the starting vertex with a mark, keep track of the path that resulted in that mark.
 
-**Step 3**: Label the current vertex as visited by putting an X over it. Once a vertex is visited, we won't look at it again.
+**Step 3**: Label the current vertex as visited. Once a vertex is visited, we won't look at it again.
 
-**Step 4**: Of the vertices you just marked, find the one with the smallest mark, and make it your current vertex. Now, you can start again from step 2.
+**Step 4**: Of the visited vertices, find the one with the smallest mark, and make it your current vertex. Now, you can start again from step 2.
 
 **Step 5**: Once you've labeled the beginning vertex as visited - stop. The distance of the shortest path is the mark of the starting vertex, and the shortest path is the path that resulted in that mark.
 
@@ -26,4 +28,17 @@ But why is this true?
 O(log(V))
 
 - For each edge we find a update the adjacent vertex weight. With this we conclude that the time complexity for the current implementation of Dijktra's is O(E * log(V)).
+
+In this implementation of Dijsktra's I used an adjacency list to represent the graph and a Min Heap as a priority queue. The following is the pseudocode:
+
+``` pseudocode
+while(!heap.isEmpty())
+    min = heap.getMin()
+    neighbors = graph.getAdjacent(min)
+    for neighbor of neighbors
+        weight = neighbor.getWeight()
+        distance = min.distance + weight
+        if(neighbor in heap && neighbor.dist > distance)
+            neighbor.dist = dist
+```
 

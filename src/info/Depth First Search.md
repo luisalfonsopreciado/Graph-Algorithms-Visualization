@@ -18,4 +18,4 @@ This variation makes a significant difference, visualize DFS to see for yourself
 - Get the list of adjacent elements of currentNode.
 - Add the adjacent elements to the Stack.
 
-## Click on Algorithms -> Depth First Search -> Select
+#### Click on Algorithms -> Depth First Search -> Select

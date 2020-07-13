@@ -235,7 +235,7 @@ export class Graph {
 
     const heap = new MinHeap((item) => item.f);
     startNode.g = 0;
-    this.euclideanDistance(startNode, targetNode);
+    this.greedyHeuristic(startNode, targetNode);
 
     heap.push(startNode);
 
@@ -256,7 +256,7 @@ export class Graph {
         var d = adjacentNode.getWeight() + currentdist;
 
         if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
-          this.euclideanDistance(adjacentNode, targetNode);
+          this.greedyHeuristic(adjacentNode, targetNode);
 
           heap.push(adjacentNode);
 
@@ -275,6 +275,15 @@ export class Graph {
     return animations;
   }
 
+  greedyHeuristic(node, targetNode) {
+    const h = Math.sqrt(
+      Math.pow(node.col - targetNode.col, 2) +
+        Math.pow(node.row - targetNode.row, 2)
+    );
+    node.h = Math.floor(h);
+    node.f = node.h;
+  }
+
   euclideanDistance(node, targetNode) {
     const h = Math.sqrt(
       Math.pow(node.col - targetNode.col, 2) +
@@ -283,6 +292,7 @@ export class Graph {
     node.h = Math.floor(h);
     node.f = node.getWeight() + node.h;
   }
+
 
   dStar(startNode, targetNode, withAnimation) {
     if (targetNode === null) return [];
