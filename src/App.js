@@ -25,14 +25,12 @@ function App() {
   const [state] = useStore();
   const classes = useStyles();
 
-  console.log(state);
   useEffect(() => {
     const getMarkdown = async () => {
       const info = await import(`./info/${state.algorithm}.md`);
       const res = await fetch(info.default);
       const text = await res.text();
       const markdown = marked(text);
-      console.log(markdown);
       setMarkdown(markdown);
     };
     getMarkdown();

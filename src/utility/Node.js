@@ -130,4 +130,8 @@ export default class Node {
   add(name) {
     this.classes.add(name);
   }
+
+  clear(){
+    this.classes = ["Cell"]
+  }
 }

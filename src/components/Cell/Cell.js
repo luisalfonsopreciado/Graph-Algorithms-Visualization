@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import "./Cell.css";
 
-const Cell = ({ node, onMouseEnter, onMouseDown, onMouseLeave, onMouseUp }) => {
+const Cell = ({ node, mouse, numRows, numCols }) => {
   let classes = ["Cell"];
   let icon = null;
 
   useEffect(() => node.setClasses(), [node]);
 
-  if (node.row === 10 && node.col === 10) {
+  if (node.row === Math.floor(numRows/2) && node.col === Math.floor((numCols * 1) / 3)) {
     classes.push("Start");
   }
-  if (node.row === 10 && node.col === 30) {
+  if (node.row === Math.floor(numRows/2) && node.col === Math.floor((numCols * 2) / 3)) {
     classes.push("Target");
   }
 
@@ -18,10 +18,10 @@ const Cell = ({ node, onMouseEnter, onMouseDown, onMouseLeave, onMouseUp }) => {
     <div
       className={classes.join(" ")}
       id={`${node.row} ${node.col}`}
-      onMouseDown={() => onMouseDown(node)}
-      onMouseEnter={() => onMouseEnter(node)}
-      onMouseLeave={() => onMouseLeave(node)}
-      onMouseUp={() => onMouseUp(node)}
+      onMouseDown={() => mouse.onMouseDown(node)}
+      onMouseEnter={() => mouse.onMouseEnter(node)}
+      onMouseLeave={() => mouse.onMouseLeave(node)}
+      onMouseUp={() => mouse.onMouseUp(node)}
     >
       {icon}
     </div>

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useState } from "react";
 import Node from "../utility/Node";
 
 const generateNodeGrid = (numRows, numCols) => {
@@ -7,31 +7,40 @@ const generateNodeGrid = (numRows, numCols) => {
   for (let row = 0; row < numRows; row++) {
     nodesGrid[row] = [];
     for (let col = 0; col < numCols; col++) {
-      const newNode = new Node(row, col);
-      nodesGrid[row][col] = newNode;
+      nodesGrid[row][col] = new Node(row, col);
     }
   }
 
   return nodesGrid;
 };
 
-const useNodeGrid = () => {
-  const nodesGrid = generateNodeGrid(20, 50);
-  const nodeGridRef = useRef(nodesGrid);
-  const nodeGrid = nodeGridRef.current;
+const useNodeGrid = (rows, cols) => {
+  const [numRows, setNumRows] = useState(rows);
+  const [numCols, setNumCols] = useState(cols);
+
+  const nodeGrid = generateNodeGrid(numRows, numCols);
 
   const resetGrid = () => {
     for (let row in nodeGrid) {
-      for (let col in nodeGrid[row]) {
-        nodeGrid[row][col].reset();
+      for (let cell of nodeGrid[row]) {
+        cell.reset();
+      }
+    }
+  };
+
+  const clearGrid = () => {
+    for (let row in nodeGrid) {
+      for (let cell of nodeGrid[row]) {
+        cell.reset();
+        cell.remove(["Start", "Target"]);
       }
     }
   };
 
   const removeVisuals = () => {
     for (let row in nodeGrid) {
-      for (let col in nodeGrid[row]) {
-        nodeGrid[row][col].removeVisuals();
+      for (let node of nodeGrid[row]) {
+        node.removeVisuals();
       }
     }
   };
@@ -39,11 +48,11 @@ const useNodeGrid = () => {
   const paintInDistance = (dist) => {
     if (dist === Infinity) return;
     for (let row in nodeGrid) {
-      for (let col in nodeGrid[row]) {
-        if (nodeGrid[row][col].dist <= dist) {
-          nodeGrid[row][col].markSearched2Done();
+      for (let node of nodeGrid[row]) {
+        if (node.dist <= dist) {
+          node.markSearched2Done();
         } else {
-          nodeGrid[row][col].removeClasses();
+          node.removeClasses();
         }
       }
     }
@@ -51,17 +60,34 @@ const useNodeGrid = () => {
 
   const resetDistance = () => {
     for (let row in nodeGrid) {
-      for (let col in nodeGrid[row]) {
-        nodeGrid[row][col].dist = Infinity;
-        nodeGrid[row][col].predecessor =null;
-        if (!nodeGrid[row][col].isKeyValue()) {
-          nodeGrid[row][col].removeClasses();
+      for (let node of nodeGrid[row]) {
+        node.dist = Infinity;
+        node.predecessor = null;
+        if (!node.isKeyValue()) {
+          node.removeClasses();
         }
       }
     }
   };
 
-  return { nodeGrid, resetGrid, removeVisuals, paintInDistance, resetDistance };
+  return {
+    nodeGrid,
+    resetGrid,
+    removeVisuals,
+    paintInDistance,
+    resetDistance,
+    clearGrid,
+    setNumRows: (numRows) => {
+      clearGrid();
+      setNumRows(numRows);
+    },
+    setNumCols: (numCols) => {
+      clearGrid();
+      setNumCols(numCols);
+    },
+    numRows,
+    numCols,
+  };
 };
 
 export default useNodeGrid;

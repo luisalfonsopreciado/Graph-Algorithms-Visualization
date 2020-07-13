@@ -6,12 +6,23 @@ import useNodeGrid from "../hooks/useNodeGrid";
 import Navbar from "./Navigation/Toolbar/Toolbar";
 import { useStore } from "../hooks-store/store";
 
-const ROWS_INIT = 20;
-const COLS_INIT = 50;
+const ROWS_INIT = 10;
+const COLS_INIT = 40;
 
 const Board = ({ openDialog }) => {
   const { algorithm } = useStore()[0];
-  const { nodeGrid, resetGrid, removeVisuals, resetDistance } = useNodeGrid();
+
+  const {
+    nodeGrid,
+    resetGrid,
+    removeVisuals,
+    resetDistance,
+    clearGrid,
+    setNumRows,
+    setNumCols,
+    numRows,
+    numCols
+  } = useNodeGrid(ROWS_INIT, COLS_INIT);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [animating, setIsAnimating] = useState(true);
   const [isMovingTarget, setIsMovingTarget] = useState(false);
@@ -117,10 +128,14 @@ const Board = ({ openDialog }) => {
         <Cell
           key={val}
           node={nodeGrid[rowNum][colNum]}
-          onMouseEnter={onMouseEnterHandler}
-          onMouseDown={onMouseDownHandler}
-          onMouseUp={onMouseUpHandler}
-          onMouseLeave={onMouseLeaveHandler}
+          mouse={{
+            onMouseEnter: onMouseEnterHandler,
+            onMouseDown: onMouseDownHandler,
+            onMouseUp: onMouseUpHandler,
+            onMouseLeave: onMouseLeaveHandler,
+          }}
+          numRows={numRows}
+          numCols={numCols}
         />
       );
     });
@@ -269,13 +284,15 @@ const Board = ({ openDialog }) => {
         mazeGen={generateMaze}
         settingSecondTarget={setSettingSecondTarget}
         setUserAction={setUserAction}
+        setNumRows={setNumRows}
+        setNumCols={setNumCols}
       />
       <br />
       <div
         className="Board"
         style={{
-          gridTemplateRows: `repeat(${ROWS_INIT}, 1fr)`,
-          gridTemplateColumns: `repeat(${COLS_INIT}, 1fr)`,
+          gridTemplateRows: `repeat(${numRows}, 1fr)`,
+          gridTemplateColumns: `repeat(${numCols}, 1fr)`,
         }}
       >
         {Grid}

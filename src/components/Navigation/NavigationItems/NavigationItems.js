@@ -15,6 +15,7 @@ const NavigationItems = ({
   openDialog,
   clear,
   setUserAction,
+  setNumRows,
 }) => {
   const dispatch = useStore(false)[1];
   return (
@@ -126,6 +127,23 @@ const NavigationItems = ({
           <DropItem clicked={() => setUserAction(cts.PLACING_WALLS)}>
             Draw Wall
           </DropItem>
+        </DropDown>
+        <DropDown title="Set Grid Size">
+          <DropItem
+            clicked={() => {
+              setNumRows(10);
+            }}
+          >
+            Small
+          </DropItem>
+          <DropItem
+            clicked={() => {
+              setNumRows(20);
+            }}
+          >
+            Medium
+          </DropItem>
+          <DropItem clicked={() => setNumRows(30)}>Large</DropItem>
         </DropDown>
       </Subnav>
 
