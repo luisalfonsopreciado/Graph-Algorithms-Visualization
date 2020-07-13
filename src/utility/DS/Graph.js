@@ -225,7 +225,7 @@ export class Graph {
     const h =
       Math.abs(node.col - targetNode.col) + Math.abs(node.row - targetNode.row);
     node.h = h;
-    node.f = node.g + node.h;
+    node.f = node.getWeight() + node.h;
   }
 
   bestFirstSearch(startNode, targetNode, withAnimation) {
@@ -281,7 +281,7 @@ export class Graph {
         Math.pow(node.row - targetNode.row, 2)
     );
     node.h = Math.floor(h);
-    node.f = node.g + node.h;
+    node.f = node.getWeight() + node.h;
   }
 
   dStar(startNode, targetNode, withAnimation) {
