@@ -20,7 +20,7 @@ const Board = ({ openDialog }) => {
     setNumRows,
     setNumCols,
     numRows,
-    numCols
+    numCols,
   } = useNodeGrid(ROWS_INIT, COLS_INIT);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [animating, setIsAnimating] = useState(true);
@@ -60,6 +60,10 @@ const Board = ({ openDialog }) => {
       case util.DSTAR:
         resetDistance();
         DStar(false);
+        break;
+      case util.PRIMS:
+        resetDistance();
+        Prims(false);
         break;
       default:
     }
@@ -167,6 +171,9 @@ const Board = ({ openDialog }) => {
       case util.DSTAR:
         animations = DStar(true);
         break;
+      case util.PRIMS:
+        animations = Prims(true);
+        break;
       default:
         animations = BFS(true);
         break;
@@ -215,6 +222,12 @@ const Board = ({ openDialog }) => {
     return animations;
   };
 
+  const Prims = (withAnimation) => {
+    const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
+    const animations = graph.Prims(startNode, targetNode, withAnimation);
+    return animations;
+  };
+
   const clear = () => {
     if (!animating) return;
     setHasSecondTarget(false);
@@ -246,10 +259,8 @@ const Board = ({ openDialog }) => {
   };
 
   const animate = (animations, algorithm) => {
-    if (animations.length <= 0) {
-      setIsAnimating(true);
-      return;
-    }
+    if (animations.length <= 0) return setIsAnimating(true);
+
     let count = 0;
     let targetNum = 1;
 
@@ -258,8 +269,9 @@ const Board = ({ openDialog }) => {
 
       targetNum % 2 === 0 ? node.markSearched() : node.markSearched2();
 
-      (node.is("Target") || node.is("SecondaryTarget")) &&
+      if (node.is("Target") || node.is("SecondaryTarget")) {
         node.markShortestPath();
+      }
 
       node.is("Start") && algorithm === util.DSTAR && node.markShortestPath();
 

@@ -293,7 +293,6 @@ export class Graph {
     node.f = node.getWeight() + node.h;
   }
 
-
   dStar(startNode, targetNode, withAnimation) {
     if (targetNode === null) return [];
 
@@ -326,5 +325,43 @@ export class Graph {
     }
 
     return animations;
+  }
+
+  Prims(startNode, targetNode, withAnimation) {
+    if (startNode === null) return [];
+    if (targetNode === null) return [];
+
+    const heap = new MinHeap((node) => node.dist);
+    const mst = {};
+    const animations = [];
+    startNode.dist = 0;
+    heap.push(startNode);
+
+    let prevNode = null;
+
+    while (!heap.isEmpty()) {
+      const currentNode = heap.pop();
+
+      const adjacentNodes = this.AdjList.get(currentNode);
+
+      animations.push(currentNode);
+
+      for (let adj of adjacentNodes) {
+        if (adj.dist > adj.getWeight()) {
+          !withAnimation && adj.markSearched2Done();
+          heap.push(adj);
+          adj.dist = adj.getWeight();
+        }
+      }
+
+      currentNode.predecessor = prevNode;
+      prevNode = currentNode;
+      mst[currentNode.toString()] = currentNode;
+    }
+
+    if (!withAnimation) targetNode.markShortestPath();
+
+    console.log(mst);
+    return withAnimation ? animations : [];
   }
 }

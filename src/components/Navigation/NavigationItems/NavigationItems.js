@@ -90,6 +90,23 @@ const NavigationItems = ({
             Learn More
           </DropItem>
         </DropDown>
+        <DropDown title={cts.PRIMS}>
+          <DropItem
+            clicked={() => {
+              dispatch("SET_INFO", { info: cts.PRIMS });
+              dispatch("SET_ALGO", { algo: cts.PRIMS });
+            }}
+          >
+            Select
+          </DropItem>
+          <DropItem
+            clicked={() => {
+              dispatch("SET_INFO", { info: cts.PRIMS });
+            }}
+          >
+            Learn More
+          </DropItem>
+        </DropDown>
         <DropDown title={cts.DSTAR}>
           <DropItem
             clicked={() => {
@@ -106,8 +123,12 @@ const NavigationItems = ({
       </Subnav>
       <Subnav title="Maze Generators">
         <DropDown title={cts.RAND_MAZE}>
-          <DropItem clicked={() => mazeGen(cts.RAND_MAZE, "Wall")}>Generate Walls</DropItem>
-          <DropItem clicked={() => mazeGen(cts.RAND_MAZE, "Weight")}>Generate Weights</DropItem>
+          <DropItem clicked={() => mazeGen(cts.RAND_MAZE, "Wall")}>
+            Generate Walls
+          </DropItem>
+          <DropItem clicked={() => mazeGen(cts.RAND_MAZE, "Weight")}>
+            Generate Weights
+          </DropItem>
           <DropItem
             clicked={() => dispatch("SET_INFO", { info: cts.RAND_MAZE })}
           >

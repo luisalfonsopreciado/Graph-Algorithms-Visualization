@@ -4,7 +4,7 @@ export class MinHeap {
     this.selector = selector;
   }
 
-  seek() {
+  peek() {
     return this.items[0];
   }
 

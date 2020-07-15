@@ -3,6 +3,7 @@ export const ASTAR = "A*"
 export const GREEDY_BFS = "Greedy Best First Search"
 export const BFS = "Breadth First Search"
 export const DFS = "Depth First Search"
+export const PRIMS = "Prim's Algorithm"
 export const DSTAR = "D*"
 
 export const RAND_MAZE = "Random Maze"
