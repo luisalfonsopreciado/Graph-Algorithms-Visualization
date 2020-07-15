@@ -30,7 +30,7 @@ h1 {
   font-size: 30px;
 }
 
-pre {
+/* pre {
   background: #f4f4f4;
   border: 1px solid #ddd;
   border-left: 3px solid #02203c;
@@ -47,4 +47,32 @@ pre {
   padding: 1em 1.5em;
   display: block;
   word-wrap: break-word;
+} */
+
+table {
+  border-collapse: collapse;
+  margin: 5px;
 }
+
+td,
+th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table tr:hover {
+  background-color: #ddd;
+}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #02203c;
+  color: white;
+}
+

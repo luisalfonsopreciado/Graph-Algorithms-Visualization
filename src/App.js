@@ -27,14 +27,14 @@ function App() {
 
   useEffect(() => {
     const getMarkdown = async () => {
-      const info = await import(`./info/${state.algorithm}.md`);
+      const info = await import(`./info/${state.info}.md`);
       const res = await fetch(info.default);
       const text = await res.text();
       const markdown = marked(text);
       setMarkdown(markdown);
     };
     getMarkdown();
-  }, [state.algorithm]);
+  }, [state.info]);
 
   useEffect(() => {
     handleDialogOpen();

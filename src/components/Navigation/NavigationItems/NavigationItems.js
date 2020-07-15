@@ -24,32 +24,43 @@ const NavigationItems = ({
       <Subnav title="Algorithms">
         <DropDown title={cts.DIJKSTRA}>
           <DropItem
-            clicked={() => dispatch("SET_ALGO", { algo: cts.DIJKSTRA })}
+            clicked={() => {
+              dispatch("SET_INFO", { info: cts.DIJKSTRA });
+              dispatch("SET_ALGO", { algo: cts.DIJKSTRA });
+            }}
           >
             Select
           </DropItem>
           <DropItem
-            clicked={() => dispatch("SET_ALGO", { algo: cts.DIJKSTRA })}
+            clicked={() => dispatch("SET_INFO", { info: cts.DIJKSTRA })}
           >
             Learn More
           </DropItem>
         </DropDown>
         <DropDown title={cts.ASTAR}>
-          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.ASTAR })}>
+          <DropItem
+            clicked={() => {
+              dispatch("SET_INFO", { info: cts.ASTAR });
+              dispatch("SET_ALGO", { algo: cts.ASTAR });
+            }}
+          >
             Select
           </DropItem>
-          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.ASTAR })}>
+          <DropItem clicked={() => dispatch("SET_INFO", { info: cts.ASTAR })}>
             Learn More
           </DropItem>
         </DropDown>
         <DropDown title={cts.GREEDY_BFS}>
           <DropItem
-            clicked={() => dispatch("SET_ALGO", { algo: cts.GREEDY_BFS })}
+            clicked={() => {
+              dispatch("SET_INFO", { info: cts.GREEDY_BFS });
+              dispatch("SET_ALGO", { algo: cts.GREEDY_BFS });
+            }}
           >
             Select
           </DropItem>
           <DropItem
-            clicked={() => dispatch("SET_ALGO", { algo: cts.GREEDY_BFS })}
+            clicked={() => dispatch("SET_INFO", { info: cts.GREEDY_BFS })}
           >
             Learn More
           </DropItem>
@@ -58,54 +69,75 @@ const NavigationItems = ({
           <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.BFS })}>
             Select
           </DropItem>
-          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.BFS })}>
+          <DropItem clicked={() => dispatch("SET_INFO", { info: cts.BFS })}>
             Learn More
           </DropItem>
         </DropDown>
         <DropDown title={cts.DFS}>
-          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.DFS })}>
+          <DropItem
+            clicked={() => {
+              dispatch("SET_INFO", { info: cts.DFS });
+              dispatch("SET_ALGO", { algo: cts.DFS });
+            }}
+          >
             Select
           </DropItem>
-          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.DFS })}>
+          <DropItem
+            clicked={() => {
+              dispatch("SET_INFO", { info: cts.DFS });
+            }}
+          >
             Learn More
           </DropItem>
         </DropDown>
         <DropDown title={cts.DSTAR}>
-          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.DSTAR })}>
+          <DropItem
+            clicked={() => {
+              dispatch("SET_ALGO", { algo: cts.DSTAR });
+              dispatch("SET_INFO", { info: cts.DSTAR });
+            }}
+          >
             Select
           </DropItem>
-          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.DSTAR })}>
+          <DropItem clicked={() => dispatch("SET_INFO", { info: cts.DSTAR })}>
             Learn More
           </DropItem>
         </DropDown>
       </Subnav>
       <Subnav title="Maze Generators">
         <DropDown title={cts.RAND_MAZE}>
-          <DropItem clicked={() => mazeGen(cts.RAND_MAZE)}>Generate</DropItem>
+          <DropItem clicked={() => mazeGen(cts.RAND_MAZE, "Wall")}>Generate Walls</DropItem>
+          <DropItem clicked={() => mazeGen(cts.RAND_MAZE, "Weight")}>Generate Weights</DropItem>
           <DropItem
-            clicked={() => dispatch("SET_ALGO", { algo: cts.RAND_MAZE })}
+            clicked={() => dispatch("SET_INFO", { info: cts.RAND_MAZE })}
           >
             Learn More
           </DropItem>
         </DropDown>
         <DropDown title={cts.RECURSIVE_DIVISON}>
-          <DropItem clicked={() => mazeGen(cts.RECURSIVE_DIVISON)}>
-            Generate
+          <DropItem clicked={() => mazeGen(cts.RECURSIVE_DIVISON, "Wall")}>
+            Generate Walls
+          </DropItem>
+          <DropItem clicked={() => mazeGen(cts.RECURSIVE_DIVISON, "Weight")}>
+            Generate Weights
           </DropItem>
           <DropItem
-            clicked={() =>
-              dispatch("SET_ALGO", { algo: cts.RECURSIVE_DIVISON })
-            }
+            clicked={() => {
+              dispatch("SET_INFO", { info: cts.RECURSIVE_DIVISON });
+            }}
           >
             Learn More
           </DropItem>
         </DropDown>
         <DropDown title={cts.DRAW_COUNTOUR}>
-          <DropItem clicked={() => mazeGen(cts.DRAW_COUNTOUR)}>
-            Generate
+          <DropItem clicked={() => mazeGen(cts.DRAW_COUNTOUR, "Wall")}>
+            Generate Walls
+          </DropItem>
+          <DropItem clicked={() => mazeGen(cts.DRAW_COUNTOUR, "Weight")}>
+            Generate Weights
           </DropItem>
           <DropItem
-            clicked={() => dispatch("SET_ALGO", { algo: cts.DRAW_COUNTOUR })}
+            clicked={() => dispatch("SET_INFO", { info: cts.DRAW_COUNTOUR })}
           >
             Learn More
           </DropItem>

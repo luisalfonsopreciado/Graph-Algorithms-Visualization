@@ -18,4 +18,48 @@ This variation makes a significant difference, visualize BFS to see for yourself
 - Get the list of adjacent elements of currentNode.
 - Add the adjacent elements to the queue.
 
+
+BFS Analysis using an adjacency matrix
+
+Assume V vertices and E edges.
+Each vertex is processed V times (worst-case) in starting a tree.
+⇒ O(V).
+Searching for a neighbor: O(V) (scan through matrix).
+⇒ all scans take O(V^2).
+Each queue operation is O(1).
+Each edge is processed once:
+⇒ O(E) queue operations and O(E) vertex manipulations.
+Total: O(V2 + E) = O(V^2).
+
+BFS Analysis using an adjacency list
+
+Searching for a neighbor: O(# neighbors)
+⇒ total neighbor searches is O(E) (Why?)
+Other operations are the same
+Total: O(V + E) = O(E).
+
+About O(V + E):
+
+Note that O(V + E) = O(E)
+- it is written as O(V + E) just for emphasis.
+O(V + E) is optimal:
+Every vertex and every edge must be examined.
+- O(V + E)
+- not possible to do better than O(V + E)
+
+**BFS (with adjacency list) is an example of an optimal algorithm.**
+
+## Some of the Applications of BFS include:
+
+1. Connectivity:
+    Breadth-first search identifies connected components.
+    However, depth-first search is preferred (required for directed graphs).
+
+2. Shortest paths:
+    A path between two vertices in the tree is the shortest path in the graph.
+
+3. Optimization algorithms:
+    Various problems result in "graph search space".
+    BFS together with "exploration rules" is often used to search for solutions (e.g., branch-and-bound exploration).
+
 #### Click on Algorithms -> Breadth First Search -> Select

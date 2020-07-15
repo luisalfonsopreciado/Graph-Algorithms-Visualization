@@ -17,7 +17,6 @@ const Board = ({ openDialog }) => {
     resetGrid,
     removeVisuals,
     resetDistance,
-    clearGrid,
     setNumRows,
     setNumCols,
     numRows,
@@ -229,19 +228,19 @@ const Board = ({ openDialog }) => {
     removeVisuals();
   };
 
-  const generateMaze = (type) => {
+  const generateMaze = (type, obj) => {
     if (!animating) return;
     clear();
 
     switch (type) {
       case util.RECURSIVE_DIVISON:
-        util.recursiveDivision(nodeGrid);
+        util.recursiveDivision(nodeGrid, obj);
         break;
       case util.DRAW_COUNTOUR:
-        util.drawContourWalls(nodeGrid);
+        util.drawContourWalls(nodeGrid, obj);
         break;
       default:
-        util.randomMaze(nodeGrid);
+        util.randomMaze(nodeGrid, obj);
         break;
     }
   };

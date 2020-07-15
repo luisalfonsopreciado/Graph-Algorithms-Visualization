@@ -31,7 +31,7 @@ O(log(V))
 
 In this implementation of Dijsktra's I used an adjacency list to represent the graph and a Min Heap as a priority queue. The following is the pseudocode:
 
-``` pseudocode
+```
 while(!heap.isEmpty())
     min = heap.getMin()
     neighbors = graph.getAdjacent(min)
@@ -41,4 +41,75 @@ while(!heap.isEmpty())
         if(neighbor in heap && neighbor.dist > distance)
             neighbor.dist = dist
 ```
+
+---
+
+```
+Algorithm: Dijkstra-SPT (G, s)
+Input: Graph G=(V,E) with edge weights and designated source vertex s.
+
+     // Initialize priorities and place in priority queue. 
+1.   Set priority[i] = infinity for each vertex i;
+2.   Insert vertices and priorities into priorityQueue;
+
+     // Source s has priority 0 and is placed in SPT 
+3.   priorityQueue.decreaseKey (s, 0)
+4.   Add s to SPT;
+
+     // Now process vertices one by one in order of priority (which 
+     // may change during processing) 
+5.   while priorityQueue.notEmpty()
+         // Get "best" vertex out of queue. 
+6.       v = priorityQueue.extractMin()
+         // Place in current SPT. 
+6.       Add v to SPT;
+         // Explore edges from v. 
+7.       for each neighbor u of v
+8.           w = weight of edge (v, u);
+             // If there's a better way  to get to u (via v), then update. 
+9.           if priority[u] > priority[v] + w
+10.              priorityQueue.decreaseKey (u, priority[v] + w)
+11.          endif
+12.      endfor
+13.  endwhile
+
+14.  Build SPT;
+15.  return SPT
+
+Output: Shortest Path Tree (SPT) rooted at s.
+```
+
+---
+
+Dijkstra's Analysis using an Adjacency matrix:
+Initializations: all are O(V).
+There are V iterations of the while-loop.
+Finding the lowest-priority: O(log(V)) (scan of priority array).
+Scan of neighbors: O(V)
+Total work in while-loop: O(V^2log(V))
+Note: just like in Prim's algorithm, a straightforward implementation (without a priority queue) takes O(V^2) time.
+
+Dijkstra's Analysis using an Adjacency list:
+Each each is processed just once (when explored):
+⇒ O(E) decreaseKey operations (worst-case)
+⇒ O(E log(V)) time for all decreaseKey operations.
+Loop is executed O(V) times
+⇒ O(V) extractMin operations
+⇒ O(V log(V)) cost.
+Total time: O(E log(V)) + O(V log(V)) = O(E log(V)).
+
+Some data structures that can be used to implement a Priority Queue:
+
+| Data Structure             | extractMin            | decreaseKey          |
+|----------------------------|-----------------------|----------------------|
+| Binary heap                | O(log(V))  worst-case | O(log(V) worst-case  |
+| Pairing heap               | O(log(V)) amortized   | O(1) amortized       |
+| Binomial heap              | O(log(V))  worst-case | O(log(V)) worst-case |
+| Fibonacci heap             | O(log(V)) amortized   | O(1) amortized       |
+| Self-adjusting binary tree | O(log(V)) amortized   | O(log(V)) amortized  |
+| Relaxed heap               | O(log(V)) amortized   | O(1) amortized       |
+| Run-relaxed heap           | O(log(V)) worst-case  | O(1) worst-case      |   
+
+
+
 

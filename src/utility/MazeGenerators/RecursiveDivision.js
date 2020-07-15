@@ -3,19 +3,19 @@ import { drawContourWalls } from "./Contour";
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 
-export const recursiveDivision = (grid) => {
-  drawContourWalls(grid);
+export const recursiveDivision = (grid, type) => {
+  drawContourWalls(grid, type);
   const width = grid[0].length - 2; // Subtract 2 since we drew a contour
   const height = grid.length - 2;
   let prohibitedCells = []; // Walls that clot the maze
 
-  divide(1,1,width, height, chooseOrientation(width, height), prohibitedCells, grid)
+  divide(1,1,width, height, chooseOrientation(width, height), prohibitedCells, grid, type)
 
   // Remove prohibited cells so that all of the board is reachable
   for (let i in prohibitedCells) {
     const row = prohibitedCells[i][0];
     const col = prohibitedCells[i][1];
-    grid[row][col].remove(["Wall"]);
+    grid[row][col].remove([type]);
   }
 };
 
@@ -26,7 +26,8 @@ const divide = (
   height,
   orientation,
   prohibited,
-  grid
+  grid,
+  type
 ) => {
   if (width <= 2 || height <= 2) return; //Maybe have a function that paints?
   // Is the wall to be drawn horizontal?
@@ -45,7 +46,7 @@ const divide = (
   const length = horizontal ? width : height;
 
   // Draw the walls
-  drawWall(whereRow, whereCol, horizontal, length, grid);
+  drawWall(whereRow, whereCol, horizontal, length, grid, type);
   updateProhibitedCells(passRow, passCol, horizontal, prohibited);
 
   // get first recursive call data
@@ -53,7 +54,7 @@ const divide = (
   let newheight = horizontal ? whereRow - row : height;
   let neworientation = chooseOrientation(newwidth, newheight);
   
-  divide(row, col, newwidth, newheight, neworientation, prohibited,grid);
+  divide(row, col, newwidth, newheight, neworientation, prohibited,grid, type);
   
   // get second recursive call data
   let newCol = horizontal ? col : whereCol + 1;
@@ -63,16 +64,16 @@ const divide = (
   newheight = horizontal ? row + height - whereRow - 1: height;
   neworientation = chooseOrientation(newwidth, newheight);
 
-  divide(newRow, newCol, newwidth, newheight, neworientation, prohibited,grid);
+  divide(newRow, newCol, newwidth, newheight, neworientation, prohibited,grid, type);
 };
 
-const drawWall = (startRow, startCol, horizontal, length, grid) => {
+const drawWall = (startRow, startCol, horizontal, length, grid,type) => {
   for (let i = 0; i < length; i++) {
     const row = startRow + (horizontal ? 0 : i);
     const col = startCol + (horizontal ? i : 0);
 
     const cell = grid[row][col];
-    if (!cell.isKeyValue()) cell.add("Wall");
+    if (!cell.isKeyValue()) cell.add([type]);
   }
 };
 
