@@ -11,7 +11,7 @@ const NavigationItems = ({
   executeAlgorithm,
   algorithm,
   mazeGen,
-  settingSecondTarget,
+  setSpeed,
   openDialog,
   clear,
   setUserAction,
@@ -164,8 +164,8 @@ const NavigationItems = ({
           </DropItem>
         </DropDown>
       </Subnav>
-      <Subnav title="Draw">
-        <DropDown title="Options">
+      <Subnav title="Options">
+        <DropDown title="Draw">
           <DropItem clicked={() => setUserAction(cts.DELETING)}>
             Delete Wall
           </DropItem>
@@ -196,7 +196,28 @@ const NavigationItems = ({
           >
             Medium
           </DropItem>
-          <DropItem clicked={() => setNumRows(30)}>Large</DropItem>
+          <DropItem clicked={() => setNumRows(30)}>
+            Large (Beware of Lag)
+          </DropItem>
+        </DropDown>
+        <DropDown title="Set Animation Speed">
+          <DropItem
+            clicked={() => {
+              setSpeed(100);
+            }}
+          >
+            Slow
+          </DropItem>
+          <DropItem
+            clicked={() => {
+              setSpeed(50);
+            }}
+          >
+            Medium
+          </DropItem>
+          <DropItem clicked={() => setSpeed(10)}>
+            Fast
+          </DropItem>
         </DropDown>
       </Subnav>
 

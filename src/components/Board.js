@@ -32,6 +32,7 @@ const Board = ({ openDialog }) => {
   const [numTargets, setNumTargets] = useState(1);
   const [prevAlgorithm, setPrevAlgorithm] = useState();
   const [userAction, setUserAction] = useState(util.PLACING_WALLS);
+  const [animationSpeed, setAnimationSpeed] = useState(10)
 
   const handleKeyNodeMove = (node, type) => {
     if (type === "Target") node.setAsTarget();
@@ -262,12 +263,11 @@ const Board = ({ openDialog }) => {
     if (animations.length <= 0) return setIsAnimating(true);
 
     let count = 0;
-    let targetNum = 1;
 
     const intervalId = setInterval(() => {
       const node = animations[count];
 
-      targetNum % 2 === 0 ? node.markSearched() : node.markSearched2();
+      !node.is("Weight") ? node.markSearched() : node.markSearched2Done();
 
       if (node.is("Target") || node.is("SecondaryTarget")) {
         node.markShortestPath();
@@ -281,7 +281,7 @@ const Board = ({ openDialog }) => {
         setIsAnimating(true);
         clearInterval(intervalId);
       }
-    }, 10);
+    }, animationSpeed);
   };
 
   return (
@@ -297,6 +297,7 @@ const Board = ({ openDialog }) => {
         setUserAction={setUserAction}
         setNumRows={setNumRows}
         setNumCols={setNumCols}
+        setSpeed={setAnimationSpeed}
       />
       <br />
       <div
