@@ -32,7 +32,7 @@ const Board = ({ openDialog }) => {
   const [numTargets, setNumTargets] = useState(1);
   const [prevAlgorithm, setPrevAlgorithm] = useState();
   const [userAction, setUserAction] = useState(util.PLACING_WALLS);
-  const [animationSpeed, setAnimationSpeed] = useState(10)
+  const [animationSpeed, setAnimationSpeed] = useState(10);
 
   const handleKeyNodeMove = (node, type) => {
     if (type === "Target") node.setAsTarget();
@@ -175,6 +175,9 @@ const Board = ({ openDialog }) => {
       case util.PRIMS:
         animations = Prims(true);
         break;
+      case util.KRUSKAL:
+        animations = Kruskal();
+        break;
       default:
         animations = BFS(true);
         break;
@@ -228,6 +231,12 @@ const Board = ({ openDialog }) => {
     const animations = graph.Prims(startNode, targetNode, withAnimation);
     return animations;
   };
+
+  const Kruskal = () => {
+    const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
+    const animations = graph.kruskal();
+    return animations;
+  }
 
   const clear = () => {
     if (!animating) return;

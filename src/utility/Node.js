@@ -1,7 +1,8 @@
 export default class Node {
-  constructor(row, col) {
+  constructor(row, col, id) {
     this.row = row;
     this.col = col;
+    this.id = id;
     this.predecessor = null;
     this.dist = Infinity;
     this.g = 1;

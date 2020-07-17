@@ -7,5 +7,6 @@ export * from "./generateGraph";
 export * from "./DS/Graph";
 export * from "./DS/Queue";
 export * from "./DS/MinHeap";
+export * from "./DS/DisjointSet";
 
 export * from "./constants";

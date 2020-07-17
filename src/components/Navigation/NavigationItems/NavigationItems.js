@@ -107,6 +107,23 @@ const NavigationItems = ({
             Learn More
           </DropItem>
         </DropDown>
+        <DropDown title={cts.KRUSKAL}>
+          <DropItem
+            clicked={() => {
+              dispatch("SET_INFO", { info: cts.KRUSKAL });
+              dispatch("SET_ALGO", { algo: cts.KRUSKAL });
+            }}
+          >
+            Select
+          </DropItem>
+          <DropItem
+            clicked={() => {
+              dispatch("SET_INFO", { info: cts.KRUSKAL });
+            }}
+          >
+            Learn More
+          </DropItem>
+        </DropDown>
         <DropDown title={cts.DSTAR}>
           <DropItem
             clicked={() => {

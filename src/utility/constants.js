@@ -5,6 +5,7 @@ export const BFS = "Breadth First Search"
 export const DFS = "Depth First Search"
 export const PRIMS = "Prim's Algorithm"
 export const DSTAR = "D*"
+export const KRUSKAL = "Kruskal's Algorithm"
 
 export const RAND_MAZE = "Random Maze"
 export const RECURSIVE_DIVISON = "Recursive Division"

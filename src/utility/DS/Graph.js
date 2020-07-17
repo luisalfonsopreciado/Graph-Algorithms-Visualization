@@ -1,4 +1,5 @@
 import { Queue } from "./Queue";
+import { DisjointSet } from "./DisjointSet";
 import { MinHeap } from "../index";
 
 export class Graph {
@@ -16,6 +17,7 @@ export class Graph {
   addEdge(v, w) {
     // get the list for vertex v and put the
     // vertex w denoting edge between v and w
+
     this.AdjList.get(v).push(w);
 
     // Since graph is undirected,
@@ -337,7 +339,7 @@ export class Graph {
     startNode.dist = 0;
     heap.push(startNode);
 
-    let prevNode = null;
+    // let prevNode = null;
 
     while (!heap.isEmpty()) {
       const currentNode = heap.pop();
@@ -354,8 +356,8 @@ export class Graph {
         }
       }
 
-      currentNode.predecessor = prevNode;
-      prevNode = currentNode;
+      // currentNode.predecessor = prevNode;
+      // prevNode = currentNode;
       mst[currentNode.toString()] = currentNode;
     }
 
@@ -363,5 +365,43 @@ export class Graph {
 
     console.log(mst);
     return withAnimation ? animations : [];
+  }
+
+  kruskal() {
+    const heap = new MinHeap((el) => el.w);
+    const ds = new DisjointSet(5000);
+    const mst = [];
+    const edges = {};
+    const animations = []
+
+    this.AdjList.forEach((arr, key) => {
+      arr.forEach((adj) => {
+        const edgeId = [key.id, adj.id];
+        edgeId.sort((a, b) => a - b);
+
+        if (!edges.hasOwnProperty(edgeId.toString())) {
+          edges[edgeId] = true;
+          heap.push({
+            nodes : [key, adj],
+            w: key.getWeight() + adj.getWeight() - 1,
+            i: key.id,
+            j: adj.id,
+          });
+        }
+      });
+    });
+
+    while (!heap.isEmpty()) {
+      const currentEdge = heap.pop();
+      const hasCycle = ds.hasCycle(currentEdge.i, currentEdge.j);
+
+      if (!hasCycle) {
+        animations.push(currentEdge.nodes[0])
+        animations.push(currentEdge.nodes[1])
+        mst.push(currentEdge);
+      }
+    }
+
+    return animations;
   }
 }

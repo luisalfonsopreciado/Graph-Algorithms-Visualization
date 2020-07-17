@@ -3,11 +3,13 @@ import Node from "../utility/Node";
 
 const generateNodeGrid = (numRows, numCols) => {
   const nodesGrid = [];
+  let id = 1;
 
   for (let row = 0; row < numRows; row++) {
     nodesGrid[row] = [];
     for (let col = 0; col < numCols; col++) {
-      nodesGrid[row][col] = new Node(row, col);
+      nodesGrid[row][col] = new Node(row, col, id);
+      id++;
     }
   }
 
