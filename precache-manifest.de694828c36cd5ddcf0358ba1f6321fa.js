@@ -1,31 +1,35 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e6a0e97e03d401818efd0b50df26e6d4",
+    "revision": "e5a56f9e4b7d0cb6bee553eb293800e1",
     "url": "/Graph-Algorithms-Visualization/index.html"
   },
   {
-    "revision": "4a276e9ffe4601dc9775",
+    "revision": "e8028bc453f567e0bf1a",
     "url": "/Graph-Algorithms-Visualization/static/css/main.fb6a81db.chunk.css"
   },
   {
-    "revision": "7b157946229ae166221a",
-    "url": "/Graph-Algorithms-Visualization/static/js/10.4aecba63.chunk.js"
+    "revision": "3cce6515f3194194c172",
+    "url": "/Graph-Algorithms-Visualization/static/js/10.e8765f8b.chunk.js"
   },
   {
-    "revision": "92337fb33beff3a02910",
-    "url": "/Graph-Algorithms-Visualization/static/js/11.e1fc5893.chunk.js"
+    "revision": "05c656d5dc8e003eb133",
+    "url": "/Graph-Algorithms-Visualization/static/js/11.b67ac562.chunk.js"
   },
   {
-    "revision": "184dff958dfeb3d45ce7",
-    "url": "/Graph-Algorithms-Visualization/static/js/12.4f68c406.chunk.js"
+    "revision": "f4b44a7ee45eab54572b",
+    "url": "/Graph-Algorithms-Visualization/static/js/12.19f2e52c.chunk.js"
   },
   {
-    "revision": "83ab0a17f0666149384d",
-    "url": "/Graph-Algorithms-Visualization/static/js/2.7348ddc9.chunk.js"
+    "revision": "771cef6e0ac3d2e451d6",
+    "url": "/Graph-Algorithms-Visualization/static/js/13.dfeb2431.chunk.js"
+  },
+  {
+    "revision": "507f713b316ae8a1ee3b",
+    "url": "/Graph-Algorithms-Visualization/static/js/2.de275801.chunk.js"
   },
   {
     "revision": "301056a7ca16ead6156b38e6917dbb28",
-    "url": "/Graph-Algorithms-Visualization/static/js/2.7348ddc9.chunk.js.LICENSE.txt"
+    "url": "/Graph-Algorithms-Visualization/static/js/2.de275801.chunk.js.LICENSE.txt"
   },
   {
     "revision": "14e1c01997059d75723e",
@@ -56,12 +60,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/js/9.a6cff1f4.chunk.js"
   },
   {
-    "revision": "4a276e9ffe4601dc9775",
-    "url": "/Graph-Algorithms-Visualization/static/js/main.27b71e92.chunk.js"
+    "revision": "e8028bc453f567e0bf1a",
+    "url": "/Graph-Algorithms-Visualization/static/js/main.f2b70f1b.chunk.js"
   },
   {
-    "revision": "8c2c4ffe10a338efd9c5",
-    "url": "/Graph-Algorithms-Visualization/static/js/runtime-main.396e4116.js"
+    "revision": "52cdcc588b879933f78b",
+    "url": "/Graph-Algorithms-Visualization/static/js/runtime-main.c561eeca.js"
   },
   {
     "revision": "37ace5dcd747a8ba36dd793e02dd7339",
@@ -90,6 +94,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "d9e0c62a1b2a5240b545a2f3a8263ea7",
     "url": "/Graph-Algorithms-Visualization/static/media/Greedy Best First Search.d9e0c62a.md"
+  },
+  {
+    "revision": "4e5c76d3e01ec57d15a7503b056f9348",
+    "url": "/Graph-Algorithms-Visualization/static/media/Kruskal's Algorithm.4e5c76d3.md"
   },
   {
     "revision": "3d1af56cc4d3f055fafb829e79aaf1cc",

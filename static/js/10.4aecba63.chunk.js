@@ -1,2 +1,0 @@
-(this["webpackJsonpgraph-algo-visualizer"]=this["webpackJsonpgraph-algo-visualizer"]||[]).push([[10],{269:function(a,i,s){a.exports=s.p+"static/media/Prim's Algorithm.3d1af56c.md"}}]);
-//# sourceMappingURL=10.4aecba63.chunk.js.map
