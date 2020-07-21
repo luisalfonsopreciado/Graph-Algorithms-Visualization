@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e5a56f9e4b7d0cb6bee553eb293800e1",
+    "revision": "dfc6c5a2b1a11e9877caf4de2dacf62a",
     "url": "/Graph-Algorithms-Visualization/index.html"
   },
   {
-    "revision": "e8028bc453f567e0bf1a",
+    "revision": "cc424f7107ea68371f2b",
     "url": "/Graph-Algorithms-Visualization/static/css/main.fb6a81db.chunk.css"
   },
   {
-    "revision": "3cce6515f3194194c172",
-    "url": "/Graph-Algorithms-Visualization/static/js/10.e8765f8b.chunk.js"
+    "revision": "ca71598392883a14479b",
+    "url": "/Graph-Algorithms-Visualization/static/js/10.6b9a0774.chunk.js"
   },
   {
-    "revision": "05c656d5dc8e003eb133",
-    "url": "/Graph-Algorithms-Visualization/static/js/11.b67ac562.chunk.js"
+    "revision": "fa013a776e49feb9c817",
+    "url": "/Graph-Algorithms-Visualization/static/js/11.30532aa3.chunk.js"
   },
   {
     "revision": "f4b44a7ee45eab54572b",
@@ -60,12 +60,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/js/9.a6cff1f4.chunk.js"
   },
   {
-    "revision": "e8028bc453f567e0bf1a",
-    "url": "/Graph-Algorithms-Visualization/static/js/main.f2b70f1b.chunk.js"
+    "revision": "cc424f7107ea68371f2b",
+    "url": "/Graph-Algorithms-Visualization/static/js/main.65f24123.chunk.js"
   },
   {
-    "revision": "52cdcc588b879933f78b",
-    "url": "/Graph-Algorithms-Visualization/static/js/runtime-main.c561eeca.js"
+    "revision": "9ee1e01dad230ac6fac1",
+    "url": "/Graph-Algorithms-Visualization/static/js/runtime-main.9cd4af7e.js"
   },
   {
     "revision": "37ace5dcd747a8ba36dd793e02dd7339",
@@ -96,12 +96,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/media/Greedy Best First Search.d9e0c62a.md"
   },
   {
-    "revision": "4e5c76d3e01ec57d15a7503b056f9348",
-    "url": "/Graph-Algorithms-Visualization/static/media/Kruskal's Algorithm.4e5c76d3.md"
+    "revision": "f81ca066885606e64589c96b397399d0",
+    "url": "/Graph-Algorithms-Visualization/static/media/Kruskal's Algorithm.f81ca066.md"
   },
   {
-    "revision": "3d1af56cc4d3f055fafb829e79aaf1cc",
-    "url": "/Graph-Algorithms-Visualization/static/media/Prim's Algorithm.3d1af56c.md"
+    "revision": "f65212c241e5b97d1d22a3baee9f22f3",
+    "url": "/Graph-Algorithms-Visualization/static/media/Prim's Algorithm.f65212c2.md"
   },
   {
     "revision": "983e48eb0123ef52854ad7ec15895dcf",
