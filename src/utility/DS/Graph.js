@@ -124,7 +124,7 @@ export class Graph {
           get_elem.markShortestPath();
         }
         animations.push(get_elem);
-        this.DFSUtil(get_elem, visited, animations);
+        this.DFSUtil(get_elem, visited, animations, withAnimation);
       }
     }
   }
