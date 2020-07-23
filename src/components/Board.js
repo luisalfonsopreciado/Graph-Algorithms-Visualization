@@ -33,6 +33,9 @@ const Board = ({ openDialog }) => {
   const [prevAlgorithm, setPrevAlgorithm] = useState();
   const [userAction, setUserAction] = useState(util.PLACING_WALLS);
   const [animationSpeed, setAnimationSpeed] = useState(10);
+  const [distance, setDistance] = useState("Unkown")
+  const [matrix, setMatrix] = useState()
+  const [predMatrix, setPredMatrix] = useState(null)
 
   const handleKeyNodeMove = (node, type) => {
     if (type === "Target") node.setAsTarget();
@@ -65,6 +68,13 @@ const Board = ({ openDialog }) => {
       case util.PRIMS:
         resetDistance();
         Prims(false);
+        break;
+      case util.FLOYD_WARSHALL:
+        const { startNode, targetNode } = util.getKeyNodes(nodeGrid)
+        const distance = matrix[startNode.id][targetNode.id]
+        console.log(distance)
+        // setPredMatrix(14)
+        // setDistance(21)
         break;
       default:
     }
@@ -107,15 +117,8 @@ const Board = ({ openDialog }) => {
 
   const onMouseLeaveHandler = (node) => {
     if (!animating) return;
-    if (
-      isMovingStart ||
-      isMovingTarget ||
-      settingSecondTarget ||
-      isMovingSecondTarget
-    ) {
-      if (isMovingStart) node.removeClass("Start");
-      if (isMovingTarget) node.removeClass("Target");
-    }
+    if (isMovingStart) return node.removeClass("Start");
+    if (isMovingTarget) return node.removeClass("Target");
   };
 
   const onMouseUpHandler = () => {
@@ -178,6 +181,9 @@ const Board = ({ openDialog }) => {
       case util.KRUSKAL:
         animations = Kruskal();
         break;
+      case util.FLOYD_WARSHALL:
+        animations = floydWarshall(true);
+        break;
       default:
         animations = BFS(true);
         break;
@@ -216,6 +222,15 @@ const Board = ({ openDialog }) => {
     return animations;
   };
 
+  const floydWarshall = (withAnimation) => {
+    const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
+    if (!withAnimation) return setDistance(matrix[startNode.id][targetNode.id]);
+    const mtrx = graph.floydWarshall(nodeGrid);
+    setDistance(mtrx[startNode.id][targetNode.id]);
+    setMatrix(mtrx);
+    return [];
+  };
+
   const bestFirstSearch = (withAnimation) => {
     const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
     const animations = graph.bestFirstSearch(
@@ -233,7 +248,7 @@ const Board = ({ openDialog }) => {
   };
 
   const Kruskal = () => {
-    const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
+    const { graph } = util.generateGraph(nodeGrid);
     const animations = graph.kruskal();
     return animations;
   }
@@ -242,12 +257,14 @@ const Board = ({ openDialog }) => {
     if (!animating) return;
     setHasSecondTarget(false);
     setPrevAlgorithm(null);
+    setDistance("Unkown")
     resetGrid();
   };
 
   const removeVisualization = () => {
     if (!animating) return;
     setPrevAlgorithm(null);
+    setDistance("Unkown")
     removeVisuals();
   };
 
@@ -279,6 +296,7 @@ const Board = ({ openDialog }) => {
       !node.is("Weight") ? node.markSearched() : node.markSearched2Done();
 
       if (node.is("Target") || node.is("SecondaryTarget")) {
+        setDistance(node.dist)
         node.markShortestPath();
       }
 
@@ -309,6 +327,7 @@ const Board = ({ openDialog }) => {
         setSpeed={setAnimationSpeed}
       />
       <br />
+      <h3>Distance: {distance}</h3>
       <div
         className="Board"
         style={{

@@ -38,8 +38,22 @@ export default class Node {
     return neighbors;
   }
 
+  isNeighbor(node){
+    if(this.row === node.row) return this.col + 1 >= node.col && this.col - 1 <= node.col;
+    if(this.col === node.col) return  this.row + 1 >= node.row && this.row - 1 <= node.row;
+    return false
+  }
+
+  getDistanceTo(end) { // O(1)
+    if (this === end) return 0;
+    if (!this.isNeighbor(end)) return Infinity;
+    return this.getWeight() + end.getWeight() - 1;
+  }
+
   getWeight(){
-    return this.is("Weight") ? 15 : 1;
+    if(this.is("Weight")) return 15;
+    if(this.is("Wall")) return Infinity;
+    return 1;
   }
 
   removeClass(s) {

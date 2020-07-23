@@ -19,6 +19,20 @@ export const generateNodeGrid = (grid) => {
   return graph;
 };
 
+export const getKeyNodes = (nodesGrid) => {
+  let startNode = null;
+  let targetNode = null;
+
+  for (let row = 0; row < nodesGrid.length; row++) {
+    for (let col = 0; col < nodesGrid[row].length; col++) {
+      const currentNode = nodesGrid[row][col];
+      if (currentNode.is("Start")) startNode = currentNode;
+      if (currentNode.is("Target")) targetNode = currentNode;
+    }
+  }
+  return { startNode, targetNode };
+}
+
 export const generateGraph = (nodesGrid) => {
   let startNode = null;
   let targetNode = null;
@@ -31,7 +45,7 @@ export const generateGraph = (nodesGrid) => {
 
       if (!currentNode.is("Wall")) {
         if (currentNode.is("Start")) startNode = currentNode;
-        if(currentNode.is("Target")) targetNode = currentNode;
+        if (currentNode.is("Target")) targetNode = currentNode;
         const neighbors = currentNode.getNeighbors(nodesGrid);
 
         for (let i in neighbors) {
@@ -40,6 +54,6 @@ export const generateGraph = (nodesGrid) => {
       }
     }
   }
-  if(startNode) startNode.dist = 0;
+  if (startNode) startNode.dist = 0;
   return { graph, startNode, targetNode };
 };

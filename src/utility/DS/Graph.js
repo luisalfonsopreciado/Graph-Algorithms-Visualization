@@ -280,7 +280,7 @@ export class Graph {
   greedyHeuristic(node, targetNode) {
     const h = Math.sqrt(
       Math.pow(node.col - targetNode.col, 2) +
-        Math.pow(node.row - targetNode.row, 2)
+      Math.pow(node.row - targetNode.row, 2)
     );
     node.h = Math.floor(h);
     node.f = node.h;
@@ -289,7 +289,7 @@ export class Graph {
   euclideanDistance(node, targetNode) {
     const h = Math.sqrt(
       Math.pow(node.col - targetNode.col, 2) +
-        Math.pow(node.row - targetNode.row, 2)
+      Math.pow(node.row - targetNode.row, 2)
     );
     node.h = Math.floor(h);
     node.f = node.getWeight() + node.h;
@@ -382,7 +382,7 @@ export class Graph {
         if (!edges.hasOwnProperty(edgeId.toString())) {
           edges[edgeId] = true;
           heap.push({
-            nodes : [key, adj],
+            nodes: [key, adj],
             w: key.getWeight() + adj.getWeight() - 1,
             i: key.id,
             j: adj.id,
@@ -403,5 +403,43 @@ export class Graph {
     }
 
     return animations;
+  }
+
+  floydWarshall(nodeGrid) {
+    const n = this.noOfVertices;
+    const matrix = new Array(n + 1);
+    let id = 1;
+
+    for (let row = 1; row <= n; row++) {
+      matrix[row] = new Array(n + 1);
+      for (let col = 1; col <= n; col++) {
+
+        const start = this.getNode(row, nodeGrid);
+        const end = this.getNode(col, nodeGrid);
+        matrix[row][col] = start.getDistanceTo(end);
+
+        id++;
+      }
+    }
+
+    for (let k = 1; k <= n; k++) {
+      for (let i = 1; i <= n; i++) {
+        for (let j = 1; j <= n; j++) {
+          const potentialDist = matrix[i][k] + matrix[k][j];
+          matrix[i][j] = Math.min(matrix[i][j], potentialDist)
+        }
+      }
+    }
+
+    console.log(matrix)
+
+    return matrix;
+  }
+
+  getNode(id, nodeGrid) { // O(1)
+    const width = nodeGrid[0].length;
+    const row = Math.floor(((id - 1) / width))
+    const col = (id - 1) % width;
+    return nodeGrid[row][col];
   }
 }

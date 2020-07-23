@@ -68,7 +68,7 @@ function App() {
           <h1>Welcome to The Graph Algorithms Visualizer!</h1>
           <br />
           <h4>
-            This Project Helps CS Enthusiasts understand popular graph
+            This Project Helps CS Enthusiasts visualize graph
             traversal/path-finding algorithms. To get Started, click on an
             algorithm located on the header and press Visualize!.
           </h4>
