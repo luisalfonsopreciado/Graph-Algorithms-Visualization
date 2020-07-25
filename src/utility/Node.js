@@ -38,9 +38,9 @@ export default class Node {
     return neighbors;
   }
 
-  isNeighbor(node){
-    if(this.row === node.row) return this.col + 1 >= node.col && this.col - 1 <= node.col;
-    if(this.col === node.col) return  this.row + 1 >= node.row && this.row - 1 <= node.row;
+  isNeighbor(node){ // O(1)
+    if(this.row === node.row) return this.col + 1 === node.col || this.col - 1 === node.col;
+    if(this.col === node.col) return  this.row + 1 === node.row || this.row - 1 === node.row;
     return false
   }
 

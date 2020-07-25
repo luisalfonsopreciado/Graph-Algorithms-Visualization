@@ -107,7 +107,7 @@ const NavigationItems = ({
             Learn More
           </DropItem>
         </DropDown>
-        <DropDown title={cts.KRUSKAL}>
+        {/* <DropDown title={cts.KRUSKAL}>
           <DropItem
             clicked={() => {
               dispatch("SET_INFO", { info: cts.KRUSKAL });
@@ -140,7 +140,7 @@ const NavigationItems = ({
           >
             Learn More
           </DropItem>
-        </DropDown>
+        </DropDown> */}
         <DropDown title={cts.DSTAR}>
           <DropItem
             clicked={() => {

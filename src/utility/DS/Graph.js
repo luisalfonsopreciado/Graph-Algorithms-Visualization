@@ -61,7 +61,6 @@ export class Graph {
     visited[startingNode] = true;
     q.enqueue(startingNode);
 
-    let dist = 1;
     // loop until queue is element
     while (!q.isEmpty()) {
       // get the element from the queue
@@ -79,7 +78,7 @@ export class Graph {
 
         if (!visited[neigh]) {
           neigh.predecessor = getQueueElement;
-          neigh.dist = dist;
+          neigh.dist = 1 + getQueueElement.dist;
           if (!withAnimation) neigh.markSearched2Done();
           if (neigh.is("Target") && !withAnimation) neigh.markShortestPath();
           animations.push(neigh);
@@ -87,7 +86,6 @@ export class Graph {
           q.enqueue(neigh);
         }
       }
-      dist++;
     }
 
     return animations;
@@ -116,6 +114,7 @@ export class Graph {
 
     for (var i in get_neighbours) {
       var get_elem = get_neighbours[i];
+      get_elem.dist = vert.dist + 1;
       if (!visited[get_elem]) {
         get_elem.predecessor = vert;
         if (!withAnimation) get_elem.markSearched2Done();
@@ -405,38 +404,37 @@ export class Graph {
     return animations;
   }
 
-  floydWarshall(nodeGrid) {
+  floydWarshall(nodeGrid) { // O(V^3)
     const n = this.noOfVertices;
-    const matrix = new Array(n + 1);
-    let id = 1;
+    const mtrx = []
+    const animations = []
 
+    // Create the mtrx with initial values
     for (let row = 1; row <= n; row++) {
-      matrix[row] = new Array(n + 1);
+      mtrx[row] = []
       for (let col = 1; col <= n; col++) {
-
         const start = this.getNode(row, nodeGrid);
         const end = this.getNode(col, nodeGrid);
-        matrix[row][col] = start.getDistanceTo(end);
-
-        id++;
+        mtrx[row][col] = start.getDistanceTo(end); // Distance from start to end
       }
     }
 
+    // Update the mtrx
     for (let k = 1; k <= n; k++) {
       for (let i = 1; i <= n; i++) {
         for (let j = 1; j <= n; j++) {
-          const potentialDist = matrix[i][k] + matrix[k][j];
-          matrix[i][j] = Math.min(matrix[i][j], potentialDist)
+          mtrx[i][j] = Math.min(mtrx[i][j], mtrx[i][k] + mtrx[k][j])
         }
       }
     }
 
-    console.log(matrix)
 
-    return matrix;
+
+    return { mtrx, animations };
   }
 
   getNode(id, nodeGrid) { // O(1)
+    // returns a reference to the node given the id
     const width = nodeGrid[0].length;
     const row = Math.floor(((id - 1) / width))
     const col = (id - 1) % width;

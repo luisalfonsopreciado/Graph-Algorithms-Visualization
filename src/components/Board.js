@@ -35,46 +35,37 @@ const Board = ({ openDialog }) => {
   const [animationSpeed, setAnimationSpeed] = useState(10);
   const [distance, setDistance] = useState("Unkown")
   const [matrix, setMatrix] = useState()
-  const [predMatrix, setPredMatrix] = useState(null)
 
   const handleKeyNodeMove = (node, type) => {
     if (type === "Target") node.setAsTarget();
     if (type === "Start") node.add("Start");
+    resetDistance();
     switch (prevAlgorithm) {
       case util.DIJKSTRA:
-        resetDistance();
         Dijkstra(false);
         break;
       case util.ASTAR:
-        resetDistance();
         AStar(false);
         break;
       case util.GREEDY_BFS:
-        resetDistance();
         bestFirstSearch(false);
         break;
       case util.BFS:
-        resetDistance();
         BFS(false);
         break;
       case util.DFS:
-        resetDistance();
         DFS(false);
         break;
       case util.DSTAR:
-        resetDistance();
         DStar(false);
         break;
       case util.PRIMS:
-        resetDistance();
         Prims(false);
         break;
       case util.FLOYD_WARSHALL:
         const { startNode, targetNode } = util.getKeyNodes(nodeGrid)
         const distance = matrix[startNode.id][targetNode.id]
-        console.log(distance)
-        // setPredMatrix(14)
-        // setDistance(21)
+        setDistance(distance)
         break;
       default:
     }
@@ -98,11 +89,11 @@ const Board = ({ openDialog }) => {
   };
 
   const onMouseDownHandler = (node) => {
+    setIsMouseDown(true);
     if (!animating) return;
     if (userAction === util.ADDING_WEIGHT)
       return !node.isKeyValue() && node.add("Weight");
     if (userAction === util.DELETING) return node.remove(["Wall", "Weight"]);
-    setIsMouseDown(true);
     if (settingSecondTarget) {
       let num = numTargets;
       setNumTargets(num + 1);
@@ -110,19 +101,19 @@ const Board = ({ openDialog }) => {
       return setSettingSecondTarget(false);
     }
     if (!node.isKeyValue()) return node.setWall();
-    if (node.is("Start")) return setIsMovingStart(true);
-    if (node.is("Target")) return setIsMovingTarget(true);
-    if (node.is("SecondaryTarget")) return setIsMovingSecondTarget(true);
+    if (node.is("Start")) setIsMovingStart(true);
+    if (node.is("Target")) setIsMovingTarget(true);
+    if (node.is("SecondaryTarget")) setIsMovingSecondTarget(true);
   };
 
   const onMouseLeaveHandler = (node) => {
     if (!animating) return;
-    if (isMovingStart) return node.removeClass("Start");
-    if (isMovingTarget) return node.removeClass("Target");
+    if (isMovingStart) node.removeClass("Start");
+    if (isMovingTarget) node.removeClass("Target");
   };
 
   const onMouseUpHandler = () => {
-    if (!animating) return;
+    // if (!animating) return;
     setIsMouseDown(false);
     setIsMovingStart(false);
     setIsMovingTarget(false);
@@ -148,12 +139,13 @@ const Board = ({ openDialog }) => {
     });
   });
 
-  const executeAlgorithm = (type) => {
+  const executeAlgorithm = () => {
     removeVisualization();
     if (!animating) return;
     setIsAnimating(false);
     setPrevAlgorithm(algorithm);
     setUserAction(util.PLACING_WALLS);
+    resetDistance()
 
     let animations = [];
     switch (algorithm) {
@@ -225,10 +217,11 @@ const Board = ({ openDialog }) => {
   const floydWarshall = (withAnimation) => {
     const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
     if (!withAnimation) return setDistance(matrix[startNode.id][targetNode.id]);
-    const mtrx = graph.floydWarshall(nodeGrid);
+    const { mtrx, animations } = graph.floydWarshall(nodeGrid);
     setDistance(mtrx[startNode.id][targetNode.id]);
     setMatrix(mtrx);
-    return [];
+    console.log(animations)
+    return animations;
   };
 
   const bestFirstSearch = (withAnimation) => {
