@@ -1,71 +1,75 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "dfc6c5a2b1a11e9877caf4de2dacf62a",
+    "revision": "3efa9893586c0a3b944e8f97f07b3e25",
     "url": "/Graph-Algorithms-Visualization/index.html"
   },
   {
-    "revision": "cc424f7107ea68371f2b",
+    "revision": "0bdb53c66a03cbf6eab4",
     "url": "/Graph-Algorithms-Visualization/static/css/main.fb6a81db.chunk.css"
   },
   {
-    "revision": "ca71598392883a14479b",
-    "url": "/Graph-Algorithms-Visualization/static/js/10.6b9a0774.chunk.js"
+    "revision": "057b2b218ed261782933",
+    "url": "/Graph-Algorithms-Visualization/static/js/10.2cad9dd0.chunk.js"
   },
   {
-    "revision": "fa013a776e49feb9c817",
-    "url": "/Graph-Algorithms-Visualization/static/js/11.30532aa3.chunk.js"
+    "revision": "e8c0715cd4538c82041d",
+    "url": "/Graph-Algorithms-Visualization/static/js/11.c36e34b8.chunk.js"
   },
   {
-    "revision": "f4b44a7ee45eab54572b",
-    "url": "/Graph-Algorithms-Visualization/static/js/12.19f2e52c.chunk.js"
+    "revision": "a30d21c0f834d6254957",
+    "url": "/Graph-Algorithms-Visualization/static/js/12.6b709c9c.chunk.js"
   },
   {
-    "revision": "771cef6e0ac3d2e451d6",
-    "url": "/Graph-Algorithms-Visualization/static/js/13.dfeb2431.chunk.js"
+    "revision": "a230b4c462cb8f9a9b9c",
+    "url": "/Graph-Algorithms-Visualization/static/js/13.0681e054.chunk.js"
   },
   {
-    "revision": "507f713b316ae8a1ee3b",
-    "url": "/Graph-Algorithms-Visualization/static/js/2.de275801.chunk.js"
+    "revision": "2c45704c69f660e1b18c",
+    "url": "/Graph-Algorithms-Visualization/static/js/14.ae08a5da.chunk.js"
+  },
+  {
+    "revision": "a2e663afcfe7bcab1ea6",
+    "url": "/Graph-Algorithms-Visualization/static/js/2.c2b7e23b.chunk.js"
   },
   {
     "revision": "301056a7ca16ead6156b38e6917dbb28",
-    "url": "/Graph-Algorithms-Visualization/static/js/2.de275801.chunk.js.LICENSE.txt"
+    "url": "/Graph-Algorithms-Visualization/static/js/2.c2b7e23b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "14e1c01997059d75723e",
-    "url": "/Graph-Algorithms-Visualization/static/js/3.85cabe1c.chunk.js"
+    "revision": "19ed9574ceb08e6275bc",
+    "url": "/Graph-Algorithms-Visualization/static/js/3.1aca062f.chunk.js"
   },
   {
-    "revision": "f498c208ac7168717927",
-    "url": "/Graph-Algorithms-Visualization/static/js/4.d12c4545.chunk.js"
+    "revision": "313a99a4a2d275d13d0a",
+    "url": "/Graph-Algorithms-Visualization/static/js/4.56896997.chunk.js"
   },
   {
-    "revision": "7c571ec7a64e62f75ce0",
-    "url": "/Graph-Algorithms-Visualization/static/js/5.6a8a7909.chunk.js"
+    "revision": "473acc9319716f5e25ed",
+    "url": "/Graph-Algorithms-Visualization/static/js/5.76422bba.chunk.js"
   },
   {
-    "revision": "96a771d3c48943a9f196",
-    "url": "/Graph-Algorithms-Visualization/static/js/6.de4c5080.chunk.js"
+    "revision": "6c0b6bd876d304610aef",
+    "url": "/Graph-Algorithms-Visualization/static/js/6.bba5f1e5.chunk.js"
   },
   {
-    "revision": "b9844ba9e249bd622744",
-    "url": "/Graph-Algorithms-Visualization/static/js/7.166759fb.chunk.js"
+    "revision": "227e38b1f77d12052c01",
+    "url": "/Graph-Algorithms-Visualization/static/js/7.075b3914.chunk.js"
   },
   {
-    "revision": "3c1bfd50934abf341dac",
-    "url": "/Graph-Algorithms-Visualization/static/js/8.e9a6ae87.chunk.js"
+    "revision": "9b11d1e5dee2cefdf2c6",
+    "url": "/Graph-Algorithms-Visualization/static/js/8.0c22fb9f.chunk.js"
   },
   {
-    "revision": "c3e6f81c2825a4b4a128",
-    "url": "/Graph-Algorithms-Visualization/static/js/9.a6cff1f4.chunk.js"
+    "revision": "a4685eeaf8b57f42b2f7",
+    "url": "/Graph-Algorithms-Visualization/static/js/9.fb37aec0.chunk.js"
   },
   {
-    "revision": "cc424f7107ea68371f2b",
-    "url": "/Graph-Algorithms-Visualization/static/js/main.65f24123.chunk.js"
+    "revision": "0bdb53c66a03cbf6eab4",
+    "url": "/Graph-Algorithms-Visualization/static/js/main.f468ac15.chunk.js"
   },
   {
-    "revision": "9ee1e01dad230ac6fac1",
-    "url": "/Graph-Algorithms-Visualization/static/js/runtime-main.9cd4af7e.js"
+    "revision": "043f26673c468e2721c2",
+    "url": "/Graph-Algorithms-Visualization/static/js/runtime-main.4b0d556d.js"
   },
   {
     "revision": "37ace5dcd747a8ba36dd793e02dd7339",
@@ -90,6 +94,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "abd707b706e9976212f699ee509511f0",
     "url": "/Graph-Algorithms-Visualization/static/media/Dijkstra.abd707b7.md"
+  },
+  {
+    "revision": "7041875d41ac5fa80c653587ac27486f",
+    "url": "/Graph-Algorithms-Visualization/static/media/Floyd-Warshall.7041875d.md"
   },
   {
     "revision": "d9e0c62a1b2a5240b545a2f3a8263ea7",
