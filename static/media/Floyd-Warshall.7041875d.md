@@ -1,3 +1,0 @@
-### D* Algorithm
-
-Coming Soon
