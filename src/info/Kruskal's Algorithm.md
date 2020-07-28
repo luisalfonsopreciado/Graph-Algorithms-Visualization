@@ -20,17 +20,17 @@ Pseudocode:
 Algorithm: Kruskal-MST (G)
 Input: A Weighted Graph G=(V,E)
 
-1.   Initialize MST to be empty;
-2.   Place each vertex in its own set;
-3.   add all edges G to a min heap;
-4.   while the heap is not empty
-5.       e = (u,v)
-5.       if u and v are not in the same set
-6.           Add e to MST;
-7.           Compute the union of the two sets;
-8.       endif
-9.   endwhile
-10.  return MST
+   Initialize MST to be empty;
+   Place each vertex in its own set;
+   add all edges G to a min heap;
+   while the heap is not empty
+       e = (u,v)
+       if u and v are not in the same set
+           Add e to MST;
+           Compute the union of the two sets;
+       endif
+   endwhile
+   return MST
 
 Output: A minimum spanning tree for the graph G.
 ```

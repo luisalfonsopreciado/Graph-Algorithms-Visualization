@@ -7,7 +7,6 @@ import Footer from "./components/Footer/Footer";
 import configureAlgorithmStore from "./hooks-store/algorithm";
 import { useStore } from "./hooks-store/store";
 import marked from "marked";
-import ReactMarkdown from "react-markdown/with-html";
 import { makeStyles } from "@material-ui/core";
 
 configureAlgorithmStore();
@@ -15,8 +14,10 @@ configureAlgorithmStore();
 const useStyles = makeStyles({
   paper: {
     padding: "5px",
-    margin: "10px",
-    width: "1200px"
+    margin: "auto",
+    width: "1200px",
+    marginTop: "10px",
+    marginBottom: "10px"
   },
 });
 
@@ -54,7 +55,7 @@ function App() {
       <div className={styles.App}>
         <Board openDialog={handleDialogOpen} />
         <Paper className={classes.paper} elevation={10}>
-          <ReactMarkdown source={markdown} escapeHtml={false} />
+          <div dangerouslySetInnerHTML={{ __html: markdown }} />
         </Paper>
       </div>
 

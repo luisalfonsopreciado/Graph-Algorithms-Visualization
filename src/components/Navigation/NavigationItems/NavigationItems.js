@@ -66,7 +66,12 @@ const NavigationItems = ({
           </DropItem>
         </DropDown>
         <DropDown title={cts.BFS}>
-          <DropItem clicked={() => dispatch("SET_ALGO", { algo: cts.BFS })}>
+          <DropItem
+            clicked={() => {
+              dispatch("SET_ALGO", { algo: cts.BFS });
+              dispatch("SET_INFO", { info: cts.BFS });
+            }}
+          >
             Select
           </DropItem>
           <DropItem clicked={() => dispatch("SET_INFO", { info: cts.BFS })}>
@@ -107,7 +112,7 @@ const NavigationItems = ({
             Learn More
           </DropItem>
         </DropDown>
-        {/* <DropDown title={cts.KRUSKAL}>
+        <DropDown title={cts.KRUSKAL}>
           <DropItem
             clicked={() => {
               dispatch("SET_INFO", { info: cts.KRUSKAL });
@@ -124,6 +129,7 @@ const NavigationItems = ({
             Learn More
           </DropItem>
         </DropDown>
+        {/*
         <DropDown title={cts.FLOYD_WARSHALL}>
           <DropItem
             clicked={() => {
@@ -249,9 +255,7 @@ const NavigationItems = ({
           >
             Medium
           </DropItem>
-          <DropItem clicked={() => setSpeed(10)}>
-            Fast
-          </DropItem>
+          <DropItem clicked={() => setSpeed(10)}>Fast</DropItem>
         </DropDown>
       </Subnav>
 

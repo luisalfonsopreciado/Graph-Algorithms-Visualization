@@ -53,27 +53,27 @@ Input: A graph's adjacency matrix, # of vertices n.
 ```
 
 ```
-    Algorithm: depthFirstMatrixRecursive (v)
-    Input: vertex v, adjMatrix is assumed to be global.
+Algorithm: depthFirstMatrixRecursive (v)
+Input: vertex v, adjMatrix is assumed to be global.
 
-     // Mark vertex v as visited.
-     visitCount = visitCount + 1
-     visitOrder[v] = visitCount
+    // Mark vertex v as visited.
+    visitCount = visitCount + 1
+    visitOrder[v] = visitCount
 
-     // Look for first unvisited neighbor.
-     for i=0 to n-1
-         if adjMatrix[v][i] > 0 and i != v
-             if visitOrder[i] < 0
-                 // If unvisited visit recursively.
-                 depthFirstMatrixRecursive (i)
-             endif
-         endif
-     endfor
+    // Look for first unvisited neighbor.
+    for i=0 to n-1
+        if adjMatrix[v][i] > 0 and i != v
+            if visitOrder[i] < 0
+                // If unvisited visit recursively.
+                depthFirstMatrixRecursive (i)
+            endif
+        endif
+    endfor
 ```
 
 ---
 
-DFS Analysis using an adjacency matrix
+## DFS Analysis using an adjacency matrix
 
 Same as breadth-first search: O(V^2)
 
@@ -85,7 +85,7 @@ O(V) work for identifying neighbors.
 
 ---
 
-DFS Analysis using an adjacency list
+## DFS Analysis using an adjacency list
 
 Similar analysis (to breadth-first search) gives: O(V + E).
 **DFS with adjacency list is optimal.**
@@ -98,7 +98,4 @@ Applications:
 2. Cycle existence.
 3. Others: 
 - finding articulation edges, vertices,"bipartiteness".
-
-4.Identifying equivalence classes
-
-#### Click on Algorithms -> Depth First Search -> Select
+4. Identifying equivalence classes

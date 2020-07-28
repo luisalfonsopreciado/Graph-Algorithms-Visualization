@@ -19,20 +19,20 @@ PseudoCode
 Algorithm: Prim-MST (G)
 Input: Graph G=(V,E) with edge-weights.
 
-1.   Initialize MST to vertex 0.
-2.   priority[0] = 0
-3.   For all other vertices, set priority[i] = infinity
-4.   Initialize prioritySet to all vertices;
-5.   while prioritySet.notEmpty()
-6.       v = remove minimal-priority vertex from prioritySet;
-7.       for each neighbor u of v
+   Initialize MST to vertex 0.
+   priority[0] = 0
+   For all other vertices, set priority[i] = infinity
+   Initialize prioritySet to all vertices;
+   while prioritySet.notEmpty()
+       v = remove minimal-priority vertex from prioritySet;
+       for each neighbor u of v
              // See if the priority of u changes because of v.
-9.           w = weight of edge (v, u)
-8.           if w < priority[u]
-9.               priority[u] = w
-10.          endif
-11.      endfor
-12.  endwhile
+           w = weight of edge (v, u)
+           if w < priority[u]
+               priority[u] = w
+           endif
+       endfor
+   endwhile
 
 Output: A minimum spanning tree of the graph G.
 ```

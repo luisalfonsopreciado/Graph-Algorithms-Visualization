@@ -5,12 +5,24 @@ import "./Board.css";
 import useNodeGrid from "../hooks/useNodeGrid";
 import Navbar from "./Navigation/Toolbar/Toolbar";
 import { useStore } from "../hooks-store/store";
+import { Paper, makeStyles } from "@material-ui/core";
 
 const ROWS_INIT = 10;
 const COLS_INIT = 40;
 
+const useStyles = makeStyles({
+  paper: {
+    padding: "5px",
+    margin: "auto",
+    width: "1200px",
+    marginTop: "10px",
+    marginBottom: "10px",
+  },
+});
+
 const Board = ({ openDialog }) => {
   const { algorithm } = useStore()[0];
+  const classes = useStyles();
 
   const {
     nodeGrid,
@@ -33,8 +45,8 @@ const Board = ({ openDialog }) => {
   const [prevAlgorithm, setPrevAlgorithm] = useState();
   const [userAction, setUserAction] = useState(util.PLACING_WALLS);
   const [animationSpeed, setAnimationSpeed] = useState(10);
-  const [distance, setDistance] = useState("Unkown")
-  const [matrix, setMatrix] = useState()
+  const [distance, setDistance] = useState("Unkown");
+  const [matrix, setMatrix] = useState();
 
   const handleKeyNodeMove = (node, type) => {
     if (type === "Target") node.setAsTarget();
@@ -63,9 +75,9 @@ const Board = ({ openDialog }) => {
         Prims(false);
         break;
       case util.FLOYD_WARSHALL:
-        const { startNode, targetNode } = util.getKeyNodes(nodeGrid)
-        const distance = matrix[startNode.id][targetNode.id]
-        setDistance(distance)
+        const { startNode, targetNode } = util.getKeyNodes(nodeGrid);
+        const distance = matrix[startNode.id][targetNode.id];
+        setDistance(distance);
         break;
       default:
     }
@@ -145,7 +157,7 @@ const Board = ({ openDialog }) => {
     setIsAnimating(false);
     setPrevAlgorithm(algorithm);
     setUserAction(util.PLACING_WALLS);
-    resetDistance()
+    resetDistance();
 
     let animations = [];
     switch (algorithm) {
@@ -220,7 +232,7 @@ const Board = ({ openDialog }) => {
     const { mtrx, animations } = graph.floydWarshall(nodeGrid);
     setDistance(mtrx[startNode.id][targetNode.id]);
     setMatrix(mtrx);
-    console.log(animations)
+    console.log(animations);
     return animations;
   };
 
@@ -244,20 +256,20 @@ const Board = ({ openDialog }) => {
     const { graph } = util.generateGraph(nodeGrid);
     const animations = graph.kruskal();
     return animations;
-  }
+  };
 
   const clear = () => {
     if (!animating) return;
     setHasSecondTarget(false);
     setPrevAlgorithm(null);
-    setDistance("Unkown")
+    setDistance("Unkown");
     resetGrid();
   };
 
   const removeVisualization = () => {
     if (!animating) return;
     setPrevAlgorithm(null);
-    setDistance("Unkown")
+    setDistance("Unkown");
     removeVisuals();
   };
 
@@ -289,7 +301,7 @@ const Board = ({ openDialog }) => {
       !node.is("Weight") ? node.markSearched() : node.markSearched2Done();
 
       if (node.is("Target") || node.is("SecondaryTarget")) {
-        setDistance(node.dist)
+        setDistance(node.dist);
         node.markShortestPath();
       }
 
@@ -305,7 +317,7 @@ const Board = ({ openDialog }) => {
   };
 
   return (
-    <>
+    <div className="text-center">
       <Navbar
         openDialog={openDialog}
         reset={clear}
@@ -320,7 +332,9 @@ const Board = ({ openDialog }) => {
         setSpeed={setAnimationSpeed}
       />
       <br />
-      <h3>Distance: {distance}</h3>
+      <Paper className={classes.paper}>
+        <h3>Distance: {distance}</h3>
+      </Paper>
       <div
         className="Board"
         style={{
@@ -330,7 +344,7 @@ const Board = ({ openDialog }) => {
       >
         {Grid}
       </div>
-    </>
+    </div>
   );
 };
 

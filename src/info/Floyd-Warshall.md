@@ -1,3 +1,3 @@
-### D* Algorithm
+### Floyd-Warshall Algorithm
 
 Coming Soon
