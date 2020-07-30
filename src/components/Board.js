@@ -46,12 +46,14 @@ const Board = ({ openDialog }) => {
   const [userAction, setUserAction] = useState(util.PLACING_WALLS);
   const [animationSpeed, setAnimationSpeed] = useState(10);
   const [distance, setDistance] = useState("Unkown");
-  const [matrix, setMatrix] = useState();
+
+  console.log(nodeGrid);
 
   const handleKeyNodeMove = (node, type) => {
     if (type === "Target") node.setAsTarget();
     if (type === "Start") node.add("Start");
-    resetDistance();
+    if (prevAlgorithm !== util.FLOYD_WARSHALL) resetDistance();
+
     switch (prevAlgorithm) {
       case util.DIJKSTRA:
         Dijkstra(false);
@@ -75,9 +77,8 @@ const Board = ({ openDialog }) => {
         Prims(false);
         break;
       case util.FLOYD_WARSHALL:
-        const { startNode, targetNode } = util.getKeyNodes(nodeGrid);
-        const distance = matrix[startNode.id][targetNode.id];
-        setDistance(distance);
+        console.log(node);
+        setDistance(node.dist);
         break;
       default:
     }
@@ -228,11 +229,8 @@ const Board = ({ openDialog }) => {
 
   const floydWarshall = (withAnimation) => {
     const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
-    if (!withAnimation) return setDistance(matrix[startNode.id][targetNode.id]);
-    const { mtrx, animations } = graph.floydWarshall(nodeGrid);
+    const { mtrx, animations } = graph.floydWarshall(nodeGrid, startNode);
     setDistance(mtrx[startNode.id][targetNode.id]);
-    setMatrix(mtrx);
-    console.log(animations);
     return animations;
   };
 

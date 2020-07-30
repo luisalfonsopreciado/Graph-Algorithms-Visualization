@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import Node from "../utility/Node";
 
 const generateNodeGrid = (numRows, numCols) => {
   const nodesGrid = [];
   let id = 1;
+
+  console.log("Called");
 
   for (let row = 0; row < numRows; row++) {
     nodesGrid[row] = [];
@@ -20,7 +22,9 @@ const useNodeGrid = (rows, cols) => {
   const [numRows, setNumRows] = useState(rows);
   const [numCols, setNumCols] = useState(cols);
 
-  const nodeGrid = generateNodeGrid(numRows, numCols);
+  const { current: nodeGrid } = useRef(
+    useCallback(generateNodeGrid(numRows, numCols), [])
+  );
 
   const resetGrid = () => {
     for (let row in nodeGrid) {

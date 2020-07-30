@@ -405,7 +405,7 @@ export class Graph {
     return animations;
   }
 
-  floydWarshall(nodeGrid) {
+  floydWarshall(nodeGrid, startNode) {
     // O(V^3)
     const n = this.noOfVertices;
     const mtrx = [];
@@ -417,6 +417,7 @@ export class Graph {
       for (let col = 1; col <= n; col++) {
         const start = this.getNode(row, nodeGrid);
         const end = this.getNode(col, nodeGrid);
+
         mtrx[row][col] = start.getDistanceTo(end); // Distance from start to end
       }
     }
@@ -426,6 +427,8 @@ export class Graph {
       for (let i = 1; i <= n; i++) {
         for (let j = 1; j <= n; j++) {
           mtrx[i][j] = Math.min(mtrx[i][j], mtrx[i][k] + mtrx[k][j]);
+          if (i === startNode.id || j === startNode.id)
+            this.getNode(i, nodeGrid).dist = mtrx[i][j];
         }
       }
     }

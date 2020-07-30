@@ -129,7 +129,6 @@ const NavigationItems = ({
             Learn More
           </DropItem>
         </DropDown>
-        {/*
         <DropDown title={cts.FLOYD_WARSHALL}>
           <DropItem
             clicked={() => {
@@ -146,7 +145,7 @@ const NavigationItems = ({
           >
             Learn More
           </DropItem>
-        </DropDown> */}
+        </DropDown>
         <DropDown title={cts.DSTAR}>
           <DropItem
             clicked={() => {
