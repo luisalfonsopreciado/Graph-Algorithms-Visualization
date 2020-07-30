@@ -128,7 +128,6 @@ export class Graph {
     }
   }
 
-  //dijkstra solve graph starting at s
   dijkstra(startNode, animations, hasSecond, withAnimation) {
     if (!startNode) return [];
     const heap = new MinHeap((item) => item.dist);
@@ -151,10 +150,11 @@ export class Graph {
         //choose nearest node with lowest *total* cost
         var d = adjacentNode.getWeight() + currentdist;
 
-        if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
+        if (d < adjacentNode.dist) {
           if (!finishedAnimating) animations.push(adjacentNode);
           if (!withAnimation) adjacentNode.markSearched2Done();
-          heap.push(adjacentNode);
+          if(!heap.contains(adjacentNode)) heap.push(adjacentNode);
+          
           //reference parent
           adjacentNode.predecessor = currentNode;
           adjacentNode.dist = d;
