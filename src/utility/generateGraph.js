@@ -31,7 +31,7 @@ export const getKeyNodes = (nodesGrid) => {
     }
   }
   return { startNode, targetNode };
-}
+};
 
 export const generateGraph = (nodesGrid) => {
   let startNode = null;

@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useCallback } from "react";
 import Node from "../utility/Node";
 
 const generateNodeGrid = (numRows, numCols) => {
@@ -22,9 +22,10 @@ const useNodeGrid = (rows, cols) => {
   const [numRows, setNumRows] = useState(rows);
   const [numCols, setNumCols] = useState(cols);
 
-  const { current: nodeGrid } = useRef(
-    useCallback(generateNodeGrid(numRows, numCols), [])
-  );
+  const nodeGrid = useCallback(generateNodeGrid(numRows, numCols), [
+    numRows,
+    numCols,
+  ]);
 
   const resetGrid = () => {
     for (let row in nodeGrid) {

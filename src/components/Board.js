@@ -228,9 +228,8 @@ const Board = ({ openDialog }) => {
   };
 
   const floydWarshall = (withAnimation) => {
-    const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
-    const { mtrx, animations } = graph.floydWarshall(nodeGrid, startNode);
-    setDistance(mtrx[startNode.id][targetNode.id]);
+    const { animations, distance } = util.floydWarshall(nodeGrid);
+    setDistance(distance);
     return animations;
   };
 
