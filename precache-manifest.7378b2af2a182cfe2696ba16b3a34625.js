@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f45ae35274a70fe4da64efdd5ddc5a0f",
+    "revision": "40eba11cc263313e607bdbf1b02b9d7c",
     "url": "/Graph-Algorithms-Visualization/index.html"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/js/11.4bb16f92.chunk.js"
   },
   {
-    "revision": "8990e1791c1161ad1357",
-    "url": "/Graph-Algorithms-Visualization/static/js/12.56f58472.chunk.js"
+    "revision": "aae12c7e5cd68d54724d",
+    "url": "/Graph-Algorithms-Visualization/static/js/12.38a8b62f.chunk.js"
   },
   {
     "revision": "ef11f1db155fa8be1771",
@@ -60,16 +60,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/js/8.b981290a.chunk.js"
   },
   {
-    "revision": "c0a41e64d9df7b0eb806",
-    "url": "/Graph-Algorithms-Visualization/static/js/9.06552b24.chunk.js"
+    "revision": "4f75aca4fa62361fab90",
+    "url": "/Graph-Algorithms-Visualization/static/js/9.d51d3671.chunk.js"
   },
   {
     "revision": "6e9a0d5fe8c1fa6b6ce4",
     "url": "/Graph-Algorithms-Visualization/static/js/main.84b32f8b.chunk.js"
   },
   {
-    "revision": "1aa889447147ad1b6ae7",
-    "url": "/Graph-Algorithms-Visualization/static/js/runtime-main.e5a37098.js"
+    "revision": "2aed7d9b4c5045d25dbe",
+    "url": "/Graph-Algorithms-Visualization/static/js/runtime-main.9def7376.js"
   },
   {
     "revision": "37ace5dcd747a8ba36dd793e02dd7339",
@@ -96,8 +96,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/media/Dijkstra.19c6fa4a.md"
   },
   {
-    "revision": "b369c6a067bb07173b804e51c32fd9c7",
-    "url": "/Graph-Algorithms-Visualization/static/media/Floyd-Warshall.b369c6a0.md"
+    "revision": "29c293245d930583223b9dd6f026e5c2",
+    "url": "/Graph-Algorithms-Visualization/static/media/Floyd-Warshall.29c29324.md"
   },
   {
     "revision": "d9e0c62a1b2a5240b545a2f3a8263ea7",
@@ -108,8 +108,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/media/Kruskal's Algorithm.c8753e8c.md"
   },
   {
-    "revision": "634d8b3e524022e4bc88c10bca88edc7",
-    "url": "/Graph-Algorithms-Visualization/static/media/Prim's Algorithm.634d8b3e.md"
+    "revision": "b5f23627c1262e3a283908901f08a680",
+    "url": "/Graph-Algorithms-Visualization/static/media/Prim's Algorithm.b5f23627.md"
   },
   {
     "revision": "983e48eb0123ef52854ad7ec15895dcf",
