@@ -17,7 +17,10 @@ const useStyles = makeStyles({
     margin: "auto",
     width: "1200px",
     marginTop: "10px",
-    marginBottom: "10px"
+    marginBottom: "10px",
+  },
+  padding: {
+    padding: "5px",
   },
 });
 
@@ -65,7 +68,7 @@ function App() {
         handleClose={handleDialogClose}
         className={styles.customDialog}
       >
-        <Paper>
+        <Paper className={classes.padding}>
           <h1>Welcome to The Graph Algorithms Visualizer!</h1>
           <br />
           <h4>
@@ -73,7 +76,7 @@ function App() {
             traversal/path-finding algorithms. To get Started, click on an
             algorithm located on the header and press Visualize!.
           </h4>
-          <p>For a better Experience, set your browser to full width</p>
+          <h4>For a better Experience, set your browser to full width</h4>
         </Paper>
       </CustomDialog>
 

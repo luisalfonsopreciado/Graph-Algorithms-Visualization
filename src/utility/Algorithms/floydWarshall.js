@@ -24,6 +24,10 @@ export const floydWarshall = (nodeGrid, startNode) => {
 
         if (getNode(i, nodeGrid).is("Start")|| getNode(j, nodeGrid).is("Start"))
           getNode(i, nodeGrid).dist = mtrx[i][j];
+        
+        if(getNode(i, nodeGrid).is("Start") && getNode(j,nodeGrid).is("Target")){
+          distance = mtrx[i][j];
+        }
       }
     }
   }

@@ -46,8 +46,9 @@ const Board = ({ openDialog }) => {
   const [userAction, setUserAction] = useState(util.PLACING_WALLS);
   const [animationSpeed, setAnimationSpeed] = useState(10);
   const [distance, setDistance] = useState("Unkown");
+  const [matrix, setMatrix] = useState(null);
 
-  console.log(nodeGrid);
+  console.log(matrix);
 
   const handleKeyNodeMove = (node, type) => {
     if (type === "Target") node.setAsTarget();
@@ -77,8 +78,9 @@ const Board = ({ openDialog }) => {
         Prims(false);
         break;
       case util.FLOYD_WARSHALL:
-        console.log(node);
-        setDistance(node.dist);
+        const { startNode, targetNode } = util.getKeyNodes(nodeGrid);
+
+        setDistance(matrix[startNode.id][targetNode.id]);
         break;
       default:
     }
@@ -227,9 +229,10 @@ const Board = ({ openDialog }) => {
     return animations;
   };
 
-  const floydWarshall = (withAnimation) => {
-    const { animations, distance } = util.floydWarshall(nodeGrid);
+  const floydWarshall = () => {
+    const { animations, distance, mtrx } = util.floydWarshall(nodeGrid);
     setDistance(distance);
+    setMatrix(mtrx);
     return animations;
   };
 
@@ -260,6 +263,7 @@ const Board = ({ openDialog }) => {
     setHasSecondTarget(false);
     setPrevAlgorithm(null);
     setDistance("Unkown");
+    setMatrix(null);
     resetGrid();
   };
 
