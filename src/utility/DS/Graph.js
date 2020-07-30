@@ -183,8 +183,8 @@ export class Graph {
     const animations = [];
 
     const heap = new MinHeap((item) => item.f);
-    startNode.g = 0;
-    this.manhattanDistance(startNode, targetNode);
+
+    startNode.f = this.manhattanDistance(startNode, targetNode);
 
     heap.push(startNode);
 
@@ -197,6 +197,8 @@ export class Graph {
       animations.push(currentNode);
       if (!withAnimation) currentNode.markSearched2Done();
 
+      if (currentNode.is("Target")) return animations;
+      
       //for each of its adjacent nodes...
       for (var a in adj) {
         const adjacentNode = adj[a];
@@ -204,17 +206,14 @@ export class Graph {
         //choose nearest node with lowest *total* cost
         var d = adjacentNode.getWeight() + currentdist;
 
-        if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
-          this.manhattanDistance(adjacentNode, targetNode);
-          heap.push(adjacentNode);
+        if (d < adjacentNode.dist) {
+          adjacentNode.f = this.manhattanDistance(adjacentNode, targetNode) + d;
+
+          if (!heap.contains(adjacentNode)) heap.push(adjacentNode);
+
           //reference parent
           adjacentNode.predecessor = currentNode;
           adjacentNode.dist = d;
-          if (adjacentNode.is("Target")) {
-            animations.push(adjacentNode);
-            if (!withAnimation) adjacentNode.markShortestPath();
-            return animations;
-          }
         }
       }
     }
@@ -223,10 +222,9 @@ export class Graph {
   }
 
   manhattanDistance(node, targetNode) {
-    const h =
-      Math.abs(node.col - targetNode.col) + Math.abs(node.row - targetNode.row);
-    node.h = h;
-    node.f = node.getWeight() + node.h;
+    return (
+      Math.abs(node.col - targetNode.col) + Math.abs(node.row - targetNode.row)
+    );
   }
 
   bestFirstSearch(startNode, targetNode, withAnimation) {
@@ -279,7 +277,7 @@ export class Graph {
   greedyHeuristic(node, targetNode) {
     const h = Math.sqrt(
       Math.pow(node.col - targetNode.col, 2) +
-      Math.pow(node.row - targetNode.row, 2)
+        Math.pow(node.row - targetNode.row, 2)
     );
     node.h = Math.floor(h);
     node.f = node.h;
@@ -288,7 +286,7 @@ export class Graph {
   euclideanDistance(node, targetNode) {
     const h = Math.sqrt(
       Math.pow(node.col - targetNode.col, 2) +
-      Math.pow(node.row - targetNode.row, 2)
+        Math.pow(node.row - targetNode.row, 2)
     );
     node.h = Math.floor(h);
     node.f = node.getWeight() + node.h;
@@ -371,7 +369,7 @@ export class Graph {
     const ds = new DisjointSet(5000);
     const mst = [];
     const edges = {};
-    const animations = []
+    const animations = [];
 
     this.AdjList.forEach((arr, key) => {
       arr.forEach((adj) => {
@@ -395,8 +393,8 @@ export class Graph {
       const hasCycle = ds.hasCycle(currentEdge.i, currentEdge.j);
 
       if (!hasCycle) {
-        animations.push(currentEdge.nodes[0])
-        animations.push(currentEdge.nodes[1])
+        animations.push(currentEdge.nodes[0]);
+        animations.push(currentEdge.nodes[1]);
         mst.push(currentEdge);
       }
     }
@@ -404,14 +402,15 @@ export class Graph {
     return animations;
   }
 
-  floydWarshall(nodeGrid) { // O(V^3)
+  floydWarshall(nodeGrid) {
+    // O(V^3)
     const n = this.noOfVertices;
-    const mtrx = []
-    const animations = []
+    const mtrx = [];
+    const animations = [];
 
     // Create the mtrx with initial values
     for (let row = 1; row <= n; row++) {
-      mtrx[row] = []
+      mtrx[row] = [];
       for (let col = 1; col <= n; col++) {
         const start = this.getNode(row, nodeGrid);
         const end = this.getNode(col, nodeGrid);
@@ -423,20 +422,19 @@ export class Graph {
     for (let k = 1; k <= n; k++) {
       for (let i = 1; i <= n; i++) {
         for (let j = 1; j <= n; j++) {
-          mtrx[i][j] = Math.min(mtrx[i][j], mtrx[i][k] + mtrx[k][j])
+          mtrx[i][j] = Math.min(mtrx[i][j], mtrx[i][k] + mtrx[k][j]);
         }
       }
     }
 
-
-
     return { mtrx, animations };
   }
 
-  getNode(id, nodeGrid) { // O(1)
+  getNode(id, nodeGrid) {
+    // O(1)
     // returns a reference to the node given the id
     const width = nodeGrid[0].length;
-    const row = Math.floor(((id - 1) / width))
+    const row = Math.floor((id - 1) / width);
     const col = (id - 1) % width;
     return nodeGrid[row][col];
   }
