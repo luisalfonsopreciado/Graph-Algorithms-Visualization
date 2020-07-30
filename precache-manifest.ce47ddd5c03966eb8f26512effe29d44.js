@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cd33b5348f342ee378a96448987f0409",
+    "revision": "f18288d65bd84874353ba43b43b34111",
     "url": "/Graph-Algorithms-Visualization/index.html"
   },
   {
-    "revision": "a6a090a787a771fcedc9",
+    "revision": "a8924cf4286f9c9d8646",
     "url": "/Graph-Algorithms-Visualization/static/css/main.ecefab2d.chunk.css"
   },
   {
@@ -64,8 +64,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/js/9.06552b24.chunk.js"
   },
   {
-    "revision": "a6a090a787a771fcedc9",
-    "url": "/Graph-Algorithms-Visualization/static/js/main.3e1cd7a4.chunk.js"
+    "revision": "a8924cf4286f9c9d8646",
+    "url": "/Graph-Algorithms-Visualization/static/js/main.3ea58f35.chunk.js"
   },
   {
     "revision": "1aa889447147ad1b6ae7",
