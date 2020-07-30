@@ -197,8 +197,11 @@ export class Graph {
       animations.push(currentNode);
       if (!withAnimation) currentNode.markSearched2Done();
 
-      if (currentNode.is("Target")) return animations;
-      
+      if (currentNode.is("Target")) {
+        if (!withAnimation) currentNode.markShortestPath();
+        return animations;
+      }
+
       //for each of its adjacent nodes...
       for (var a in adj) {
         const adjacentNode = adj[a];
