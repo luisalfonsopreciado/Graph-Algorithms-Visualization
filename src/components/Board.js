@@ -48,12 +48,12 @@ const Board = ({ openDialog }) => {
   const [distance, setDistance] = useState("Unkown");
   const [matrix, setMatrix] = useState(null);
 
-  console.log(matrix);
-
   const handleKeyNodeMove = (node, type) => {
     if (type === "Target") node.setAsTarget();
     if (type === "Start") node.add("Start");
     if (prevAlgorithm !== util.FLOYD_WARSHALL) resetDistance();
+
+    const { startNode, targetNode } = util.getKeyNodes(nodeGrid);
 
     switch (prevAlgorithm) {
       case util.DIJKSTRA:
@@ -78,12 +78,12 @@ const Board = ({ openDialog }) => {
         Prims(false);
         break;
       case util.FLOYD_WARSHALL:
-        const { startNode, targetNode } = util.getKeyNodes(nodeGrid);
-
         setDistance(matrix[startNode.id][targetNode.id]);
         break;
       default:
     }
+
+    if (prevAlgorithm !== util.FLOYD_WARSHALL) setDistance(targetNode.dist);
   };
 
   const onMouseEnterHandler = (node) => {
@@ -306,7 +306,10 @@ const Board = ({ openDialog }) => {
         node.markShortestPath();
       }
 
-      node.is("Start") && algorithm === util.DSTAR && node.markShortestPath();
+      if (node.is("Start") && algorithm === util.DSTAR) {
+        node.markShortestPath();
+        setDistance(node.dist);
+      }
 
       count++;
 
