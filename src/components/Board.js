@@ -195,6 +195,7 @@ const Board = ({ openDialog }) => {
         animations = BFS(true);
         break;
     }
+
     animate(animations, algorithm);
   };
 
@@ -302,7 +303,7 @@ const Board = ({ openDialog }) => {
       !node.is("Weight") ? node.markSearched() : node.markSearched2Done();
 
       if (node.is("Target") || node.is("SecondaryTarget")) {
-        setDistance(node.dist);
+        algorithm !== util.FLOYD_WARSHALL && setDistance(node.dist);
         node.markShortestPath();
       }
 

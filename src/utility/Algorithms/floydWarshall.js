@@ -17,6 +17,7 @@ export const floydWarshall = (nodeGrid, startNode) => {
     nodes[i] = node
     if(node.is("Start")) startId = node.id
     if(node.is("Target")) targetId = node.id
+    animations.push(node);
   }
 
   // Create the mtrx with initial values
@@ -30,15 +31,17 @@ export const floydWarshall = (nodeGrid, startNode) => {
     }
   }
 
-  // Update the mtrx
+  // Update the mtrx 
   for (let k = 1; k <= n; k++) {
     for (let i = 1; i <= n; i++) {
       for (let j = 1; j <= n; j++) {
+        // Keep the code inside here lean so that it remains fast
         mtrx[i][j] = Math.min(mtrx[i][j], mtrx[i][k] + mtrx[k][j]);
       }
     }
   }
 
+  // Update the distances on the start and target node so that the UI Updates
   nodes[startId].dist = mtrx[startId][targetId]
   distance = mtrx[startId][targetId]
 
