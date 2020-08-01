@@ -320,8 +320,6 @@ const Board = ({ openDialog }) => {
     }, animationSpeed);
   };
 
-  console.log(util.ALG_TITLE);
-
   return (
     <div className="text-center">
       <Navbar
