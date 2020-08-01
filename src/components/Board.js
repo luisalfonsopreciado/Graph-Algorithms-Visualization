@@ -320,6 +320,8 @@ const Board = ({ openDialog }) => {
     }, animationSpeed);
   };
 
+  console.log(util.ALG_TITLE);
+
   return (
     <div className="text-center">
       <Navbar
@@ -337,7 +339,8 @@ const Board = ({ openDialog }) => {
       />
       <br />
       <Paper className={classes.paper}>
-        <h3>Distance: {distance}</h3>
+        <h3>Distance: {distance} </h3>
+        <p>{util.ALG_TITLE[algorithm]}</p>
       </Paper>
       <div
         className="Board"
