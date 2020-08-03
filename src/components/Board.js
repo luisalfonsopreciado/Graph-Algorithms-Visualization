@@ -81,7 +81,7 @@ const Board = ({ openDialog }) => {
         setDistance(matrix[startNode.id][targetNode.id]);
         break;
       case util.BELLMAN_FORD:
-        bellmanFord();
+        bellmanFord(false);
         break;
       default:
     }
@@ -199,7 +199,7 @@ const Board = ({ openDialog }) => {
         animations = floydWarshall(true);
         break;
       case util.BELLMAN_FORD:
-        animations = bellmanFord();
+        animations = bellmanFord(true);
         break;
       default:
         animations = BFS(true);
@@ -269,9 +269,9 @@ const Board = ({ openDialog }) => {
     return animations;
   };
 
-  const bellmanFord = () => {
+  const bellmanFord = (withAnimation) => {
     const { graph, startNode, targetNode } = util.generateGraph(nodeGrid);
-    const animations = graph.bellmanFord(startNode, nodeGrid);
+    const animations = graph.bellmanFord(startNode, nodeGrid, withAnimation);
     setDistance(targetNode.dist);
     return animations;
   };

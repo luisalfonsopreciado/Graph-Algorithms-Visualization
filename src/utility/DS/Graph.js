@@ -412,7 +412,7 @@ export class Graph {
     return animations;
   }
 
-  bellmanFord(startNode, nodeGrid) {
+  bellmanFord(startNode, nodeGrid, withAnimation) {
     // Initialize startVertex by setting dist = 0
     startNode.dist = 0;
     const animations = [];
@@ -424,6 +424,11 @@ export class Graph {
     for (let i = 1; i <= this.noOfVertices; i++) {
       const node = Node.getNode(i, nodeGrid); // get Node Given an Id
       nodes[i] = node;
+      if (withAnimation) {
+        animations.push(node);
+      } else {
+        node.markSearched2Done();
+      }
     }
 
     // Relax the edges
