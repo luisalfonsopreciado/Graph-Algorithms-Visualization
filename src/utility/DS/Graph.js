@@ -1,6 +1,7 @@
 import { Queue } from "./Queue";
 import { DisjointSet } from "./DisjointSet";
 import { MinHeap } from "../index";
+import Node from "../Node";
 
 export class Graph {
   constructor(noOfVertices) {
@@ -153,7 +154,7 @@ export class Graph {
         if (d < adjacentNode.dist) {
           if (!finishedAnimating) animations.push(adjacentNode);
           if (!withAnimation) adjacentNode.markSearched2Done();
-          if(!heap.contains(adjacentNode)) heap.push(adjacentNode);
+          if (!heap.contains(adjacentNode)) heap.push(adjacentNode);
 
           //reference parent
           adjacentNode.predecessor = currentNode;
@@ -368,17 +369,21 @@ export class Graph {
   }
 
   kruskal() {
+    // Heap used to order the edges
     const heap = new MinHeap((el) => el.w);
+    // Distjoint set to keep track of cycles
     const ds = new DisjointSet(5000);
     const mst = [];
     const edges = {};
     const animations = [];
 
+    // Go thru all edges
     this.AdjList.forEach((arr, key) => {
       arr.forEach((adj) => {
         const edgeId = [key.id, adj.id];
         edgeId.sort((a, b) => a - b);
 
+        // Add the edge to the heap
         if (!edges.hasOwnProperty(edgeId.toString())) {
           edges[edgeId] = true;
           heap.push({
@@ -391,15 +396,46 @@ export class Graph {
       });
     });
 
+    // Go thru the heap contents
     while (!heap.isEmpty()) {
       const currentEdge = heap.pop();
       const hasCycle = ds.hasCycle(currentEdge.i, currentEdge.j);
 
+      // If the edge does not cause a cycle add it to the MST
       if (!hasCycle) {
         animations.push(currentEdge.nodes[0]);
         animations.push(currentEdge.nodes[1]);
         mst.push(currentEdge);
       }
+    }
+
+    return animations;
+  }
+
+  bellmanFord(startNode, nodeGrid) {
+    // Initialize startVertex by setting dist = 0
+    startNode.dist = 0;
+    const animations = [];
+
+    // HashMap to store the nodes By their ID
+    const nodes = {};
+
+    // Create a HashMap Of Id -> Node Obj
+    for (let i = 1; i <= this.noOfVertices; i++) {
+      const node = Node.getNode(i, nodeGrid); // get Node Given an Id
+      nodes[i] = node;
+    }
+
+    // Relax the edges
+    for (let i = 1; i < this.noOfVertices; i++) {
+      // Go thru all edges and relax them
+      this.AdjList.forEach((arr, key) => {
+        arr.forEach((adj) => {
+          if (key.dist > adj.dist + adj.getWeight()) {
+            key.dist = adj.dist + adj.getWeight();
+          }
+        });
+      });
     }
 
     return animations;

@@ -80,10 +80,17 @@ const Board = ({ openDialog }) => {
       case util.FLOYD_WARSHALL:
         setDistance(matrix[startNode.id][targetNode.id]);
         break;
+      case util.BELLMAN_FORD:
+        bellmanFord();
+        break;
       default:
     }
 
-    if (prevAlgorithm !== util.FLOYD_WARSHALL) setDistance(targetNode.dist);
+    if (
+      prevAlgorithm !== util.FLOYD_WARSHALL &&
+      prevAlgorithm !== util.BELLMAN_FORD
+    )
+      setDistance(targetNode.dist);
   };
 
   const onMouseEnterHandler = (node) => {
@@ -191,6 +198,9 @@ const Board = ({ openDialog }) => {
       case util.FLOYD_WARSHALL:
         animations = floydWarshall(true);
         break;
+      case util.BELLMAN_FORD:
+        animations = bellmanFord();
+        break;
       default:
         animations = BFS(true);
         break;
@@ -256,6 +266,13 @@ const Board = ({ openDialog }) => {
   const Kruskal = () => {
     const { graph } = util.generateGraph(nodeGrid);
     const animations = graph.kruskal();
+    return animations;
+  };
+
+  const bellmanFord = () => {
+    const { graph, startNode, targetNode } = util.generateGraph(nodeGrid);
+    const animations = graph.bellmanFord(startNode, nodeGrid);
+    setDistance(targetNode.dist);
     return animations;
   };
 

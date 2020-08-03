@@ -7,6 +7,7 @@ export const PRIMS = "Prim's Algorithm"
 export const DSTAR = "D*"
 export const KRUSKAL = "Kruskal's Algorithm"
 export const FLOYD_WARSHALL = "Floyd-Warshall"
+export const BELLMAN_FORD = "Bellman-Ford"
 
 export const RAND_MAZE = "Random Maze"
 export const RECURSIVE_DIVISON = "Recursive Division"

@@ -159,6 +159,19 @@ const NavigationItems = ({
             Learn More
           </DropItem>
         </DropDown>
+        <DropDown title={cts.BELLMAN_FORD}>
+          <DropItem
+            clicked={() => {
+              dispatch("SET_ALGO", { algo: cts.BELLMAN_FORD });
+              dispatch("SET_INFO", { info: cts.BELLMAN_FORD });
+            }}
+          >
+            Select
+          </DropItem>
+          <DropItem clicked={() => dispatch("SET_INFO", { info: cts.BELLMAN_FORD })}>
+            Learn More
+          </DropItem>
+        </DropDown>
       </Subnav>
       <Subnav title="Maze Generators">
         <DropDown title={cts.RAND_MAZE}>
