@@ -17,7 +17,7 @@ export const floydWarshall = (nodeGrid, startNode) => {
     nodes[i] = node
     if(node.is("Start")) startId = node.id
     if(node.is("Target")) targetId = node.id
-    animations.push(node);
+    if(!node.is("Wall")) animations.push(node);
   }
 
   // Create the mtrx with initial values
