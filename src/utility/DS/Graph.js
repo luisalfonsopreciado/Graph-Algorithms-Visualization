@@ -425,9 +425,9 @@ export class Graph {
       const node = Node.getNode(i, nodeGrid); // get Node Given an Id
       nodes[i] = node;
       if (withAnimation) {
-        animations.push(node);
+        if (!node.is("Wall")) animations.push(node);
       } else {
-        node.markSearched2Done();
+        if (!node.is("Wall")) node.markSearched2Done();
       }
     }
 
