@@ -183,19 +183,27 @@ export class Graph {
 
     const animations = [];
 
+    // Prioritize based on the f parameter
     const heap = new MinHeap((item) => item.f);
 
+    // g is zero for the start and Infinity for the rest.
     startNode.f = this.manhattanDistance(startNode, targetNode);
 
     heap.push(startNode);
 
     while (!heap.isEmpty()) {
+      // Get node in the priority queue having the lowest f value
       const currentNode = heap.pop();
 
+      // The current distance of the currentNode
       var currentdist = currentNode.dist;
-      var adj = this.AdjList.get(currentNode); // get neighbors
 
+      // get neighbors
+      var adj = this.AdjList.get(currentNode);
+
+      // Handle Animations
       animations.push(currentNode);
+
       if (!withAnimation) currentNode.markSearched2Done();
 
       if (currentNode.is("Target")) {
@@ -207,21 +215,28 @@ export class Graph {
       for (var a in adj) {
         const adjacentNode = adj[a];
 
-        //choose nearest node with lowest *total* cost
-        var d = adjacentNode.getWeight() + currentdist;
+        // distance(current,neighbor) is the weight of the edge from current to neighbor
+        // tentative_gScore is the distance from start to the neighbor through current
+        var tentative_gScore = currentdist + adjacentNode.getWeight();
 
-        if (d < adjacentNode.dist) {
-          adjacentNode.f = this.manhattanDistance(adjacentNode, targetNode) + d;
-
-          if (!heap.contains(adjacentNode)) heap.push(adjacentNode);
+        if (tentative_gScore < adjacentNode.dist) {
+          // This path to neighbor is better than any previous one. Record it!
 
           //reference parent
           adjacentNode.predecessor = currentNode;
-          adjacentNode.dist = d;
+
+          adjacentNode.dist = tentative_gScore;
+
+          adjacentNode.f =
+            adjacentNode.dist +
+            this.manhattanDistance(adjacentNode, targetNode);
+
+          if (!heap.contains(adjacentNode)) heap.push(adjacentNode);
         }
       }
     }
 
+    // We did not find the target
     return animations;
   }
 
@@ -234,47 +249,66 @@ export class Graph {
   bestFirstSearch(startNode, targetNode, withAnimation) {
     if (startNode === null) return [];
     if (targetNode === null) return [];
+
+    // Map to store visited nodes
+    const visited = {};
+
+    // Array to store the animations
     const animations = [];
 
+    // Create Empty Priority Queue
     const heap = new MinHeap((item) => item.f);
+
     startNode.g = 0;
     this.greedyHeuristic(startNode, targetNode);
 
+    // Insert start in priority queue
     heap.push(startNode);
 
     while (!heap.isEmpty()) {
+      // Remove vertex with smallest cost
       const currentNode = heap.pop();
 
-      var currentdist = currentNode.dist;
-      var adj = this.AdjList.get(currentNode); // get neighbors
+      // Check if currentNode is target and handle animations
+      if (currentNode.is("Target")) {
+        animations.push(currentNode);
+        if (!withAnimation) currentNode.markShortestPath();
+        return animations;
+      }
 
+      var currentdist = currentNode.dist;
+
+      // Get neighbors of currentNode
+      var adj = this.AdjList.get(currentNode);
+
+      // Handle animations
       if (!withAnimation) currentNode.markSearched2Done();
       animations.push(currentNode);
 
-      //for each of its adjacent nodes...
+      //for each adjacent node
       for (var a in adj) {
         const adjacentNode = adj[a];
 
         //choose nearest node with lowest *total* cost
         var d = adjacentNode.getWeight() + currentdist;
 
-        if (d < adjacentNode.dist && !heap.contains(adjacentNode)) {
+        // if the vertex is unvisited and distance is improved
+        if (!(adjacentNode.id in visited) && d < adjacentNode.dist) {
           this.greedyHeuristic(adjacentNode, targetNode);
 
-          heap.push(adjacentNode);
+          if (!heap.contains(adjacentNode)) heap.push(adjacentNode);
 
           //reference parent
           adjacentNode.predecessor = currentNode;
           adjacentNode.dist = d;
-          if (adjacentNode.is("Target")) {
-            animations.push(adjacentNode);
-            if (!withAnimation) adjacentNode.markShortestPath();
-            return animations;
-          }
+
+          // Mark as visited
+          visited[adjacentNode.id] = true;
         }
       }
     }
 
+    // We did not find the target
     return animations;
   }
 
@@ -340,8 +374,6 @@ export class Graph {
     startNode.dist = 0;
     heap.push(startNode);
 
-    // let prevNode = null;
-
     while (!heap.isEmpty()) {
       const currentNode = heap.pop();
 
@@ -357,14 +389,11 @@ export class Graph {
         }
       }
 
-      // currentNode.predecessor = prevNode;
-      // prevNode = currentNode;
       mst[currentNode.toString()] = currentNode;
     }
 
     if (!withAnimation) targetNode.markShortestPath();
 
-    console.log(mst);
     return withAnimation ? animations : [];
   }
 

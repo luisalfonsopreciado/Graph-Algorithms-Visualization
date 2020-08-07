@@ -30,7 +30,10 @@ export default class Node {
       // S
       neighbors.push(grid[this.row + 1][this.col]);
     }
-    if (this.col < grid[this.row].length - 1 && !cellNotInGraph(this.row, this.col + 1)) {
+    if (
+      this.col < grid[this.row].length - 1 &&
+      !cellNotInGraph(this.row, this.col + 1)
+    ) {
       // E
       neighbors.push(grid[this.row][this.col + 1]);
     }
@@ -38,21 +41,25 @@ export default class Node {
     return neighbors;
   }
 
-  isNeighbor(node){ // O(1)
-    if(this.row === node.row) return this.col + 1 === node.col || this.col - 1 === node.col;
-    if(this.col === node.col) return  this.row + 1 === node.row || this.row - 1 === node.row;
-    return false
+  isNeighbor(node) {
+    // O(1)
+    if (this.row === node.row)
+      return this.col + 1 === node.col || this.col - 1 === node.col;
+    if (this.col === node.col)
+      return this.row + 1 === node.row || this.row - 1 === node.row;
+    return false;
   }
 
-  getDistanceTo(end) { // O(1)
+  getDistanceTo(end) {
+    // O(1)
     if (this === end) return 0;
     if (!this.isNeighbor(end)) return Infinity;
     return this.getWeight() + end.getWeight() - 1;
   }
 
-  getWeight(){
-    if(this.is("Weight")) return 15;
-    if(this.is("Wall")) return Infinity;
+  getWeight() {
+    if (this.is("Weight")) return 15;
+    if (this.is("Wall")) return Infinity;
     return 1;
   }
 
@@ -71,7 +78,7 @@ export default class Node {
 
   setWall() {
     if (this.isKeyValue()) return;
-    this.remove(["Searched", "Searched2"])
+    this.remove(["Searched", "Searched2"]);
     this.add("Wall");
   }
 
@@ -108,14 +115,18 @@ export default class Node {
 
   removeClasses() {
     this.classes.forEach(
-      (item) => item !== "Cell" && item !== "Wall" && item !== "Weight"&& this.classes.remove(item)
+      (item) =>
+        item !== "Cell" &&
+        item !== "Wall" &&
+        item !== "Weight" &&
+        this.classes.remove(item)
     );
   }
 
   reset() {
     this.remove(["ShortestPath", "Wall", "Searched"]);
     this.remove(["Searched2", "SecondaryTarget", "Searched2Done"]);
-    this.remove(["Weight"])
+    this.remove(["Weight"]);
     this.predecessor = null;
     this.dist = Infinity;
   }
@@ -129,7 +140,7 @@ export default class Node {
       this.remove(["Searched", "Searched2", "Searched2Done"]);
       this.add("ShortestPath");
     }
-    if (this.predecessor != null) {
+    if (this.predecessor !== null) {
       this.predecessor.markShortestPath();
     }
   }
@@ -146,8 +157,8 @@ export default class Node {
     this.classes.add(name);
   }
 
-  clear(){
-    this.classes = ["Cell"]
+  clear() {
+    this.classes = ["Cell"];
   }
 }
 
@@ -158,4 +169,4 @@ Node.getNode = (id, nodeGrid) => {
   const row = Math.floor((id - 1) / width);
   const col = (id - 1) % width;
   return nodeGrid[row][col];
-}
+};
