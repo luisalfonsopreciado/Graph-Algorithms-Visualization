@@ -18,7 +18,7 @@ What is a Minimum Spanning Tree?
 
 ---
 
-Key ideas:
+## Explanation
 
 - Set the initial vertex as the Minimum Spanning Tree.
 
@@ -40,7 +40,10 @@ Algorithm: Prim-MST (G)
     add the edge to the Tree
 ```
 
-PseudoCode
+---
+
+## PseudoCode
+
 ```
 Algorithm: Prim-MST (G)
 Input: Graph G=(V,E) with edge-weights.
@@ -62,6 +65,8 @@ Input: Graph G=(V,E) with edge-weights.
 
 Output: A minimum spanning tree of the graph G.
 ```
+
+---
 
 Time Complexity Analysis:
 
