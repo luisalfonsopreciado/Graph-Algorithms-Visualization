@@ -29,7 +29,7 @@ What is a Minimum Spanning Tree?
 - We will associate a priority with each vertex:
   a) intuitively, priority of vertex v = "currently known cost of adding v to MST"
 
-PseudoCode (Bird's Eye View)
+## High Level PseudoCode
 
 ```
 Algorithm: Prim-MST (G)

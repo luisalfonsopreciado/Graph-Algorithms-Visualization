@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6123b75cd9d20548f405d46a077490ff",
+    "revision": "a72ae8c12ea495adf234ca10a234b686",
     "url": "/Graph-Algorithms-Visualization/index.html"
   },
   {
-    "revision": "75a30a5a10cc7d4365ff",
+    "revision": "50a5226634e218cf310a",
     "url": "/Graph-Algorithms-Visualization/static/css/main.ecefab2d.chunk.css"
   },
   {
@@ -12,16 +12,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/js/10.5bcab2be.chunk.js"
   },
   {
-    "revision": "686cc87271c452037a6b",
-    "url": "/Graph-Algorithms-Visualization/static/js/11.ae31a96a.chunk.js"
+    "revision": "a451254058797d0aa46e",
+    "url": "/Graph-Algorithms-Visualization/static/js/11.28cda0c9.chunk.js"
   },
   {
     "revision": "e8bb0c09751ea7d23d31",
     "url": "/Graph-Algorithms-Visualization/static/js/12.accdb0b3.chunk.js"
   },
   {
-    "revision": "fd70253d0a956fd21378",
-    "url": "/Graph-Algorithms-Visualization/static/js/13.863b75aa.chunk.js"
+    "revision": "86f46588cf0b91dd2a9e",
+    "url": "/Graph-Algorithms-Visualization/static/js/13.82bfc556.chunk.js"
   },
   {
     "revision": "266644a6e67ce40e7230",
@@ -40,8 +40,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/js/2.0e45f0a9.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "dc92354095328d5f7318",
-    "url": "/Graph-Algorithms-Visualization/static/js/3.a601ce2d.chunk.js"
+    "revision": "b92f7f0367f677e39c81",
+    "url": "/Graph-Algorithms-Visualization/static/js/3.41aa7007.chunk.js"
   },
   {
     "revision": "ae221333332295b3ee55",
@@ -68,16 +68,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/js/9.4f6eab54.chunk.js"
   },
   {
-    "revision": "75a30a5a10cc7d4365ff",
-    "url": "/Graph-Algorithms-Visualization/static/js/main.37823a90.chunk.js"
+    "revision": "50a5226634e218cf310a",
+    "url": "/Graph-Algorithms-Visualization/static/js/main.b772dd32.chunk.js"
   },
   {
-    "revision": "5d59af26077ff0f3799d",
-    "url": "/Graph-Algorithms-Visualization/static/js/runtime-main.a359fce9.js"
+    "revision": "290c6e42d680a0483ca1",
+    "url": "/Graph-Algorithms-Visualization/static/js/runtime-main.45c708b3.js"
   },
   {
-    "revision": "d1022647b53aafe759e6a15fc16e04d1",
-    "url": "/Graph-Algorithms-Visualization/static/media/A*.d1022647.md"
+    "revision": "483a2bf3f1b2e52d0558959cb482d5ae",
+    "url": "/Graph-Algorithms-Visualization/static/media/A*.483a2bf3.md"
   },
   {
     "revision": "5d9aa477bf335ed8389af148d22adb0c",
@@ -108,16 +108,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Graph-Algorithms-Visualization/static/media/Floyd-Warshall.6aa56bc7.md"
   },
   {
-    "revision": "ac49cd6942e3e321fcc407cfec8c402e",
-    "url": "/Graph-Algorithms-Visualization/static/media/Greedy Best First Search.ac49cd69.md"
+    "revision": "1adf64f75776970d0574bda5d529ba9a",
+    "url": "/Graph-Algorithms-Visualization/static/media/Greedy Best First Search.1adf64f7.md"
   },
   {
     "revision": "a11da87f3f9ffd7bbfa7c184f0660245",
     "url": "/Graph-Algorithms-Visualization/static/media/Kruskal's Algorithm.a11da87f.md"
   },
   {
-    "revision": "8143414b674921a3aa34a9971d0797b0",
-    "url": "/Graph-Algorithms-Visualization/static/media/Prim's Algorithm.8143414b.md"
+    "revision": "491524804bedbb5c2ee4c3489746623f",
+    "url": "/Graph-Algorithms-Visualization/static/media/Prim's Algorithm.49152480.md"
   },
   {
     "revision": "983e48eb0123ef52854ad7ec15895dcf",
