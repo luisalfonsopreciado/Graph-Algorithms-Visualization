@@ -1,12 +1,13 @@
-## Breadth First Search
+# Breadth First Search
 
-Breadth First Search (BFS) along with Depth First Search (DFS) comprise the two fundamental and must know graph traversal algorithms. They are very similar to each other. In fact, the code for the two could be almost identical.
-However, there exists a fundamental difference: 
+Breadth First Search (BFS) along with Depth First Search (DFS) comprise the two fundamental and must-know graph traversal algorithms. The code for each is similar. However, there exists a fundamental difference: 
 
-- Breadth First Search uses a **Queue**.
-- Depth First Search uses a **Stack**.
+- Breadth First Search uses a **Queue** to store vertices.
+- Depth First Search uses a **Stack** to store vertices.
 
 This variation makes a significant difference, visualize BFS to see for yourself!
+
+---
 
 ### Explanation
 
@@ -26,14 +27,14 @@ Assume V vertices and E edges.
 - Searching for a neighbor: O(V) (scan through matrix). All scans take O(V^2).
 - Each queue operation is O(1).
 - Each edge is processed once: O(E) queue operations and O(E) vertex manipulations.
-**Total: O(V2 + E) = O(V^2).**
+- **Total: O(V2 + E) = O(V^2)**
 
 ## BFS Analysis using an adjacency list
 
 - Searching for a neighbor: O(# neighbors)
 - Total neighbor searches is O(E) (Why?)
 - Other operations are the same
-- Total: O(V + E) = O(E).
+- **Total: O(V + E) = O(E)**
 
 ## About O(V + E):
 

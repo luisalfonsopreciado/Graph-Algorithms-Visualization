@@ -1,8 +1,24 @@
-### Kruskal's Algorithm
+# Kruskal's Algorithm
 
-Algorithm that finds a minimum spanning tree of a graph.
+Kruskal's Algorithm finds a minimum spanning tree of a graph.
 
-Key Ideas:
+What is a Minimum Spanning Tree?
+
+1. A **Spanning tree** is a subgraph of G that has the same set of vertices as G and is also a tree.
+
+2. The minimum spanning tree of the weighted graph G is the spanning tree G whose sum of edges is minimum.
+
+## Note: There can be more than one minimum spanning tree in a graph
+
+## Why should I care about minimum spanning trees?
+
+1. Useful for constructing networks : How can I connect all of my nodes using the smallest amount of wire?
+
+2. They are useful for clustering items into natural groups.
+
+---
+
+## Explanation
 
 - Sort edges by (increasing) weight.
 

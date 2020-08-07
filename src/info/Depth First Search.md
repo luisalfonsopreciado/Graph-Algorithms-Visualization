@@ -1,10 +1,9 @@
-## Depth First Search
+# Depth First Search
 
-Depth First Search (DFS) along with Breadth First Search (BFS), comprise the two fundamental and must know graph traversal algorithms. They are very similar to each other. In fact, the code for the two could be almost identical.
-However, there exists a fundamental difference:
+Breadth First Search (BFS) along with Depth First Search (DFS) comprise the two fundamental and must-know graph traversal algorithms. The code for each is similar. However, there exists a fundamental difference:
 
-- Breadth First Search uses a **Queue**.
-- Depth First Search uses a **Stack**.
+- Breadth First Search uses a **Queue** to store vertices.
+- Depth First Search uses a **Stack** to store vertices.
 
 This variation makes a significant difference, visualize DFS to see for yourself!
 
@@ -21,7 +20,7 @@ This variation makes a significant difference, visualize DFS to see for yourself
 - Get the list of adjacent elements of currentNode.
 - Add the adjacent elements to the Stack.
 
-Another implementation of DFS would be:
+Another implementation of DFS using recursion would be:
 
 1. Mark all vertices as "unvisited".
 2. Visit first vertex.
@@ -29,7 +28,7 @@ Another implementation of DFS would be:
 
 ---
 
-DFS Pseudocode using an Adjacency Matrix:
+## DFS Pseudocode using an Adjacency Matrix:
 
 ```
 Algorithm: depthFirstMatrix (adjMatrix, n)
@@ -51,6 +50,8 @@ Input: A graph's adjacency matrix, # of vertices n.
          endif
      endfor
 ```
+
+## DFS Pseudocode using an Adjacency Matrix (Recursion):
 
 ```
 Algorithm: depthFirstMatrixRecursive (v)
@@ -75,27 +76,33 @@ Input: vertex v, adjMatrix is assumed to be global.
 
 ## DFS Analysis using an adjacency matrix
 
-Same as breadth-first search: O(V^2)
+Time complexity of DFS using adjacency matrix to store the graph would be: O(V^2)
 
 Why?
-O(1) work for processing each vertex (except for identifying neighbors).
+It takes O(1) to process each vertex (except for identifying neighbors).
 
-O(V) work for identifying neighbors.
+It takes O(V) to work for identifying neighbors.
 ⇒ O(V^2) overall.
 
 ---
 
 ## DFS Analysis using an adjacency list
 
-Similar analysis (to breadth-first search) gives: O(V + E).
-**DFS with adjacency list is optimal.**
- 
-Applications:
+The time complexity of DFS using an adjacency list to store the graph gives: O(V + E).
+**Note: DFS with adjacency list is an optimal algorithm.**
 
-1. Connectivity: 
+---
+
+## Applications of DFS:
+
+1. Connectivity:
+
 - identifying connected components.
 - which earlier-stated problem would this solve?
+
 2. Cycle existence.
-3. Others: 
+3. Others:
+
 - finding articulation edges, vertices,"bipartiteness".
+
 4. Identifying equivalence classes
