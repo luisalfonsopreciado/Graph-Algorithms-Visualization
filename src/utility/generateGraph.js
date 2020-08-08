@@ -26,6 +26,10 @@ export const getKeyNodes = (nodesGrid) => {
   for (let row = 0; row < nodesGrid.length; row++) {
     for (let col = 0; col < nodesGrid[row].length; col++) {
       const currentNode = nodesGrid[row][col];
+      if (currentNode.is("ShortestPath")) {
+        currentNode.remove(["ShortestPath"]);
+        currentNode.add("Searched2Done");
+      }
       if (currentNode.is("Start")) startNode = currentNode;
       if (currentNode.is("Target")) targetNode = currentNode;
     }

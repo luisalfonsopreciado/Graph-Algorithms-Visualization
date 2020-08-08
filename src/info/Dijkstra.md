@@ -21,6 +21,9 @@ Dijkstra's algorithm, considered as the father of pathfinding algorithms, is one
 In this implementation of Dijsktra's, an adjacency list was used to represent the graph, while a Min Heap was constructed and used as the priority queue. The following is the pseudocode:
 
 ```
+// This pseudocode is adapted from the source:
+// https://www2.seas.gwu.edu/~simhaweb/alg/modules/module7/module7.html
+
 Algorithm: Dijkstra-SPT (G, s)
 Input: Graph G=(V,E) with edge weights and designated source vertex s.
 
@@ -105,3 +108,6 @@ The Time complexity of Dijkstra's algorithm is
 | Self-adjusting binary tree | O(log(V)) amortized   | O(log(V)) amortized  |
 | Relaxed heap               | O(log(V)) amortized   | O(1) amortized       |
 | Run-relaxed heap           | O(log(V)) worst-case  | O(1) worst-case      |
+
+ The above table was taken from the following source:
+ https://www2.seas.gwu.edu/~simhaweb/alg/modules/module8/module8.html

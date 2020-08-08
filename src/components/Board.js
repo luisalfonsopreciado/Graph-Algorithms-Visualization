@@ -6,6 +6,8 @@ import useNodeGrid from "../hooks/useNodeGrid";
 import Navbar from "./Navigation/Toolbar/Toolbar";
 import { useStore } from "../hooks-store/store";
 import { Paper, makeStyles } from "@material-ui/core";
+import { getPath } from "../utility/Algorithms/floydWarshall";
+import Node from "../utility/Node";
 
 const ROWS_INIT = 10;
 const COLS_INIT = 40;
@@ -47,6 +49,7 @@ const Board = ({ openDialog }) => {
   const [animationSpeed, setAnimationSpeed] = useState(10);
   const [distance, setDistance] = useState("Unkown");
   const [matrix, setMatrix] = useState(null);
+  const [pathMtrx, setPathMtrx] = useState(null);
 
   const handleKeyNodeMove = (node, type) => {
     if (type === "Target") node.setAsTarget();
@@ -79,6 +82,7 @@ const Board = ({ openDialog }) => {
         break;
       case util.FLOYD_WARSHALL:
         setDistance(matrix[startNode.id][targetNode.id]);
+        drawPath(startNode.id, targetNode.id);
         break;
       case util.BELLMAN_FORD:
         bellmanFord(false);
@@ -170,6 +174,7 @@ const Board = ({ openDialog }) => {
     resetDistance();
 
     let animations = [];
+
     switch (algorithm) {
       case util.BFS:
         animations = BFS(true);
@@ -241,9 +246,11 @@ const Board = ({ openDialog }) => {
   };
 
   const floydWarshall = () => {
-    const { animations, distance, mtrx } = util.floydWarshall(nodeGrid);
+    const { animations, distance, mtrx, path } = util.floydWarshall(nodeGrid);
+    setPathMtrx(path);
     setDistance(distance);
     setMatrix(mtrx);
+
     return animations;
   };
 
@@ -276,12 +283,25 @@ const Board = ({ openDialog }) => {
     return animations;
   };
 
+  const drawPath = (startId, targetId) => {
+    const finalPath = getPath(startId, targetId, pathMtrx);
+    let prevNode = null;
+
+    for (let nodeId of finalPath) {
+      const node = Node.getNode(nodeId, nodeGrid);
+      node.predecessor = prevNode;
+      prevNode = node;
+    }
+    prevNode && prevNode.markShortestPath();
+  };
+
   const clear = () => {
     if (!animating) return;
     setHasSecondTarget(false);
     setPrevAlgorithm(null);
     setDistance("Unkown");
     setMatrix(null);
+    setPathMtrx(null);
     resetGrid();
   };
 

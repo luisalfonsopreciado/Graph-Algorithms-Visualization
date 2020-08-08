@@ -313,6 +313,7 @@ export class Graph {
   }
 
   greedyHeuristic(node, targetNode) {
+    // Calculate the Euclidean distance between the node and target
     const h = Math.sqrt(
       Math.pow(node.col - targetNode.col, 2) +
         Math.pow(node.row - targetNode.row, 2)

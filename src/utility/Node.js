@@ -162,9 +162,10 @@ export default class Node {
   }
 }
 
+// returns a reference to the node given the id
 Node.getNode = (id, nodeGrid) => {
   // O(1)
-  // returns a reference to the node given the id
+
   const width = nodeGrid[0].length;
   const row = Math.floor((id - 1) / width);
   const col = (id - 1) % width;

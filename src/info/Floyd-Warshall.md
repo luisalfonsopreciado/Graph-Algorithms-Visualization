@@ -7,6 +7,8 @@ This algorithm finds the shortest path between any two vertices in a graph. Whic
 ## Pseudocode
 
 ```
+// This pseudocode is adapted from the source:
+// https://www2.seas.gwu.edu/~simhaweb/alg/modules/module9/module9.html
 Algorithm: Floyd-Warshall (adjMatrix)
 Input: Adjacency matrix representation: adjMatrix[i][j] = weight of
        edge (i,j), if an edge exists; adjMatrix[i][j]=0 otherwise.
@@ -30,4 +32,4 @@ Input: Adjacency matrix representation: adjMatrix[i][j] = weight of
 
 ## Time complexity of Floyd-Warshall
 
-- There is a triple for loop in the above code that goes from 1 to the number of vertices. So it is simply O(V^3)
+- There is a triple for loop in the above code that goes from 1 to the number of vertices. So it is simply O(V^3), where V is the number of Vertices in the graph.

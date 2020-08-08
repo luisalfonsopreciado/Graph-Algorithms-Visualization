@@ -19,6 +19,7 @@ This variation makes a significant difference, visualize BFS to see for yourself
 - Get the list of adjacent elements of currentNode.
 - Add the adjacent elements to the queue.
 
+---
 
 ## BFS Analysis using an adjacency matrix
 
@@ -45,6 +46,8 @@ Note that O(V + E) = O(E)
 - not possible to do better than O(V + E)
 
 **BFS (with adjacency list) is an example of an optimal algorithm.**
+
+---
 
 ## Some of the Applications of BFS include:
 
