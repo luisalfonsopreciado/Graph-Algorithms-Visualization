@@ -1,6 +1,6 @@
 # Depth First Search
 
-Breadth First Search (BFS) along with Depth First Search (DFS) comprise the two fundamental and must-know graph traversal algorithms. The code for each is similar. However, there exists a fundamental difference:
+Depth First Search (DFS) along with Breadth First Search (BFS) comprise the two fundamental and must-know graph traversal algorithms. The code for each is similar. However, there exists a fundamental difference:
 
 - Breadth First Search uses a **Queue** to store vertices.
 - Depth First Search uses a **Stack** to store vertices.
@@ -13,9 +13,9 @@ This variation makes a significant difference, visualize DFS to see for yourself
 
 1. In Depth First Search we start by visiting the "start" node and adding it to a Stack data structure.
 
-2. While the Stack is not empty repeat the following:
+2. While the Stack is not empty repeat the following steps:
 
-- Pop the first element from the Stack and call it currentNode.
+- Pop the first element from the stack and call it currentNode.
 - Mark the currentNode as visited.
 - Get the list of adjacent elements of currentNode.
 - Add the adjacent elements to the Stack.
@@ -31,6 +31,9 @@ Another implementation of DFS using recursion would be:
 ## DFS Pseudocode using an Adjacency Matrix:
 
 ```
+// This pseudocode is adapted from the source:
+// https://www2.seas.gwu.edu/~simhaweb/alg/modules/module7/module7.html
+
 Algorithm: depthFirstMatrix (adjMatrix, n)
 Input: A graph's adjacency matrix, # of vertices n.
 
@@ -54,6 +57,9 @@ Input: A graph's adjacency matrix, # of vertices n.
 ## DFS Pseudocode using an Adjacency Matrix (Recursion):
 
 ```
+// This pseudocode is adapted from the source:
+// https://www2.seas.gwu.edu/~simhaweb/alg/modules/module7/module7.html
+
 Algorithm: depthFirstMatrixRecursive (v)
 Input: vertex v, adjMatrix is assumed to be global.
 
