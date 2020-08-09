@@ -11,6 +11,7 @@ import Node from "../utility/Node";
 
 const ROWS_INIT = 10;
 const COLS_INIT = 40;
+let pathMtrx = null;
 
 const useStyles = makeStyles({
   paper: {
@@ -49,7 +50,6 @@ const Board = ({ openDialog }) => {
   const [animationSpeed, setAnimationSpeed] = useState(10);
   const [distance, setDistance] = useState("Unkown");
   const [matrix, setMatrix] = useState(null);
-  const [pathMtrx, setPathMtrx] = useState(null);
 
   const handleKeyNodeMove = (node, type) => {
     if (type === "Target") node.setAsTarget();
@@ -247,7 +247,7 @@ const Board = ({ openDialog }) => {
 
   const floydWarshall = () => {
     const { animations, distance, mtrx, path } = util.floydWarshall(nodeGrid);
-    setPathMtrx(path);
+    pathMtrx = path;
     setDistance(distance);
     setMatrix(mtrx);
 
@@ -301,7 +301,7 @@ const Board = ({ openDialog }) => {
     setPrevAlgorithm(null);
     setDistance("Unkown");
     setMatrix(null);
-    setPathMtrx(null);
+    pathMtrx = null;
     resetGrid();
   };
 
@@ -354,6 +354,10 @@ const Board = ({ openDialog }) => {
       if (count >= animations.length) {
         setIsAnimating(true);
         clearInterval(intervalId);
+        if (algorithm === util.FLOYD_WARSHALL) {
+          const { startNode, targetNode } = util.getKeyNodes(nodeGrid);
+          drawPath(startNode.id, targetNode.id);
+        }
       }
     }, animationSpeed);
   };
