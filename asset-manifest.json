@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/Graph-Algorithms-Visualization/static/css/main.ecefab2d.chunk.css",
-    "main.js": "/Graph-Algorithms-Visualization/static/js/main.2a57f0a6.chunk.js",
-    "main.js.map": "/Graph-Algorithms-Visualization/static/js/main.2a57f0a6.chunk.js.map",
+    "main.css": "/Graph-Algorithms-Visualization/static/css/main.caa293b2.chunk.css",
+    "main.js": "/Graph-Algorithms-Visualization/static/js/main.a33e988d.chunk.js",
+    "main.js.map": "/Graph-Algorithms-Visualization/static/js/main.a33e988d.chunk.js.map",
     "runtime-main.js": "/Graph-Algorithms-Visualization/static/js/runtime-main.6f3a77d4.js",
     "runtime-main.js.map": "/Graph-Algorithms-Visualization/static/js/runtime-main.6f3a77d4.js.map",
     "static/js/2.d539f982.chunk.js": "/Graph-Algorithms-Visualization/static/js/2.d539f982.chunk.js",
@@ -34,9 +34,9 @@
     "static/js/15.9b7208eb.chunk.js": "/Graph-Algorithms-Visualization/static/js/15.9b7208eb.chunk.js",
     "static/js/15.9b7208eb.chunk.js.map": "/Graph-Algorithms-Visualization/static/js/15.9b7208eb.chunk.js.map",
     "index.html": "/Graph-Algorithms-Visualization/index.html",
-    "precache-manifest.2bc557745c61557e25248e4974e521d1.js": "/Graph-Algorithms-Visualization/precache-manifest.2bc557745c61557e25248e4974e521d1.js",
+    "precache-manifest.afd66b5610919cf6446e8936dbf8968c.js": "/Graph-Algorithms-Visualization/precache-manifest.afd66b5610919cf6446e8936dbf8968c.js",
     "service-worker.js": "/Graph-Algorithms-Visualization/service-worker.js",
-    "static/css/main.ecefab2d.chunk.css.map": "/Graph-Algorithms-Visualization/static/css/main.ecefab2d.chunk.css.map",
+    "static/css/main.caa293b2.chunk.css.map": "/Graph-Algorithms-Visualization/static/css/main.caa293b2.chunk.css.map",
     "static/js/2.d539f982.chunk.js.LICENSE.txt": "/Graph-Algorithms-Visualization/static/js/2.d539f982.chunk.js.LICENSE.txt",
     "static/media/A*.md": "/Graph-Algorithms-Visualization/static/media/A*.483a2bf3.md",
     "static/media/Bellman-Ford.md": "/Graph-Algorithms-Visualization/static/media/Bellman-Ford.5d9aa477.md",
@@ -56,7 +56,7 @@
   "entrypoints": [
     "static/js/runtime-main.6f3a77d4.js",
     "static/js/2.d539f982.chunk.js",
-    "static/css/main.ecefab2d.chunk.css",
-    "static/js/main.2a57f0a6.chunk.js"
+    "static/css/main.caa293b2.chunk.css",
+    "static/js/main.a33e988d.chunk.js"
   ]
 }
