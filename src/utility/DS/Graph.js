@@ -419,7 +419,8 @@ export class Graph {
   kruskal() {
     // Heap used to order the edges
     const heap = new MinHeap((el) => el.w);
-    // Distjoint set to keep track of cycles
+    
+    // Disjoint set to keep track of cycles
     const ds = new DisjointSet(5000);
     const mst = [];
     const edges = {};
@@ -461,24 +462,26 @@ export class Graph {
   }
 
   bellmanFord(startNode, nodeGrid, withAnimation) {
+    if (startNode === null) return [];
     // Initialize startVertex by setting dist = 0
     startNode.dist = 0;
-    const animations = [];
 
     // HashMap to store the nodes By their ID
     const nodes = {};
 
+    // Calculate number of nodes
+    const n = nodeGrid.length * nodeGrid[0].length;
+
     // Create a HashMap Of Id -> Node Obj
-    for (let id = 1; id <= this.noOfVertices; id++) {
+    for (let id = 1; id <= n; id++) {
       // get Node Given an Id
       const node = Node.getNode(id, nodeGrid);
       nodes[id] = node;
-      if (withAnimation) {
-        if (!node.is("Wall")) animations.push(node);
-      } else {
-        if (!node.is("Wall")) node.markSearched2Done();
-      }
     }
+
+    // Animate all nodes
+    let animations = [...Object.values(nodes)];
+    animations = animations.filter((node) => !node.is("Wall"))
 
     // Relax the edges
     for (let i = 1; i < this.noOfVertices; i++) {

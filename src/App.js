@@ -68,16 +68,14 @@ function App() {
         handleClose={handleDialogClose}
         className={styles.customDialog}
       >
-        <Paper className={classes.padding}>
-          <h1>Welcome to The Graph Algorithms Visualizer!</h1>
-          <br />
-          <h4>
-            This Project Helps CS Enthusiasts visualize graph
-            traversal/path-finding algorithms. To get Started, click on an
-            algorithm located on the header and press Visualize!.
-          </h4>
-          <h4>For a better Experience, set your browser to full width</h4>
-        </Paper>
+        <h1>Welcome to The Graph Algorithms Visualizer!</h1>
+        <br />
+        <h4>
+          This Project Helps CS Enthusiasts visualize graph
+          traversal/path-finding algorithms. To get Started, click on an
+          algorithm located on the header and press Visualize!.
+        </h4>
+        <h4>For a better Experience, set your browser to full width</h4>
       </CustomDialog>
 
       <Footer />

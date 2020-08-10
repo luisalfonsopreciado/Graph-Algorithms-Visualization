@@ -380,7 +380,10 @@ const Board = ({ openDialog }) => {
       />
       <br />
       <Paper className={classes.paper}>
-        <h3>Distance: {distance} </h3>
+        <h2>
+          Click on a Cell to add Walls! You can also drag the target/start!
+        </h2>
+        <h3 style={{ color: "red" }}>Distance: {distance} </h3>
         <p>{util.ALG_TITLE[algorithm]}</p>
       </Paper>
       <div
