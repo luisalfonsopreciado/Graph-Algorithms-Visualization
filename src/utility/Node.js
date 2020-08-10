@@ -7,7 +7,7 @@ export default class Node {
     this.dist = Infinity;
     this.g = 1;
     this.h = null;
-    this.f = null;
+    this.f = Infinity;
   }
 
   getNeighbors(grid) {

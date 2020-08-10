@@ -86,6 +86,7 @@ const Board = ({ openDialog }) => {
         break;
       case util.BELLMAN_FORD:
         bellmanFord(false);
+        targetNode.markShortestPath();
         break;
       default:
     }

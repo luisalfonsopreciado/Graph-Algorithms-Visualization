@@ -1,5 +1,6 @@
 import { drawContourWalls } from "./Contour";
 
+// Constants to avoid typo's
 const HORIZONTAL = "horizontal";
 const VERTICAL = "vertical";
 

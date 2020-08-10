@@ -49,9 +49,10 @@ export class Graph {
   // bfs(v)
   // function to performs BFS
   bfs(startingNode, withAnimation) {
-    // create a visited array
+    // Array to store the animations
     const animations = [];
 
+    // Create a visited array
     var visited = [];
     for (var i = 0; i < this.noOfVertices; i++) visited[i] = false;
 
@@ -131,49 +132,58 @@ export class Graph {
 
   dijkstra(startNode, animations, hasSecond, withAnimation) {
     if (!startNode) return [];
+
+    // Prioritize based on the node's distance
     const heap = new MinHeap((item) => item.dist);
+
+    // Keep track of visited nodes
+    const visited = new Set();
 
     heap.push(startNode);
 
-    let finishedAnimating = false;
-
     while (!heap.isEmpty()) {
-      //for each existing solution
+      // Get the node with lowest distance
       const currentNode = heap.pop();
 
+      // If we have found the target return the animations
+      if (currentNode.is("Target")) {
+        if (!withAnimation) currentNode.markShortestPath();
+        return animations;
+      }
+
       var currentdist = currentNode.dist;
-      var adj = this.AdjList.get(currentNode); // get neighbors
 
-      //for each of its adjacent nodes...
-      for (var a in adj) {
-        const adjacentNode = adj[a];
+      // Get neighbors
+      var neighbors = this.AdjList.get(currentNode);
 
-        //choose nearest node with lowest *total* cost
-        var d = adjacentNode.getWeight() + currentdist;
+      // For each of neighbors
+      for (let adjacentNode of neighbors) {
+        // Calculate distance via the neighbor
+        var tentativeDistance = adjacentNode.getWeight() + currentdist;
 
-        if (d < adjacentNode.dist) {
-          if (!finishedAnimating) animations.push(adjacentNode);
+        if (tentativeDistance < adjacentNode.dist) {
+          // Path via neighbor is better, so record it.
+
+          // Handle animations
           if (!withAnimation) adjacentNode.markSearched2Done();
-          if (!heap.contains(adjacentNode)) heap.push(adjacentNode);
+          animations.push(adjacentNode);
 
-          //reference parent
-          adjacentNode.predecessor = currentNode;
-          adjacentNode.dist = d;
-          if (adjacentNode.is("Target") || adjacentNode.is("SecondaryTarget")) {
-            if (!withAnimation) {
-              adjacentNode.markShortestPath();
-              return [];
-            }
-
-            if (hasSecond) {
-              this.dijkstra(adjacentNode, animations);
-            } else {
-              finishedAnimating = true;
-            }
+          // If node not in priority queue
+          if (!visited.has(adjacentNode.id)) {
+            heap.push(adjacentNode);
+            visited.add(adjacentNode.id);
           }
+
+          // Update the parent
+          adjacentNode.predecessor = currentNode;
+
+          // Update the distance
+          adjacentNode.dist = tentativeDistance;
         }
       }
     }
+
+    // We did not find the target
     return animations;
   }
 
@@ -181,12 +191,13 @@ export class Graph {
     if (startNode === null) return [];
     if (targetNode === null) return [];
 
+    // Array to store nodes to animate
     const animations = [];
 
     // Prioritize based on the f parameter
     const heap = new MinHeap((item) => item.f);
 
-    // g is zero for the start and Infinity for the rest.
+    // g is zero for the start and Infinity for the rest of nodes
     startNode.f = this.manhattanDistance(startNode, targetNode);
 
     heap.push(startNode);
@@ -198,13 +209,15 @@ export class Graph {
       // The current distance of the currentNode
       var currentdist = currentNode.dist;
 
-      // get neighbors
+      // Set of visited
+      const visited = new Set();
+
+      // Get neighbors
       var adj = this.AdjList.get(currentNode);
 
-      // Handle Animations
-      animations.push(currentNode);
-
+      // Handle animations
       if (!withAnimation) currentNode.markSearched2Done();
+      animations.push(currentNode);
 
       if (currentNode.is("Target")) {
         if (!withAnimation) currentNode.markShortestPath();
@@ -212,26 +225,31 @@ export class Graph {
       }
 
       //for each of its adjacent nodes...
-      for (var a in adj) {
-        const adjacentNode = adj[a];
-
+      for (let adjacentNode of adj) {
         // distance(current,neighbor) is the weight of the edge from current to neighbor
-        // tentative_gScore is the distance from start to the neighbor through current
-        var tentative_gScore = currentdist + adjacentNode.getWeight();
+        // tentativeGScore  is the distance from start to the neighbor through current
+        var tentativeGScore = currentdist + adjacentNode.getWeight();
 
-        if (tentative_gScore < adjacentNode.dist) {
+        if (tentativeGScore < adjacentNode.dist) {
           // This path to neighbor is better than any previous one. Record it!
 
           //reference parent
           adjacentNode.predecessor = currentNode;
 
-          adjacentNode.dist = tentative_gScore;
+          adjacentNode.dist = tentativeGScore;
 
-          adjacentNode.f =
-            adjacentNode.dist +
-            this.manhattanDistance(adjacentNode, targetNode);
+          // Set f value
+          const g = adjacentNode.dist;
 
-          if (!heap.contains(adjacentNode)) heap.push(adjacentNode);
+          const h = this.manhattanDistance(adjacentNode, targetNode);
+
+          adjacentNode.f = g + h;
+
+          // If not in priority queue
+          if (!visited.has(adjacentNode.id)) {
+            heap.push(adjacentNode);
+            visited.add(adjacentNode.id);
+          }
         }
       }
     }
@@ -298,7 +316,7 @@ export class Graph {
 
           if (!heap.contains(adjacentNode)) heap.push(adjacentNode);
 
-          //reference parent
+          // Update the parent and distance
           adjacentNode.predecessor = currentNode;
           adjacentNode.dist = d;
 
@@ -451,9 +469,10 @@ export class Graph {
     const nodes = {};
 
     // Create a HashMap Of Id -> Node Obj
-    for (let i = 1; i <= this.noOfVertices; i++) {
-      const node = Node.getNode(i, nodeGrid); // get Node Given an Id
-      nodes[i] = node;
+    for (let id = 1; id <= this.noOfVertices; id++) {
+      // get Node Given an Id
+      const node = Node.getNode(id, nodeGrid);
+      nodes[id] = node;
       if (withAnimation) {
         if (!node.is("Wall")) animations.push(node);
       } else {
@@ -468,6 +487,7 @@ export class Graph {
         arr.forEach((adj) => {
           if (key.dist > adj.dist + adj.getWeight()) {
             key.dist = adj.dist + adj.getWeight();
+            key.predecessor = adj;
           }
         });
       });
