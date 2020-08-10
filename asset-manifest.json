@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/Graph-Algorithms-Visualization/static/css/main.caa293b2.chunk.css",
-    "main.js": "/Graph-Algorithms-Visualization/static/js/main.a33e988d.chunk.js",
-    "main.js.map": "/Graph-Algorithms-Visualization/static/js/main.a33e988d.chunk.js.map",
+    "main.js": "/Graph-Algorithms-Visualization/static/js/main.50da567a.chunk.js",
+    "main.js.map": "/Graph-Algorithms-Visualization/static/js/main.50da567a.chunk.js.map",
     "runtime-main.js": "/Graph-Algorithms-Visualization/static/js/runtime-main.6f3a77d4.js",
     "runtime-main.js.map": "/Graph-Algorithms-Visualization/static/js/runtime-main.6f3a77d4.js.map",
-    "static/js/2.d539f982.chunk.js": "/Graph-Algorithms-Visualization/static/js/2.d539f982.chunk.js",
-    "static/js/2.d539f982.chunk.js.map": "/Graph-Algorithms-Visualization/static/js/2.d539f982.chunk.js.map",
+    "static/js/2.f8fd3e20.chunk.js": "/Graph-Algorithms-Visualization/static/js/2.f8fd3e20.chunk.js",
+    "static/js/2.f8fd3e20.chunk.js.map": "/Graph-Algorithms-Visualization/static/js/2.f8fd3e20.chunk.js.map",
     "static/js/3.41aa7007.chunk.js": "/Graph-Algorithms-Visualization/static/js/3.41aa7007.chunk.js",
     "static/js/3.41aa7007.chunk.js.map": "/Graph-Algorithms-Visualization/static/js/3.41aa7007.chunk.js.map",
     "static/js/4.62dc03e7.chunk.js": "/Graph-Algorithms-Visualization/static/js/4.62dc03e7.chunk.js",
@@ -34,10 +34,10 @@
     "static/js/15.9b7208eb.chunk.js": "/Graph-Algorithms-Visualization/static/js/15.9b7208eb.chunk.js",
     "static/js/15.9b7208eb.chunk.js.map": "/Graph-Algorithms-Visualization/static/js/15.9b7208eb.chunk.js.map",
     "index.html": "/Graph-Algorithms-Visualization/index.html",
-    "precache-manifest.afd66b5610919cf6446e8936dbf8968c.js": "/Graph-Algorithms-Visualization/precache-manifest.afd66b5610919cf6446e8936dbf8968c.js",
+    "precache-manifest.827dc93f579992ce26e5d012826ceaf2.js": "/Graph-Algorithms-Visualization/precache-manifest.827dc93f579992ce26e5d012826ceaf2.js",
     "service-worker.js": "/Graph-Algorithms-Visualization/service-worker.js",
     "static/css/main.caa293b2.chunk.css.map": "/Graph-Algorithms-Visualization/static/css/main.caa293b2.chunk.css.map",
-    "static/js/2.d539f982.chunk.js.LICENSE.txt": "/Graph-Algorithms-Visualization/static/js/2.d539f982.chunk.js.LICENSE.txt",
+    "static/js/2.f8fd3e20.chunk.js.LICENSE.txt": "/Graph-Algorithms-Visualization/static/js/2.f8fd3e20.chunk.js.LICENSE.txt",
     "static/media/A*.md": "/Graph-Algorithms-Visualization/static/media/A*.483a2bf3.md",
     "static/media/Bellman-Ford.md": "/Graph-Algorithms-Visualization/static/media/Bellman-Ford.5d9aa477.md",
     "static/media/Breadth First Search.md": "/Graph-Algorithms-Visualization/static/media/Breadth First Search.2fa12089.md",
@@ -55,8 +55,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.6f3a77d4.js",
-    "static/js/2.d539f982.chunk.js",
+    "static/js/2.f8fd3e20.chunk.js",
     "static/css/main.caa293b2.chunk.css",
-    "static/js/main.a33e988d.chunk.js"
+    "static/js/main.50da567a.chunk.js"
   ]
 }
