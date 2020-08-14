@@ -2,7 +2,7 @@
   "name": "graph-algo-visualizer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://luisalfonsopreciado.github.io/Graph-Algorithms-Visualization",
+  "homepage": "https://graph-algorithms-visualization.vercel.app",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "marked": "^1.1.0",

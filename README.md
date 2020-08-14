@@ -27,6 +27,22 @@ A Graph traversal technique utilizing a stack data structure for picking the nex
 
 <b>In addition, I implemented a recursive division maze generating algorithm.<b>
 
+**Floyd-Warshall Algorithm**
+
+An awesome algorithm that finds the closest distance and Path between ANY two vertices in a graph.
+
+**Bellman Ford Algorithm**
+
+This algorithm finds the shortest path between two vertices in a weighted graph. Moreover, it fixes Dijkstra's problem in that it finds the shortest path in a graph with negative weights.
+
+**Prim's Algorithm**
+
+Finds the Minimum Spanning tree of a graph.
+
+**Kruskal's Algorithm**
+
+Just like Prim's, this algorithm finds the Minimum Spanning tree of a graph.
+
 ## Other Features
 
 - You can move the target and start node at your leisure.
