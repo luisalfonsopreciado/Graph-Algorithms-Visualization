@@ -5,8 +5,6 @@ const generateNodeGrid = (numRows, numCols) => {
   const nodesGrid = [];
   let id = 1;
 
-  console.log("Called");
-
   for (let row = 0; row < numRows; row++) {
     nodesGrid[row] = [];
     for (let col = 0; col < numCols; col++) {

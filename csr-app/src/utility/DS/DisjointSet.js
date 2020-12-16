@@ -1,3 +1,14 @@
+/*
+    Disjoing set data structure (Array representation).
+
+    1. Initially instantiate the array with the number of vertices in the graph. Fill the array
+    with -1, this indicates that each vertices is a set with itself as a parent.
+
+    Performing a union
+    set the parent of one set to point at the parent of the second set and adjust 
+    the new parent weight.
+*/
+
 export class DisjointSet {
   constructor(length) {
     this.items = new Array(length).fill(-1);
@@ -36,36 +47,3 @@ export class DisjointSet {
       : this.setParent(parent1, parent2);
   }
 }
-
-/*
-    Disjoing set data structure (Array representation).
-
-    1. Initially instantiate the array with the number of vertices in the graph. Fill the array
-    with -1, this indicates that each vertices is a set with itself as a parent.
-
-    Performing a union
-    set the parent of one set to point at the parent of the second set and adjust 
-    the new parent weight.
-*/
-
-// Tests
-
-// const ds = new DisjointSet(9);
-// ds.hasCycle(1, 2);
-// console.log(ds.items);
-// ds.hasCycle(3, 4);
-// console.log(ds.items);
-// ds.hasCycle(5, 6);
-// console.log(ds.items);
-// ds.hasCycle(7, 8);
-// console.log(ds.items);
-// ds.hasCycle(2, 4);
-// console.log(ds.items);
-// ds.hasCycle(2, 5);
-// console.log(ds.items);
-// ds.hasCycle(1, 3);
-// console.log(ds.items);
-// ds.hasCycle(6, 8);
-// console.log(ds.items);
-// ds.hasCycle(5, 7);
-// console.log(ds.items);

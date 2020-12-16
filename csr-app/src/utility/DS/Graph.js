@@ -3,61 +3,80 @@ import { DisjointSet } from "./DisjointSet";
 import { MinHeap } from "../index";
 import Node from "../Node";
 
+/**
+ * A graph ADT implementation
+ */
 export class Graph {
   constructor(noOfVertices) {
     this.noOfVertices = noOfVertices;
     this.AdjList = new Map();
   }
 
+  /**
+   * Adds a vertex object to the graph
+   *
+   * @param {*} v  Vertex Object
+   */
   addVertex(v) {
     // initialize the adjacent list with a
     // null array
     this.AdjList.set(v, []);
   }
 
+  /**
+   * Adds an Edge to the graph
+   *
+   * @param {*} v start Vertex
+   * @param {*} w end Vertex
+   */
   addEdge(v, w) {
     // get the list for vertex v and put the
     // vertex w denoting edge between v and w
-
     this.AdjList.get(v).push(w);
-
     // Since graph is undirected,
     // add an edge from w to v also
-    // this.AdjList.get(w).push(v);
+    this.AdjList.get(w).push(v);
   }
 
+  /**
+   * Print the current graph instance
+   */
   printGraph() {
     // get all the vertices
-    var get_keys = this.AdjList.keys();
+    let get_keys = this.AdjList.keys();
 
     // iterate over the vertices
-    for (var i of get_keys) {
+    for (let i of get_keys) {
       // great the corresponding adjacency list
       // for the vertex
-      var get_values = this.AdjList.get(i);
-      var conc = "";
+      let get_values = this.AdjList.get(i);
+      let conc = "";
 
       // iterate over the adjacency list
       // concatenate the values into a string
-      for (var j of get_values) conc += j + " ";
+      for (let j of get_values) conc += j + " ";
 
       // print the vertex and its adjacency list
       console.log(i + " -> " + conc);
     }
   }
 
-  // bfs(v)
-  // function to performs BFS
+  /**
+   * Perform Breadth First Search on the graph
+   *
+   * @param {*} startingNode Reference to the starting node
+   * @param {*} withAnimation Boolean indicating if animations are needed
+   */
   bfs(startingNode, withAnimation) {
     // Array to store the animations
     const animations = [];
 
     // Create a visited array
-    var visited = [];
-    for (var i = 0; i < this.noOfVertices; i++) visited[i] = false;
+    let visited = [];
+    for (let i = 0; i < this.noOfVertices; i++) visited[i] = false;
 
     // Create an object for queue
-    var q = new Queue();
+    let q = new Queue();
 
     // add the starting node to the queue
     visited[startingNode] = true;
@@ -66,17 +85,16 @@ export class Graph {
     // loop until queue is element
     while (!q.isEmpty()) {
       // get the element from the queue
-      var getQueueElement = q.dequeue();
+      let getQueueElement = q.dequeue();
 
       // passing the current vertex to callback funtion
-
       // get the adjacent list for current vertex
-      var get_List = this.AdjList.get(getQueueElement);
+      let get_List = this.AdjList.get(getQueueElement);
 
       // loop through the list and add the element to the
       // queue if it is not processed yet
-      for (var n in get_List) {
-        var neigh = get_List[n];
+      for (let n in get_List) {
+        let neigh = get_List[n];
 
         if (!visited[neigh]) {
           neigh.predecessor = getQueueElement;
@@ -93,29 +111,41 @@ export class Graph {
     return animations;
   }
 
-  // dfs(v)
-  // Main DFS method
+  /**
+   * Perform a Depth First Search on the graph
+   *
+   * @param {*} startingNode Reference to the starting node
+   * @param {*} withAnimation Boolean indicating if animations are desired
+   */
   dfs(startingNode, withAnimation) {
     if (!startingNode) return [];
     const animations = [];
 
-    var visited = [];
-    for (var i = 0; i < this.noOfVertices; i++) visited[i] = false;
+    let visited = [];
+    for (let i = 0; i < this.noOfVertices; i++) visited[i] = false;
 
     this.DFSUtil(startingNode, visited, animations, withAnimation);
 
     return withAnimation ? animations : [];
   }
 
-  // Recursive function which process and explore
-  // all the adjacent vertex of the vertex with which it is called
+  /**
+   *
+   * Depth First search recursive utility function: process and explore
+   * all the adjacent vertices of the input vertex
+   *
+   * @param {*} vert Reference to the starting node
+   * @param {*} visited Boolean of arrays indicating if a vertex has been visited
+   * @param {*} animations Array that holds the algorithm's animations
+   * @param {*} withAnimation Boolean indicating if animation is desired
+   */
   DFSUtil(vert, visited, animations, withAnimation) {
     visited[vert] = true;
 
-    var get_neighbours = this.AdjList.get(vert);
+    let get_neighbours = this.AdjList.get(vert);
 
-    for (var i in get_neighbours) {
-      var get_elem = get_neighbours[i];
+    for (let i in get_neighbours) {
+      let get_elem = get_neighbours[i];
       get_elem.dist = vert.dist + 1;
       if (!visited[get_elem]) {
         get_elem.predecessor = vert;
@@ -130,14 +160,20 @@ export class Graph {
     }
   }
 
+  /**
+   *
+   * Perform Dijkstra's Algorithm on the graph.
+   *
+   * @param {*} startNode Reference to the starting node
+   * @param {*} animations Array that will store the algorithm's animations
+   * @param {*} hasSecond Boolean indicating if there is targets in the graph
+   * @param {*} withAnimation Boolean indicating if animation is desired
+   */
   dijkstra(startNode, animations, hasSecond, withAnimation) {
     if (!startNode) return [];
 
     // Prioritize based on the node's distance
     const heap = new MinHeap((item) => item.dist);
-
-    // Keep track of visited nodes
-    const visited = new Set();
 
     heap.push(startNode);
 
@@ -151,15 +187,13 @@ export class Graph {
         return animations;
       }
 
-      var currentdist = currentNode.dist;
-
       // Get neighbors
-      var neighbors = this.AdjList.get(currentNode);
+      let neighbors = this.AdjList.get(currentNode);
 
       // For each of neighbors
       for (let adjacentNode of neighbors) {
         // Calculate distance via the neighbor
-        var tentativeDistance = adjacentNode.getWeight() + currentdist;
+        let tentativeDistance = adjacentNode.getWeight() + currentNode.dist;
 
         if (tentativeDistance < adjacentNode.dist) {
           // Path via neighbor is better, so record it.
@@ -168,11 +202,7 @@ export class Graph {
           if (!withAnimation) adjacentNode.markSearched2Done();
           animations.push(adjacentNode);
 
-          // If node not in priority queue
-          if (!visited.has(adjacentNode.id)) {
-            heap.push(adjacentNode);
-            visited.add(adjacentNode.id);
-          }
+          heap.push(adjacentNode);
 
           // Update the parent
           adjacentNode.predecessor = currentNode;
@@ -187,6 +217,13 @@ export class Graph {
     return animations;
   }
 
+  /**
+   * Perform A* Algorithm to the graph
+   *
+   * @param {*} startNode Reference to the starting node
+   * @param {*} targetNode Reference to the target node
+   * @param {*} withAnimation Boolean indicating if animations are desired
+   */
   aStar(startNode, targetNode, withAnimation) {
     if (startNode === null) return [];
     if (targetNode === null) return [];
@@ -207,13 +244,13 @@ export class Graph {
       const currentNode = heap.pop();
 
       // The current distance of the currentNode
-      var currentdist = currentNode.dist;
+      let currentdist = currentNode.dist;
 
       // Set of visited
       const visited = new Set();
 
       // Get neighbors
-      var adj = this.AdjList.get(currentNode);
+      let adj = this.AdjList.get(currentNode);
 
       // Handle animations
       if (!withAnimation) currentNode.markSearched2Done();
@@ -228,7 +265,7 @@ export class Graph {
       for (let adjacentNode of adj) {
         // distance(current,neighbor) is the weight of the edge from current to neighbor
         // tentativeGScore  is the distance from start to the neighbor through current
-        var tentativeGScore = currentdist + adjacentNode.getWeight();
+        let tentativeGScore = currentdist + adjacentNode.getWeight();
 
         if (tentativeGScore < adjacentNode.dist) {
           // This path to neighbor is better than any previous one. Record it!
@@ -258,12 +295,24 @@ export class Graph {
     return animations;
   }
 
+  /**
+   * Returns the ManhattanDistance between two graph nodes
+   *
+   * @param {*} node first node
+   * @param {*} targetNode second node
+   */
   manhattanDistance(node, targetNode) {
     return (
       Math.abs(node.col - targetNode.col) + Math.abs(node.row - targetNode.row)
     );
   }
-
+  /**
+   * Perform Greedy Best First search on the graph
+   *
+   * @param {*} startNode Reference to the starting node
+   * @param {*} targetNode Reference to the target node
+   * @param {*} withAnimation Boolean indicating if animations are desired
+   */
   bestFirstSearch(startNode, targetNode, withAnimation) {
     if (startNode === null) return [];
     if (targetNode === null) return [];
@@ -294,21 +343,21 @@ export class Graph {
         return animations;
       }
 
-      var currentdist = currentNode.dist;
+      let currentdist = currentNode.dist;
 
       // Get neighbors of currentNode
-      var adj = this.AdjList.get(currentNode);
+      let adj = this.AdjList.get(currentNode);
 
       // Handle animations
       if (!withAnimation) currentNode.markSearched2Done();
       animations.push(currentNode);
 
       //for each adjacent node
-      for (var a in adj) {
+      for (let a in adj) {
         const adjacentNode = adj[a];
 
         //choose nearest node with lowest *total* cost
-        var d = adjacentNode.getWeight() + currentdist;
+        let d = adjacentNode.getWeight() + currentdist;
 
         // if the vertex is unvisited and distance is improved
         if (!(adjacentNode.id in visited) && d < adjacentNode.dist) {
@@ -330,6 +379,12 @@ export class Graph {
     return animations;
   }
 
+  /**
+   * Update Greedy Heurisitc on two input nodes
+   *
+   * @param {*} node
+   * @param {*} targetNode
+   */
   greedyHeuristic(node, targetNode) {
     // Calculate the Euclidean distance between the node and target
     const h = Math.sqrt(
@@ -340,6 +395,12 @@ export class Graph {
     node.f = node.h;
   }
 
+  /**
+   * Update Euclidean distance between two nodes
+   *
+   * @param {*} node
+   * @param {*} targetNode
+   */
   euclideanDistance(node, targetNode) {
     const h = Math.sqrt(
       Math.pow(node.col - targetNode.col, 2) +
@@ -349,6 +410,13 @@ export class Graph {
     node.f = node.getWeight() + node.h;
   }
 
+  /**
+   * Perform D* Algorithm on the graph
+   *
+   * @param {*} startNode Reference to start node
+   * @param {*} targetNode Reference to target node
+   * @param {*} withAnimation Boolean indicating if animations are desired
+   */
   dStar(startNode, targetNode, withAnimation) {
     if (targetNode === null) return [];
 
@@ -383,6 +451,13 @@ export class Graph {
     return animations;
   }
 
+  /**
+   * Perform Prim's Algorithm on the graph
+   *
+   * @param {*} startNode Reference to start node
+   * @param {*} targetNode Reference to target node
+   * @param {*} withAnimation Boolean indicating if animations are desired
+   */
   Prims(startNode, targetNode, withAnimation) {
     if (startNode === null) return [];
     if (targetNode === null) return [];
@@ -416,10 +491,13 @@ export class Graph {
     return withAnimation ? animations : [];
   }
 
+  /**
+   * Perform kruskal's algorithm
+   */
   kruskal() {
     // Heap used to order the edges
     const heap = new MinHeap((el) => el.w);
-    
+
     // Disjoint set to keep track of cycles
     const ds = new DisjointSet(5000);
     const mst = [];
@@ -461,6 +539,13 @@ export class Graph {
     return animations;
   }
 
+
+  /**
+   * Perform Bellman Ford's Algorithm on the graph
+   * @param {*} startNode Reference to start node
+   * @param {*} nodeGrid Reference to node Grid
+   * @param {*} withAnimation Boolean indicating if animations are desired 
+   */
   bellmanFord(startNode, nodeGrid, withAnimation) {
     if (startNode === null) return [];
     // Initialize startVertex by setting dist = 0
@@ -481,7 +566,7 @@ export class Graph {
 
     // Animate all nodes
     let animations = [...Object.values(nodes)];
-    animations = animations.filter((node) => !node.is("Wall"))
+    animations = animations.filter((node) => !node.is("Wall"));
 
     // Relax the edges
     for (let i = 1; i < this.noOfVertices; i++) {
