@@ -246,9 +246,6 @@ export class Graph {
       // The current distance of the currentNode
       let currentdist = currentNode.dist;
 
-      // Set of visited
-      const visited = new Set();
-
       // Get neighbors
       let adj = this.AdjList.get(currentNode);
 
@@ -282,11 +279,7 @@ export class Graph {
 
           adjacentNode.f = g + h;
 
-          // If not in priority queue
-          if (!visited.has(adjacentNode.id)) {
-            heap.push(adjacentNode);
-            visited.add(adjacentNode.id);
-          }
+          heap.push(adjacentNode);
         }
       }
     }
