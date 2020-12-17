@@ -25,8 +25,6 @@ My favorite graph traversal algorithm, utilizing a queue data structure for pick
 
 A Graph traversal technique utilizing a stack data structure for picking the next node.
 
-<b>In addition, I implemented a recursive division maze generating algorithm.<b>
-
 **Floyd-Warshall Algorithm**
 
 An awesome algorithm that finds the closest distance and Path between ANY two vertices in a graph.
@@ -42,6 +40,10 @@ Finds the Minimum Spanning tree of a graph.
 **Kruskal's Algorithm**
 
 Just like Prim's, this algorithm finds the Minimum Spanning tree of a graph.
+
+In addition, I implemented a recursive division maze generating algorithm.
+
+---
 
 ## Other Features
 
