@@ -172,6 +172,19 @@ const NavigationItems = ({
             Learn More
           </DropItem>
         </DropDown>
+        <DropDown title={cts.BIDIRECTIONAL_BFS}>
+          <DropItem
+            clicked={() => {
+              dispatch("SET_ALGO", { algo: cts.BIDIRECTIONAL_BFS });
+              dispatch("SET_INFO", { info: cts.BIDIRECTIONAL_BFS });
+            }}
+          >
+            Select
+          </DropItem>
+          <DropItem clicked={() => dispatch("SET_INFO", { info: cts.BIDIRECTIONAL_BFS })}>
+            Learn More
+          </DropItem>
+        </DropDown>
       </Subnav>
       <Subnav title="Maze Generators">
         <DropDown title={cts.RAND_MAZE}>

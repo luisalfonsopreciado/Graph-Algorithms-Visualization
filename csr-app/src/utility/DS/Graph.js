@@ -35,7 +35,7 @@ export class Graph {
     this.AdjList.get(v).push(w);
     // Since graph is undirected,
     // add an edge from w to v also
-    this.AdjList.get(w).push(v);
+    // this.AdjList.get(w).push(v);
   }
 
   /**
@@ -532,12 +532,11 @@ export class Graph {
     return animations;
   }
 
-
   /**
    * Perform Bellman Ford's Algorithm on the graph
    * @param {*} startNode Reference to start node
    * @param {*} nodeGrid Reference to node Grid
-   * @param {*} withAnimation Boolean indicating if animations are desired 
+   * @param {*} withAnimation Boolean indicating if animations are desired
    */
   bellmanFord(startNode, nodeGrid, withAnimation) {
     if (startNode === null) return [];
@@ -574,6 +573,41 @@ export class Graph {
       });
     }
 
+    return animations;
+  }
+
+  /**
+   * 
+   * @param {Node} startNode 
+   * @param {Node} targetNode 
+   */
+  bidirectionalBFS(startNode, targetNode) {
+    const animations = [];
+    const visited = {};
+    const queue = new Queue();
+    queue.enqueue(startNode);
+    queue.enqueue(targetNode);
+    visited[startNode] = true;
+    visited[targetNode] = true;
+
+    while (!queue.isEmpty()) {
+      const size = queue.size();
+      for (let i = 0; i < size; i++) {
+        const curr = queue.dequeue();
+        const neighbors = this.AdjList.get(curr);
+
+        for (let neigh of neighbors) {
+          if (neigh in visited) {
+            continue;
+          }
+          animations.push(neigh);
+          neigh.predecessor = curr;
+          visited[neigh] = true;
+          queue.enqueue(neigh);
+        }
+      }
+    }
+    
     return animations;
   }
 }

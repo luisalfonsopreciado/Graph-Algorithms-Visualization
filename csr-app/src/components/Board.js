@@ -207,6 +207,9 @@ const Board = ({ openDialog }) => {
       case util.BELLMAN_FORD:
         animations = bellmanFord(true);
         break;
+      case util.BIDIRECTIONAL_BFS:
+        animations = bidirectionalBFS(true);
+        break;
       default:
         animations = BFS(true);
         break;
@@ -281,6 +284,13 @@ const Board = ({ openDialog }) => {
     const { graph, startNode, targetNode } = util.generateGraph(nodeGrid);
     const animations = graph.bellmanFord(startNode, nodeGrid, withAnimation);
     setDistance(targetNode.dist);
+    return animations;
+  };
+
+  const bidirectionalBFS = () => {
+    const { graph, startNode, targetNode } = util.generateGraph(nodeGrid);
+    const animations = graph.bidirectionalBFS(startNode, targetNode);
+    console.log(graph);
     return animations;
   };
 
