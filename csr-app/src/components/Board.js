@@ -24,6 +24,10 @@ const useStyles = makeStyles({
   },
 });
 
+/**
+ * Board Component
+ * @param {*} param0
+ */
 const Board = ({ openDialog }) => {
   const { algorithm } = useStore()[0];
   const classes = useStyles();
@@ -341,6 +345,11 @@ const Board = ({ openDialog }) => {
     }
   };
 
+  /**
+   * Animate a sequence of nodes.
+   * @param {Node[]} animations 
+   * @param {string} algorithm 
+   */
   const animate = (animations, algorithm) => {
     if (animations.length <= 0) return setIsAnimating(true);
 
@@ -385,6 +394,19 @@ const Board = ({ openDialog }) => {
     }, animationSpeed);
   };
 
+  /**
+   * Wrapper function for setNumRows in useNodeGrid Hook.
+   * It's main purpose is to reset the previous algorithm so that
+   * when user changes grid size, no animations are displayed. 
+   * Prevent's user from changing grid size while animation is taking place.
+   * @param {number} numRows
+   */
+  const setRows = (n) => {
+    if (!animating) return;
+    setPrevAlgorithm(null);
+    setNumRows(n);
+  };
+
   return (
     <div className="text-center">
       <Navbar
@@ -396,7 +418,7 @@ const Board = ({ openDialog }) => {
         mazeGen={generateMaze}
         settingSecondTarget={setSettingSecondTarget}
         setUserAction={setUserAction}
-        setNumRows={setNumRows}
+        setNumRows={setRows}
         setNumCols={setNumCols}
         setSpeed={setAnimationSpeed}
       />
