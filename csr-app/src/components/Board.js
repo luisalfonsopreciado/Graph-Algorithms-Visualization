@@ -8,6 +8,7 @@ import { useStore } from "../hooks-store/store";
 import { Paper, makeStyles } from "@material-ui/core";
 import { getPath } from "../utility/Algorithms/floydWarshall";
 import Node from "../utility/Node";
+import { BELLMAN_FORD } from "../utility/index";
 
 const ROWS_INIT = 10;
 const COLS_INIT = 40;
@@ -344,6 +345,7 @@ const Board = ({ openDialog }) => {
     if (animations.length <= 0) return setIsAnimating(true);
 
     let count = 0;
+    let targetNodeRef = null;
 
     const intervalId = setInterval(() => {
       const node = animations[count];
@@ -352,7 +354,13 @@ const Board = ({ openDialog }) => {
 
       if (node.is("Target") || node.is("SecondaryTarget")) {
         algorithm !== util.FLOYD_WARSHALL && setDistance(node.dist);
-        node.markShortestPath();
+
+        // Save the reference to the target node in Bellmand Ford's
+        if (algorithm === util.BELLMAN_FORD) {
+          targetNodeRef = node;
+        } else {
+          node.markShortestPath();
+        }
       }
 
       if (node.is("Start") && algorithm === util.DSTAR) {
@@ -368,6 +376,10 @@ const Board = ({ openDialog }) => {
         if (algorithm === util.FLOYD_WARSHALL) {
           const { startNode, targetNode } = util.getKeyNodes(nodeGrid);
           drawPath(startNode.id, targetNode.id);
+        }
+        // Animate the final path after marking nodes as visited
+        if (algorithm === BELLMAN_FORD) {
+          targetNodeRef.markShortestPath();
         }
       }
     }, animationSpeed);
