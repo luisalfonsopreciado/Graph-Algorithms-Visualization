@@ -1,7 +1,7 @@
 # Online Graph Algorithms Playground
 
 Welcome to Graph Algo Visualizer! I built this application because I was interested in pathfinding/graph algorithms and wanted to learn more about them.
-I hope you enjoy playing around with this application as much as I had fun building it. You can access it via this link: <a href="https://luisalfonsopreciado.github.io/Graph-Algorithms-Visualization">Complete Project</a>
+I hope you enjoy playing around with this application as much as I had fun building it. You can access it via this link: <a href="https://graph-algorithms-visualization-git-master.luisalfonsopreciado.vercel.app/">Complete Project</a>
 
 ## Supported Algorithms
 
