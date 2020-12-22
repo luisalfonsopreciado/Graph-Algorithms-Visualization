@@ -295,7 +295,6 @@ const Board = ({ openDialog }) => {
   const bidirectionalBFS = () => {
     const { graph, startNode, targetNode } = util.generateGraph(nodeGrid);
     const animations = graph.bidirectionalBFS(startNode, targetNode);
-    console.log(graph);
     return animations;
   };
 
@@ -366,7 +365,9 @@ const Board = ({ openDialog }) => {
       !node.is("Weight") ? node.markSearched() : node.markSearched2Done();
 
       if (node.is("Target") || node.is("SecondaryTarget")) {
-        algorithm !== util.FLOYD_WARSHALL && setDistance(node.dist);
+        if(algorithm !== util.FLOYD_WARSHALL){
+          setDistance(node.dist);
+        }
 
         // Save the reference to the target node in Bellmand Ford's
         if (algorithm === util.BELLMAN_FORD) {

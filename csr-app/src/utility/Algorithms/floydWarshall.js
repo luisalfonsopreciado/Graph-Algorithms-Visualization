@@ -1,16 +1,24 @@
-// O(V^3)
-export const floydWarshall = (nodeGrid, startNode) => {
-  const n = nodeGrid.length * nodeGrid[0].length; // number of vertices
+/**
+ * Run Floyd Warshall's All Pairs shortest paths algorithm on a nodeGrid
+ * @param {Node[][]} nodeGrid
+ */
+export const floydWarshall = (nodeGrid) => {
+  // calculate number of vertices
+  const n = nodeGrid.length * nodeGrid[0].length;
+
+  // distance matrix that holds distance from i -> j at mtrx[i][j]
   const mtrx = [];
   const animations = [];
   let distance = 1;
 
-  // array to store the path
+  // 2D array that stores the path from any pair of vertices
   const path = new Array(n);
 
-  // HashMap to store the nodes By their ID
+  // HashMap to store the nodes By their ID id -> Node
   const nodes = {};
 
+  // Variables to hold the startNode and targetNode id,
+  // used to get the distance between the two at the conclusion of the algo.
   let startId = 0;
   let targetId = 0;
 
@@ -26,7 +34,7 @@ export const floydWarshall = (nodeGrid, startNode) => {
 
     path[i][i] = i;
 
-    // Get vertex neighbors
+    // Get list of vertex neighbors
     const neighbors = node.getNeighbors(nodeGrid);
 
     // For Each neighbor
@@ -34,21 +42,28 @@ export const floydWarshall = (nodeGrid, startNode) => {
       path[i][neighbor.id] = neighbor.id;
     }
 
+    // Record the id of start and target node
     if (node.is("Start")) startId = node.id;
     if (node.is("Target")) targetId = node.id;
+
+    // Handle animation
     if (!node.is("Wall")) animations.push(node);
   }
 
-  // Create the mtrx with initial values
+  // Initialize the distance matrix
   for (let row = 1; row <= n; row++) {
     mtrx[row] = [];
     for (let col = 1; col <= n; col++) {
+      // The node at row
       const start = nodes[row];
+
+      // The node at col
       const end = nodes[col];
 
       if (!path[row][col]) path[row][col] = 0;
 
-      mtrx[row][col] = start.getDistanceTo(end); // Distance from start to end
+      // Distance from start to end
+      mtrx[row][col] = start.getDistanceTo(end);
     }
   }
 
@@ -58,7 +73,7 @@ export const floydWarshall = (nodeGrid, startNode) => {
       for (let j = 1; j <= n; j++) {
         // Keep the code inside here lean so that it remains fast
 
-        // If it is faster via k
+        // If it is faster via node with id k
         if (mtrx[i][k] + mtrx[k][j] < mtrx[i][j]) {
           mtrx[i][j] = mtrx[i][k] + mtrx[k][j];
           path[i][j] = path[i][k];
@@ -68,22 +83,29 @@ export const floydWarshall = (nodeGrid, startNode) => {
   }
 
   // Update the distances on the start and target node so that the UI Updates
-  nodes[startId].dist = mtrx[startId][targetId];
   distance = mtrx[startId][targetId];
 
-  return { mtrx, animations, distance, startId, targetId, path };
+  return { mtrx, animations, distance, path };
 };
 
+/**
+ * Returns a reference to the node given the id
+ * @param {*} id
+ * @param {*} nodeGrid
+ */
 function getNode(id, nodeGrid) {
-  // O(1)
-  // returns a reference to the node given the id
   const width = nodeGrid[0].length;
   const row = Math.floor((id - 1) / width);
   const col = (id - 1) % width;
   return nodeGrid[row][col];
 }
 
-// Return array of path given ID: u, v, and path matrix
+/**
+ * Return array of path given ID: u, v, and path matrix
+ * @param {*} u
+ * @param {*} v
+ * @param {*} path
+ */
 export const getPath = (u, v, path) => {
   if (path[u][v] === 0) return [];
   const result = [];

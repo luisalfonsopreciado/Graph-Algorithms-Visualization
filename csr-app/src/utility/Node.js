@@ -20,7 +20,7 @@ export default class Node {
   }
 
   /**
-   * returns a list of neighbors for the node
+   * Returns a list of neighbors for the node
    * @param {Node[][]} grid
    * @returns {Number[]} neighbors
    */
@@ -56,7 +56,7 @@ export default class Node {
   }
 
   /**
-   * Retruns true if the input Node is a neighbor to the node
+   * Returns true if the input Node is a neighbor to the node
    * @param {Node} node
    * @returns {boolean}
    */
@@ -76,7 +76,7 @@ export default class Node {
   getDistanceTo(end) {
     if (this === end) return 0;
     if (!this.isNeighbor(end)) return Infinity;
-    return this.getWeight() + end.getWeight() - 1;
+    return end.getWeight();
   }
 
   /**
@@ -226,7 +226,7 @@ export default class Node {
 
   /**
    * Add CSS class to Node
-   * @param {string} name 
+   * @param {string} name
    */
   add(name) {
     this.classes.add(name);
@@ -242,8 +242,8 @@ export default class Node {
 
 /**
  * Returns a reference to the node given the id
- * @param {Number} id 
- * @param {Node[][]} nodeGrid 
+ * @param {Number} id
+ * @param {Node[][]} nodeGrid
  */
 Node.getNode = (id, nodeGrid) => {
   const width = nodeGrid[0].length;
