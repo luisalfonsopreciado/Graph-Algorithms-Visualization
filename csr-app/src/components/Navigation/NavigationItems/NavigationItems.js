@@ -168,7 +168,9 @@ const NavigationItems = ({
           >
             Select
           </DropItem>
-          <DropItem clicked={() => dispatch("SET_INFO", { info: cts.BELLMAN_FORD })}>
+          <DropItem
+            clicked={() => dispatch("SET_INFO", { info: cts.BELLMAN_FORD })}
+          >
             Learn More
           </DropItem>
         </DropDown>
@@ -181,17 +183,21 @@ const NavigationItems = ({
           >
             Select
           </DropItem>
-          <DropItem clicked={() => dispatch("SET_INFO", { info: cts.BIDIRECTIONAL_BFS })}>
+          <DropItem
+            clicked={() =>
+              dispatch("SET_INFO", { info: cts.BIDIRECTIONAL_BFS })
+            }
+          >
             Learn More
           </DropItem>
         </DropDown>
       </Subnav>
       <Subnav title="Maze Generators">
         <DropDown title={cts.RAND_MAZE}>
-          <DropItem clicked={() => mazeGen(cts.RAND_MAZE, "Wall")}>
+          <DropItem clicked={() => mazeGen(cts.RAND_MAZE, cts.WALL)}>
             Generate Walls
           </DropItem>
-          <DropItem clicked={() => mazeGen(cts.RAND_MAZE, "Weight")}>
+          <DropItem clicked={() => mazeGen(cts.RAND_MAZE, cts.WEIGHT)}>
             Generate Weights
           </DropItem>
           <DropItem
@@ -200,11 +206,24 @@ const NavigationItems = ({
             Learn More
           </DropItem>
         </DropDown>
-        <DropDown title={cts.RECURSIVE_DIVISON}>
-          <DropItem clicked={() => mazeGen(cts.RECURSIVE_DIVISON, "Wall")}>
+        <DropDown title={cts.PRIMS_ALGO}>
+          <DropItem clicked={() => mazeGen(cts.PRIMS_ALGO, cts.WALL)}>
             Generate Walls
           </DropItem>
-          <DropItem clicked={() => mazeGen(cts.RECURSIVE_DIVISON, "Weight")}>
+          <DropItem clicked={() => mazeGen(cts.PRIMS_ALGO, cts.WEIGHT)}>
+            Generate Weights
+          </DropItem>
+          <DropItem
+            clicked={() => dispatch("SET_INFO", { info: cts.PRIMS_ALGO })}
+          >
+            Learn More
+          </DropItem>
+        </DropDown>
+        <DropDown title={cts.RECURSIVE_DIVISON}>
+          <DropItem clicked={() => mazeGen(cts.RECURSIVE_DIVISON, cts.WALL)}>
+            Generate Walls
+          </DropItem>
+          <DropItem clicked={() => mazeGen(cts.RECURSIVE_DIVISON, cts.WEIGHT)}>
             Generate Weights
           </DropItem>
           <DropItem
@@ -216,10 +235,10 @@ const NavigationItems = ({
           </DropItem>
         </DropDown>
         <DropDown title={cts.DRAW_COUNTOUR}>
-          <DropItem clicked={() => mazeGen(cts.DRAW_COUNTOUR, "Wall")}>
+          <DropItem clicked={() => mazeGen(cts.DRAW_COUNTOUR, cts.WALL)}>
             Generate Walls
           </DropItem>
-          <DropItem clicked={() => mazeGen(cts.DRAW_COUNTOUR, "Weight")}>
+          <DropItem clicked={() => mazeGen(cts.DRAW_COUNTOUR, cts.WEIGHT)}>
             Generate Weights
           </DropItem>
           <DropItem

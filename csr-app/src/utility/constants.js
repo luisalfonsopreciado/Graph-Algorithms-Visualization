@@ -15,6 +15,7 @@ export const BIDIRECTIONAL_BFS = "Bidirectional BFS"
 export const RAND_MAZE = "Random Maze"
 export const RECURSIVE_DIVISON = "Recursive Division"
 export const DRAW_COUNTOUR = "Contour Walls"
+export const PRIMS_ALGO = "Prim'sMazeAlgo"
 
 /* Board State Constants */
 export const ADDING_WEIGHT = "Adding Weight"
@@ -29,6 +30,8 @@ export const VISUALIZING = "Visualizing"
 /* Board Element Constants */
 export const WALL = "Wall"
 export const WEIGHT = "Weight"
+export const START = "Start"
+export const TARGET = "Target"
 
 /* Algorithm Introduction Constants */
 export const ALG_TITLE = {}
@@ -44,3 +47,14 @@ ALG_TITLE[KRUSKAL] = "Kruskal's algorithm is used to find the Minimum Spanning T
 /* Miscellaneous */
 export const HORIZONTAL = "horizontal";
 export const VERTICAL = "vertical";
+
+/**
+ * Generate a random integer between a range [min, max] (inclusive).
+ * Extracted from : https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
+ * @param {number} min must be less than max
+ * @param {number} max must be greater than min
+ */
+export const randBetween = (min, max) => {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  };

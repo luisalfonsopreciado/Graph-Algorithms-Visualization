@@ -577,9 +577,9 @@ export class Graph {
   }
 
   /**
-   * 
-   * @param {Node} startNode 
-   * @param {Node} targetNode 
+   * Perform a Bidirectional BFS starting at startNode and targetNode
+   * @param {Node} startNode
+   * @param {Node} targetNode
    */
   bidirectionalBFS(startNode, targetNode) {
     const animations = [];
@@ -607,7 +607,7 @@ export class Graph {
         }
       }
     }
-    
+
     return animations;
   }
 }

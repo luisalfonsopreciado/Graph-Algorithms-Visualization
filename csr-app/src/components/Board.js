@@ -339,6 +339,10 @@ const Board = ({ openDialog }) => {
       case util.DRAW_COUNTOUR:
         util.drawContourWalls(nodeGrid, obj);
         break;
+      case util.PRIMS_ALGO:
+        const { graph, startNode, targetNode } = util.generateGraph(nodeGrid);
+        util.primsAlgorithm(nodeGrid, startNode, targetNode, graph, obj);
+        break;
       default:
         util.randomMaze(nodeGrid, obj);
         break;
@@ -347,8 +351,8 @@ const Board = ({ openDialog }) => {
 
   /**
    * Animate a sequence of nodes.
-   * @param {Node[]} animations 
-   * @param {string} algorithm 
+   * @param {Node[]} animations
+   * @param {string} algorithm
    */
   const animate = (animations, algorithm) => {
     if (animations.length <= 0) return setIsAnimating(true);
@@ -397,7 +401,7 @@ const Board = ({ openDialog }) => {
   /**
    * Wrapper function for setNumRows in useNodeGrid Hook.
    * It's main purpose is to reset the previous algorithm so that
-   * when user changes grid size, no animations are displayed. 
+   * when user changes grid size, no animations are displayed.
    * Prevent's user from changing grid size while animation is taking place.
    * @param {number} numRows
    */

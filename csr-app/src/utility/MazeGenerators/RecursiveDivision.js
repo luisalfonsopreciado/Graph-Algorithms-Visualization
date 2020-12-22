@@ -1,5 +1,6 @@
 import { drawContourWalls } from "./Contour";
 import * as cts from "../constants";
+import { randBetween } from "../constants";
 
 export const recursiveDivision = (grid, type) => {
   drawContourWalls(grid, type);
@@ -140,14 +141,3 @@ const updateProhibitedCells = (row, col, horizontal, prohibited) => {
     prohibited.push([row - 1, col]);
   }
 };
-
-/**
- * Generate a random integer between a range [min, max] (inclusive).
- * Extracted from : https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
- * @param {number} min must be less than max
- * @param {number} max must be greater than min
- */
-function randBetween(min, max) {
-  // min and max included
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
