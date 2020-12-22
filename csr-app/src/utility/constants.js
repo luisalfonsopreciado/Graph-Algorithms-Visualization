@@ -15,7 +15,8 @@ export const BIDIRECTIONAL_BFS = "Bidirectional BFS"
 export const RAND_MAZE = "Random Maze"
 export const RECURSIVE_DIVISON = "Recursive Division"
 export const DRAW_COUNTOUR = "Contour Walls"
-export const PRIMS_ALGO = "Prim'sMazeAlgo"
+export const PRIMS_ALGO = "Prim's Maze Generator"
+export const PRIMS_ALGO_531 = "Prim's Maze Generator (5,1,3)"
 
 /* Board State Constants */
 export const ADDING_WEIGHT = "Adding Weight"

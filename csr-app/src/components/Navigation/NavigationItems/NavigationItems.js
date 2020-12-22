@@ -208,10 +208,16 @@ const NavigationItems = ({
         </DropDown>
         <DropDown title={cts.PRIMS_ALGO}>
           <DropItem clicked={() => mazeGen(cts.PRIMS_ALGO, cts.WALL)}>
-            Generate Walls
+            Generate Walls (Vanilla)
           </DropItem>
           <DropItem clicked={() => mazeGen(cts.PRIMS_ALGO, cts.WEIGHT)}>
-            Generate Weights
+            Generate Weights (Vanilla)
+          </DropItem>
+          <DropItem clicked={() => mazeGen(cts.PRIMS_ALGO_531, cts.WALL)}>
+            Generate Walls (5,0,3)
+          </DropItem>
+          <DropItem clicked={() => mazeGen(cts.PRIMS_ALGO_531, cts.WEIGHT)}>
+            Generate Weights (5,0,3)
           </DropItem>
           <DropItem
             clicked={() => dispatch("SET_INFO", { info: cts.PRIMS_ALGO })}

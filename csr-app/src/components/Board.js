@@ -342,6 +342,10 @@ const Board = ({ openDialog }) => {
         const { graph, startNode, targetNode } = util.generateGraph(nodeGrid);
         util.primsAlgorithm(nodeGrid, startNode, targetNode, graph, obj);
         break;
+      case util.PRIMS_ALGO_531:
+        const { graph : g, startNode : st, targetNode : t} = util.generateGraph(nodeGrid);
+        util.primsAlgorithm531(nodeGrid, st, t, g, obj);
+        break;
       default:
         util.randomMaze(nodeGrid, obj);
         break;
@@ -365,7 +369,7 @@ const Board = ({ openDialog }) => {
       !node.is("Weight") ? node.markSearched() : node.markSearched2Done();
 
       if (node.is("Target") || node.is("SecondaryTarget")) {
-        if(algorithm !== util.FLOYD_WARSHALL){
+        if (algorithm !== util.FLOYD_WARSHALL) {
           setDistance(node.dist);
         }
 
