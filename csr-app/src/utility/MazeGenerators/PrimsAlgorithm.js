@@ -17,6 +17,9 @@ const lookupTable531 = [
   [0, 1, 2, 3, 4, 0],
 ];
 
+/** 
+ * Color codes
+ */
 const DARK_BLUE = 0;
 const LIGHT_YELLOW = 1;
 const DARK_YELLOW = 2;
@@ -169,7 +172,7 @@ const isWall = (row, col) => {
 };
 
 /**
- * Returns true if the input location is a pilar
+ * Returns true if the input location is a pillar
  * @param {number} row
  * @param {number} col
  */

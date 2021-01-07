@@ -172,6 +172,9 @@ export class Graph {
   dijkstra(startNode, animations, hasSecond, withAnimation) {
     if (!startNode) return [];
 
+    // Visited set keeps track of the visited nodes, keep for when negative edges exists in the graph
+    const visited = {};
+
     // Prioritize based on the node's distance
     const heap = new MinHeap((item) => item.dist);
 
@@ -192,6 +195,9 @@ export class Graph {
 
       // For each of neighbors
       for (let adjacentNode of neighbors) {
+        // Only explore unvisited nodes
+        if (adjacentNode in visited) continue;
+        visited[adjacentNode] = true;
         // Calculate distance via the neighbor
         let tentativeDistance = adjacentNode.getWeight() + currentNode.dist;
 
@@ -228,6 +234,9 @@ export class Graph {
     if (startNode === null) return [];
     if (targetNode === null) return [];
 
+    // Visited set keeps track of the visited nodes, keep for when negative edges exists in the graph
+    const visited = {};
+
     // Array to store nodes to animate
     const animations = [];
 
@@ -260,6 +269,8 @@ export class Graph {
 
       //for each of its adjacent nodes...
       for (let adjacentNode of adj) {
+        if (adjacentNode in visited) continue;
+        visited[adjacentNode] = true;
         // distance(current,neighbor) is the weight of the edge from current to neighbor
         // tentativeGScore  is the distance from start to the neighbor through current
         let tentativeGScore = currentdist + adjacentNode.getWeight();
@@ -570,6 +581,24 @@ export class Graph {
             key.predecessor = adj;
           }
         });
+      });
+    }
+
+    let containsNegativeCycle = false;
+
+    // Check for negative-weight cycles
+    this.AdjList.forEach((arr, key) => {
+      arr.forEach((adj) => {
+        if (adj.dist + adj.getWeight() < key.dist) {
+          containsNegativeCycle = true;
+        }
+      });
+    });
+
+    if (containsNegativeCycle) {
+      // Remove predecessor to avoid infinite path cycle
+      this.AdjList.forEach((arr, key) => {
+        key.predecessor = null;
       });
     }
 

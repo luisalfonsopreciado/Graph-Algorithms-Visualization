@@ -1,3 +1,5 @@
+import * as cts from "./constants";
+
 /**
  * Node class defines the properties and behaviour of a vertex in the graph
  */
@@ -26,10 +28,10 @@ export default class Node {
    */
   getNeighbors(grid) {
     const cellNotInGraph = (row, col) => {
-      return grid[row][col].is("Wall");
+      return grid[row][col].is(cts.WALL);
     };
 
-    if (this.is("Wall")) return [];
+    if (this.is(cts.WALL)) return [];
     let neighbors = [];
 
     if (this.row > 0 && !cellNotInGraph(this.row - 1, this.col)) {
@@ -83,8 +85,9 @@ export default class Node {
    * Get weight of current Node
    */
   getWeight() {
-    if (this.is("Weight")) return 15;
-    if (this.is("Wall")) return Infinity;
+    if (this.is(cts.WEIGHT)) return 15;
+    if (this.is(cts.WALL)) return Infinity;
+    if (this.is(cts.N_WEIGHT)) return -1;
     return 1;
   }
   /**
@@ -116,14 +119,14 @@ export default class Node {
   setWall() {
     if (this.isKeyValue()) return;
     this.remove(["Searched", "Searched2"]);
-    this.add("Wall");
+    this.add(cts.WALL);
   }
 
   /**
    * Assign the Node as the Target Node
    */
   setAsTarget() {
-    this.add("Target");
+    this.add(cts.TARGET);
     this.markShortestPath();
   }
 
@@ -131,7 +134,7 @@ export default class Node {
    * Assign the Node as the Second Target
    */
   setAsSecondTarget() {
-    this.remove("Wall");
+    this.remove(cts.WALL);
     this.add("SecondaryTarget");
   }
 
@@ -139,7 +142,7 @@ export default class Node {
    * Mark the Node as searched by adding "Searched" CSS class
    */
   markSearched() {
-    if (this.is("Target")) return;
+    if (this.is(cts.TARGET)) return;
     this.add("Searched");
   }
 
@@ -147,7 +150,7 @@ export default class Node {
    * Mark the Node as searched by adding "Searched2" CSS class
    */
   markSearched2() {
-    if (this.is("Target")) return;
+    if (this.is(cts.TARGET)) return;
     this.add("Searched2");
   }
 
@@ -155,7 +158,7 @@ export default class Node {
    * Mark the Node as searched by adding Searched2Done CSS class
    */
   markSearched2Done() {
-    if (this.is("Target") || this.is("Start")) return;
+    if (this.is(cts.TARGET) || this.is("Start")) return;
     this.add("Searched2Done");
   }
 
@@ -169,22 +172,23 @@ export default class Node {
   }
 
   /**
-   * Remove all CSS classes for the Node except "Cell", "Wall" and "Weight"
+   * Remove all CSS classes for the Node except "Cell", cts.WALL and cts.WEIGHT
    */
   removeClasses() {
     this.classes.forEach(
       (item) =>
         item !== "Cell" &&
-        item !== "Wall" &&
-        item !== "Weight" &&
+        item !== cts.WALL &&
+        item !== cts.WEIGHT &&
+        item !== cts.N_WEIGHT &&
         this.classes.remove(item)
     );
   }
 
   reset() {
-    this.remove(["ShortestPath", "Wall", "Searched"]);
+    this.remove(["ShortestPath", cts.WALL, "Searched"]);
     this.remove(["Searched2", "SecondaryTarget", "Searched2Done"]);
-    this.remove(["Weight"]);
+    this.remove([cts.WEIGHT]);
     this.predecessor = null;
     this.dist = Infinity;
   }
@@ -193,14 +197,16 @@ export default class Node {
    * Return true if the node is the Target, Start or SecondaryTarget
    */
   isKeyValue() {
-    return this.is("Target") || this.is("Start") || this.is("SecondaryTarget");
+    return (
+      this.is(cts.TARGET) || this.is("Start") || this.is("SecondaryTarget")
+    );
   }
 
   /**
    * Adds CSS class to mark as shortest path and calls markShortestPath on predecessor
    */
   markShortestPath() {
-    if (!this.is("Target") && !this.is("Start")) {
+    if (!this.is(cts.TARGET) && !this.is("Start")) {
       this.remove(["Searched", "Searched2", "Searched2Done"]);
       this.add("ShortestPath");
     }
