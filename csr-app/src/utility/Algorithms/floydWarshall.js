@@ -1,3 +1,4 @@
+import * as cts from "../constants";
 /**
  * Run Floyd Warshall's All Pairs shortest paths algorithm on a nodeGrid
  * @param {Node[][]} nodeGrid
@@ -43,11 +44,11 @@ export const floydWarshall = (nodeGrid) => {
     }
 
     // Record the id of start and target node
-    if (node.is("Start")) startId = node.id;
-    if (node.is("Target")) targetId = node.id;
+    if (node.is(cts.START)) startId = node.id;
+    if (node.is(cts.TARGET)) targetId = node.id;
 
     // Handle animation
-    if (!node.is("Wall")) animations.push(node);
+    if (!node.is(cts.WALL)) animations.push(node);
   }
 
   // Initialize the distance matrix
@@ -80,6 +81,22 @@ export const floydWarshall = (nodeGrid) => {
         }
       }
     }
+  }
+
+  let containsNegativeCycle = false;
+
+  // If distance of any verex from itself
+  // becomes negative, then there is a negative
+  // weight cycle.
+  for (let i = 1; i <= n; i++) {
+    if (mtrx[i][i] < 0) {
+      containsNegativeCycle = true;
+      break;
+    }
+  }
+
+  if (containsNegativeCycle) {
+    path.forEach((arr) => arr.fill(0));
   }
 
   // Update the distances on the start and target node so that the UI Updates

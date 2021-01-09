@@ -1,8 +1,9 @@
 import { Graph } from "./index";
+import * as cts from "./constants";
 
 export const calculateNumVertices = () => {
-  const numCells = document.getElementsByClassName("Cell").length;
-  const numWalls = document.getElementsByClassName("Wall").length;
+  const numCells = document.getElementsByClassName(cts.CELL).length;
+  const numWalls = document.getElementsByClassName(cts.WALL).length;
   return numCells - numWalls;
 };
 
@@ -26,12 +27,12 @@ export const getKeyNodes = (nodesGrid) => {
   for (let row = 0; row < nodesGrid.length; row++) {
     for (let col = 0; col < nodesGrid[row].length; col++) {
       const currentNode = nodesGrid[row][col];
-      if (currentNode.is("ShortestPath")) {
-        currentNode.remove(["ShortestPath"]);
-        currentNode.add("Searched2Done");
+      if (currentNode.is(cts.SHORTEST_PATH)) {
+        currentNode.remove([cts.SHORTEST_PATH]);
+        currentNode.add(cts.SEARCHED_DONE);
       }
-      if (currentNode.is("Start")) startNode = currentNode;
-      if (currentNode.is("Target")) targetNode = currentNode;
+      if (currentNode.is(cts.START)) startNode = currentNode;
+      if (currentNode.is(cts.TARGET)) targetNode = currentNode;
     }
   }
   return { startNode, targetNode };
@@ -47,9 +48,9 @@ export const generateGraph = (nodesGrid) => {
     for (let col = 0; col < nodesGrid[row].length; col++) {
       const currentNode = nodesGrid[row][col];
 
-      if (!currentNode.is("Wall")) {
-        if (currentNode.is("Start")) startNode = currentNode;
-        if (currentNode.is("Target")) targetNode = currentNode;
+      if (!currentNode.is(cts.WALL)) {
+        if (currentNode.is(cts.START)) startNode = currentNode;
+        if (currentNode.is(cts.TARGET)) targetNode = currentNode;
         const neighbors = currentNode.getNeighbors(nodesGrid);
 
         for (let i in neighbors) {

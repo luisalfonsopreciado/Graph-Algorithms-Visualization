@@ -2,6 +2,7 @@ import { Queue } from "./Queue";
 import { DisjointSet } from "./DisjointSet";
 import { MinHeap } from "../index";
 import Node from "../Node";
+import * as cts from "../constants"
 
 /**
  * A graph ADT implementation
@@ -100,7 +101,7 @@ export class Graph {
           neigh.predecessor = getQueueElement;
           neigh.dist = 1 + getQueueElement.dist;
           if (!withAnimation) neigh.markSearched2Done();
-          if (neigh.is("Target") && !withAnimation) neigh.markShortestPath();
+          if (neigh.is(cts.TARGET) && !withAnimation) neigh.markShortestPath();
           animations.push(neigh);
           visited[neigh] = true;
           q.enqueue(neigh);
@@ -151,7 +152,7 @@ export class Graph {
         get_elem.predecessor = vert;
         if (!withAnimation) get_elem.markSearched2Done();
 
-        if (get_elem.is("Target") && !withAnimation) {
+        if (get_elem.is(cts.TARGET) && !withAnimation) {
           get_elem.markShortestPath();
         }
         animations.push(get_elem);
@@ -172,6 +173,9 @@ export class Graph {
   dijkstra(startNode, animations, hasSecond, withAnimation) {
     if (!startNode) return [];
 
+    // Visited set keeps track of the visited nodes, keep for when negative edges exists in the graph
+    const visited = {};
+
     // Prioritize based on the node's distance
     const heap = new MinHeap((item) => item.dist);
 
@@ -182,7 +186,7 @@ export class Graph {
       const currentNode = heap.pop();
 
       // If we have found the target return the animations
-      if (currentNode.is("Target")) {
+      if (currentNode.is(cts.TARGET)) {
         if (!withAnimation) currentNode.markShortestPath();
         return animations;
       }
@@ -192,6 +196,9 @@ export class Graph {
 
       // For each of neighbors
       for (let adjacentNode of neighbors) {
+        // Only explore unvisited nodes
+        if (adjacentNode in visited) continue;
+        visited[adjacentNode] = true;
         // Calculate distance via the neighbor
         let tentativeDistance = adjacentNode.getWeight() + currentNode.dist;
 
@@ -228,6 +235,9 @@ export class Graph {
     if (startNode === null) return [];
     if (targetNode === null) return [];
 
+    // Visited set keeps track of the visited nodes, keep for when negative edges exists in the graph
+    const visited = {};
+
     // Array to store nodes to animate
     const animations = [];
 
@@ -253,13 +263,15 @@ export class Graph {
       if (!withAnimation) currentNode.markSearched2Done();
       animations.push(currentNode);
 
-      if (currentNode.is("Target")) {
+      if (currentNode.is(cts.TARGET)) {
         if (!withAnimation) currentNode.markShortestPath();
         return animations;
       }
 
       //for each of its adjacent nodes...
       for (let adjacentNode of adj) {
+        if (adjacentNode in visited) continue;
+        visited[adjacentNode] = true;
         // distance(current,neighbor) is the weight of the edge from current to neighbor
         // tentativeGScore  is the distance from start to the neighbor through current
         let tentativeGScore = currentdist + adjacentNode.getWeight();
@@ -330,7 +342,7 @@ export class Graph {
       const currentNode = heap.pop();
 
       // Check if currentNode is target and handle animations
-      if (currentNode.is("Target")) {
+      if (currentNode.is(cts.TARGET)) {
         animations.push(currentNode);
         if (!withAnimation) currentNode.markShortestPath();
         return animations;
@@ -424,7 +436,7 @@ export class Graph {
       const adj = this.AdjList.get(currentNode); // get neighbors
       for (let neighbor of adj) {
         const dist = 1 + currentNode.dist;
-        if (dist < neighbor.dist || neighbor.is("Start")) {
+        if (dist < neighbor.dist || neighbor.is(cts.START)) {
           if (!withAnimation) neighbor.markSearched2Done();
           animations.push(neighbor);
           neighbor.dist = dist;
@@ -558,7 +570,7 @@ export class Graph {
 
     // Animate all nodes
     let animations = [...Object.values(nodes)];
-    animations = animations.filter((node) => !node.is("Wall"));
+    animations = animations.filter((node) => !node.is(cts.WALL));
 
     // Relax the edges
     for (let i = 1; i < this.noOfVertices; i++) {
@@ -570,6 +582,24 @@ export class Graph {
             key.predecessor = adj;
           }
         });
+      });
+    }
+
+    let containsNegativeCycle = false;
+
+    // Check for negative-weight cycles
+    this.AdjList.forEach((arr, key) => {
+      arr.forEach((adj) => {
+        if (adj.dist + adj.getWeight() < key.dist) {
+          containsNegativeCycle = true;
+        }
+      });
+    });
+
+    if (containsNegativeCycle) {
+      // Remove predecessor to avoid infinite path cycle
+      this.AdjList.forEach((arr, key) => {
+        key.predecessor = null;
       });
     }
 

@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import Node from "../utility/Node";
+import * as cts from "../utility/constants"
 
 const generateNodeGrid = (numRows, numCols) => {
   const nodesGrid = [];
@@ -37,7 +38,7 @@ const useNodeGrid = (rows, cols) => {
     for (let row in nodeGrid) {
       for (let cell of nodeGrid[row]) {
         cell.reset();
-        cell.remove(["Start", "Target"]);
+        cell.remove([cts.START, cts.TARGET]);
       }
     }
   };

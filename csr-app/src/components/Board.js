@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Cell from "./Cell/Cell";
 import * as util from "../utility/index";
+import * as cts from "../utility/constants"
 import "./Board.css";
 import useNodeGrid from "../hooks/useNodeGrid";
 import Navbar from "./Navigation/Toolbar/Toolbar";
@@ -57,8 +58,8 @@ const Board = ({ openDialog }) => {
   const [matrix, setMatrix] = useState(null);
 
   const handleKeyNodeMove = (node, type) => {
-    if (type === "Target") node.setAsTarget();
-    if (type === "Start") node.add("Start");
+    if (type === util.TARGET) node.setAsTarget();
+    if (type === util.START) node.add(util.START);
     if (prevAlgorithm !== util.FLOYD_WARSHALL) resetDistance();
 
     const { startNode, targetNode } = util.getKeyNodes(nodeGrid);
@@ -108,11 +109,11 @@ const Board = ({ openDialog }) => {
     if (settingSecondTarget) {
       return node.setAsSecondTarget();
     }
-    if (isMouseDown && isMovingStart && !node.is("Target")) {
-      return handleKeyNodeMove(node, "Start");
+    if (isMouseDown && isMovingStart && !node.is(util.TARGET)) {
+      return handleKeyNodeMove(node, util.START);
     }
-    if (isMouseDown && isMovingTarget && !node.is("Start")) {
-      return handleKeyNodeMove(node, "Target");
+    if (isMouseDown && isMovingTarget && !node.is(util.START)) {
+      return handleKeyNodeMove(node, util.TARGET);
     }
     if (isMouseDown && isMovingSecondTarget) return node.setAsSecondTarget();
     if (userAction === util.PLACING_WALLS && isMouseDown) {
@@ -124,8 +125,10 @@ const Board = ({ openDialog }) => {
     setIsMouseDown(true);
     if (!animating) return;
     if (userAction === util.ADDING_WEIGHT)
-      return !node.isKeyValue() && node.add("Weight");
-    if (userAction === util.DELETING) return node.remove(["Wall", "Weight"]);
+      return !node.isKeyValue() && node.add(util.WEIGHT);
+    if (userAction === util.ADDING_N_WEIGHT)
+      return !node.isKeyValue() && node.add(util.N_WEIGHT);
+    if (userAction === util.DELETING) return node.remove([util.WALL, util.WEIGHT]);
     if (settingSecondTarget) {
       let num = numTargets;
       setNumTargets(num + 1);
@@ -133,15 +136,15 @@ const Board = ({ openDialog }) => {
       return setSettingSecondTarget(false);
     }
     if (!node.isKeyValue()) return node.setWall();
-    if (node.is("Start")) setIsMovingStart(true);
-    if (node.is("Target")) setIsMovingTarget(true);
-    if (node.is("SecondaryTarget")) setIsMovingSecondTarget(true);
+    if (node.is(util.START)) setIsMovingStart(true);
+    if (node.is(util.TARGET)) setIsMovingTarget(true);
+    if (node.is(cts.SECONDARY_TARGET)) setIsMovingSecondTarget(true);
   };
 
   const onMouseLeaveHandler = (node) => {
     if (!animating) return;
-    if (isMovingStart) node.removeClass("Start");
-    if (isMovingTarget) node.removeClass("Target");
+    if (isMovingStart) node.removeClass(util.START);
+    if (isMovingTarget) node.removeClass(util.TARGET);
   };
 
   const onMouseUpHandler = () => {
@@ -343,7 +346,9 @@ const Board = ({ openDialog }) => {
         util.primsAlgorithm(nodeGrid, startNode, targetNode, graph, obj);
         break;
       case util.PRIMS_ALGO_531:
-        const { graph : g, startNode : st, targetNode : t} = util.generateGraph(nodeGrid);
+        const { graph: g, startNode: st, targetNode: t } = util.generateGraph(
+          nodeGrid
+        );
         util.primsAlgorithm531(nodeGrid, st, t, g, obj);
         break;
       default:
@@ -366,9 +371,9 @@ const Board = ({ openDialog }) => {
     const intervalId = setInterval(() => {
       const node = animations[count];
 
-      !node.is("Weight") ? node.markSearched() : node.markSearched2Done();
+      !node.is(util.WEIGHT) ? node.markSearched() : node.markSearched2Done();
 
-      if (node.is("Target") || node.is("SecondaryTarget")) {
+      if (node.is(util.TARGET) || node.is(cts.SECONDARY_TARGET)) {
         if (algorithm !== util.FLOYD_WARSHALL) {
           setDistance(node.dist);
         }
@@ -381,7 +386,7 @@ const Board = ({ openDialog }) => {
         }
       }
 
-      if (node.is("Start") && algorithm === util.DSTAR) {
+      if (node.is(util.START) && algorithm === util.DSTAR) {
         node.markShortestPath();
         setDistance(node.dist);
       }
