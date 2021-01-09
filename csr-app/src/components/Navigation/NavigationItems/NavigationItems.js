@@ -267,6 +267,9 @@ const NavigationItems = ({
           <DropItem clicked={() => setUserAction(cts.ADDING_WEIGHT)}>
             Add Weight
           </DropItem>
+          <DropItem clicked={() => setUserAction(cts.ADDING_N_WEIGHT)}>
+            Add Negative Weight
+          </DropItem>
           <DropItem clicked={() => setUserAction(cts.PLACING_WALLS)}>
             Draw Wall
           </DropItem>
