@@ -82,6 +82,22 @@ export const floydWarshall = (nodeGrid) => {
     }
   }
 
+  let containsNegativeCycle = false;
+
+  // If distance of any verex from itself
+  // becomes negative, then there is a negative
+  // weight cycle.
+  for (let i = 1; i <= n; i++) {
+    if (mtrx[i][i] < 0) {
+      containsNegativeCycle = true;
+      break;
+    }
+  }
+
+  if(containsNegativeCycle){
+    path.forEach((arr) => arr.fill(0));
+  }
+
   // Update the distances on the start and target node so that the UI Updates
   distance = mtrx[startId][targetId];
 

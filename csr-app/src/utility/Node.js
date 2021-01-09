@@ -186,7 +186,7 @@ export default class Node {
   }
 
   reset() {
-    this.remove(["ShortestPath", cts.WALL, "Searched"]);
+    this.remove(["ShortestPath", cts.WALL, "Searched", cts.N_WEIGHT]);
     this.remove(["Searched2", "SecondaryTarget", "Searched2Done"]);
     this.remove([cts.WEIGHT]);
     this.predecessor = null;
