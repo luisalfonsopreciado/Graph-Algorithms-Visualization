@@ -2,6 +2,7 @@ import { Queue } from "./Queue";
 import { DisjointSet } from "./DisjointSet";
 import { MinHeap } from "../index";
 import Node from "../Node";
+import * as cts from "../constants"
 
 /**
  * A graph ADT implementation
@@ -100,7 +101,7 @@ export class Graph {
           neigh.predecessor = getQueueElement;
           neigh.dist = 1 + getQueueElement.dist;
           if (!withAnimation) neigh.markSearched2Done();
-          if (neigh.is("Target") && !withAnimation) neigh.markShortestPath();
+          if (neigh.is(cts.TARGET) && !withAnimation) neigh.markShortestPath();
           animations.push(neigh);
           visited[neigh] = true;
           q.enqueue(neigh);
@@ -151,7 +152,7 @@ export class Graph {
         get_elem.predecessor = vert;
         if (!withAnimation) get_elem.markSearched2Done();
 
-        if (get_elem.is("Target") && !withAnimation) {
+        if (get_elem.is(cts.TARGET) && !withAnimation) {
           get_elem.markShortestPath();
         }
         animations.push(get_elem);
@@ -185,7 +186,7 @@ export class Graph {
       const currentNode = heap.pop();
 
       // If we have found the target return the animations
-      if (currentNode.is("Target")) {
+      if (currentNode.is(cts.TARGET)) {
         if (!withAnimation) currentNode.markShortestPath();
         return animations;
       }
@@ -262,7 +263,7 @@ export class Graph {
       if (!withAnimation) currentNode.markSearched2Done();
       animations.push(currentNode);
 
-      if (currentNode.is("Target")) {
+      if (currentNode.is(cts.TARGET)) {
         if (!withAnimation) currentNode.markShortestPath();
         return animations;
       }
@@ -341,7 +342,7 @@ export class Graph {
       const currentNode = heap.pop();
 
       // Check if currentNode is target and handle animations
-      if (currentNode.is("Target")) {
+      if (currentNode.is(cts.TARGET)) {
         animations.push(currentNode);
         if (!withAnimation) currentNode.markShortestPath();
         return animations;
@@ -435,7 +436,7 @@ export class Graph {
       const adj = this.AdjList.get(currentNode); // get neighbors
       for (let neighbor of adj) {
         const dist = 1 + currentNode.dist;
-        if (dist < neighbor.dist || neighbor.is("Start")) {
+        if (dist < neighbor.dist || neighbor.is(cts.START)) {
           if (!withAnimation) neighbor.markSearched2Done();
           animations.push(neighbor);
           neighbor.dist = dist;
@@ -569,7 +570,7 @@ export class Graph {
 
     // Animate all nodes
     let animations = [...Object.values(nodes)];
-    animations = animations.filter((node) => !node.is("Wall"));
+    animations = animations.filter((node) => !node.is(cts.WALL));
 
     // Relax the edges
     for (let i = 1; i < this.noOfVertices; i++) {

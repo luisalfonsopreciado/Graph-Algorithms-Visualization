@@ -30,11 +30,17 @@ export const PLACING_WALLS = "Placing Walls"
 export const VISUALIZING = "Visualizing"
 
 /* Board Element Constants */
+export const CELL = "Cell"
 export const WALL = "Wall"
 export const WEIGHT = "Weight"
 export const START = "Start"
 export const TARGET = "Target"
 export const N_WEIGHT = "NegativeWeight"
+export const SHORTEST_PATH = "ShortestPath"
+export const SEARCHED = "Searched"
+export const SEARCHED_2 = "Searched2"
+export const SEARCHED_DONE = "Searched2Done"
+export const SECONDARY_TARGET = "SecondaryTarget"
 
 /* Algorithm Introduction Constants */
 export const ALG_TITLE = {}

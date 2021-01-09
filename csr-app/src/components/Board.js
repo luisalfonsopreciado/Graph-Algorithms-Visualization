@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Cell from "./Cell/Cell";
 import * as util from "../utility/index";
+import * as cts from "../utility/constants"
 import "./Board.css";
 import useNodeGrid from "../hooks/useNodeGrid";
 import Navbar from "./Navigation/Toolbar/Toolbar";
@@ -137,7 +138,7 @@ const Board = ({ openDialog }) => {
     if (!node.isKeyValue()) return node.setWall();
     if (node.is(util.START)) setIsMovingStart(true);
     if (node.is(util.TARGET)) setIsMovingTarget(true);
-    if (node.is("SecondaryTarget")) setIsMovingSecondTarget(true);
+    if (node.is(cts.SECONDARY_TARGET)) setIsMovingSecondTarget(true);
   };
 
   const onMouseLeaveHandler = (node) => {
@@ -372,7 +373,7 @@ const Board = ({ openDialog }) => {
 
       !node.is(util.WEIGHT) ? node.markSearched() : node.markSearched2Done();
 
-      if (node.is(util.TARGET) || node.is("SecondaryTarget")) {
+      if (node.is(util.TARGET) || node.is(cts.SECONDARY_TARGET)) {
         if (algorithm !== util.FLOYD_WARSHALL) {
           setDistance(node.dist);
         }
