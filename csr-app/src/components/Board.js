@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Cell from "./Cell/Cell";
 import * as util from "../utility/index";
-import * as cts from "../utility/constants";
 import "./Board.css";
 import useNodeGrid from "../hooks/useNodeGrid";
 import Navbar from "./Navigation/Toolbar/Toolbar";
@@ -33,6 +32,8 @@ const Board = ({ openDialog }) => {
   const { algorithm } = useStore()[0];
   const classes = useStyles();
 
+  console.log("Board")
+
   const {
     nodeGrid,
     resetGrid,
@@ -46,15 +47,12 @@ const Board = ({ openDialog }) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [animating, setIsAnimating] = useState(true);
   const [isMovingTarget, setIsMovingTarget] = useState(false);
-  const [isMovingSecondTarget, setIsMovingSecondTarget] = useState(false);
   const [isMovingStart, setIsMovingStart] = useState(false);
   const [settingSecondTarget, setSettingSecondTarget] = useState(false);
-  const [hasSecondTarget, setHasSecondTarget] = useState(false);
-  const [numTargets, setNumTargets] = useState(1);
   const [prevAlgorithm, setPrevAlgorithm] = useState();
   const [userAction, setUserAction] = useState(util.PLACING_WALLS);
   const [animationSpeed, setAnimationSpeed] = useState(10);
-  const [distance, setDistance] = useState("Unkown");
+  const [distance, setDistance] = useState(util.UNK);
   const [matrix, setMatrix] = useState(null);
 
   const handleKeyNodeMove = (node, type) => {
@@ -101,7 +99,7 @@ const Board = ({ openDialog }) => {
       prevAlgorithm !== util.FLOYD_WARSHALL &&
       prevAlgorithm !== util.BELLMAN_FORD
     )
-      setDistance(targetNode.dist);
+      setDistance(targetNode.dist === Infinity ? util.UNK : targetNode.dist);
   };
 
   const onMouseEnterHandler = (node) => {
@@ -115,7 +113,6 @@ const Board = ({ openDialog }) => {
     if (isMouseDown && isMovingTarget && !node.is(util.START)) {
       return handleKeyNodeMove(node, util.TARGET);
     }
-    if (isMouseDown && isMovingSecondTarget) return node.setAsSecondTarget();
     if (userAction === util.PLACING_WALLS && isMouseDown) {
       return node.setWall();
     }
@@ -130,16 +127,9 @@ const Board = ({ openDialog }) => {
       return !node.isKeyValue() && node.add(util.N_WEIGHT);
     if (userAction === util.DELETING)
       return node.remove([util.WALL, util.WEIGHT]);
-    if (settingSecondTarget) {
-      let num = numTargets;
-      setNumTargets(num + 1);
-      setHasSecondTarget(true);
-      return setSettingSecondTarget(false);
-    }
     if (!node.isKeyValue()) return node.setWall();
     if (node.is(util.START)) setIsMovingStart(true);
     if (node.is(util.TARGET)) setIsMovingTarget(true);
-    if (node.is(cts.SECONDARY_TARGET)) setIsMovingSecondTarget(true);
   };
 
   const onMouseLeaveHandler = (node) => {
@@ -153,7 +143,6 @@ const Board = ({ openDialog }) => {
     setIsMouseDown(false);
     setIsMovingStart(false);
     setIsMovingTarget(false);
-    setIsMovingSecondTarget(false);
   };
 
   let Grid = nodeGrid.map((row, rowNum) => {
@@ -290,7 +279,12 @@ const Board = ({ openDialog }) => {
 
   const bellmanFord = (withAnimation) => {
     const { graph, startNode, targetNode } = util.generateGraph(nodeGrid);
-    const algExecInfo = graph.bellmanFord(startNode, targetNode, nodeGrid, withAnimation);
+    const algExecInfo = graph.bellmanFord(
+      startNode,
+      targetNode,
+      nodeGrid,
+      withAnimation
+    );
     return algExecInfo;
   };
 
@@ -314,9 +308,8 @@ const Board = ({ openDialog }) => {
 
   const clear = () => {
     if (!animating) return;
-    setHasSecondTarget(false);
     setPrevAlgorithm(null);
-    setDistance("Unkown");
+    setDistance(util.UNK);
     setMatrix(null);
     pathMtrx = null;
     resetGrid();
@@ -325,7 +318,7 @@ const Board = ({ openDialog }) => {
   const removeVisualization = () => {
     if (!animating) return;
     setPrevAlgorithm(null);
-    setDistance("Unkown");
+    setDistance(util.UNK);
     removeVisuals();
   };
 
@@ -357,9 +350,8 @@ const Board = ({ openDialog }) => {
   };
 
   /**
-   * Animate a sequence of nodes.
-   * @param {Node[]} animations
-   * @param {string} algorithm
+   * Animate the animations of the execution of an algorithm.
+   * @param {AlgExecInfo} algExecInfo
    */
   const animate = (algExecInfo) => {
     const { animations, distance, withAnimation } = algExecInfo;
@@ -458,8 +450,4 @@ const Board = ({ openDialog }) => {
   );
 };
 
-const compare = (prevProps, nextProps) => {
-  return true;
-};
-
-export default React.memo(Board, compare);
+export default Board;
