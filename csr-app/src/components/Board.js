@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Cell from "./Cell/Cell";
 import * as util from "../utility/index";
-import * as cts from "../utility/constants"
+import * as cts from "../utility/constants";
 import "./Board.css";
 import useNodeGrid from "../hooks/useNodeGrid";
 import Navbar from "./Navigation/Toolbar/Toolbar";
@@ -128,7 +128,8 @@ const Board = ({ openDialog }) => {
       return !node.isKeyValue() && node.add(util.WEIGHT);
     if (userAction === util.ADDING_N_WEIGHT)
       return !node.isKeyValue() && node.add(util.N_WEIGHT);
-    if (userAction === util.DELETING) return node.remove([util.WALL, util.WEIGHT]);
+    if (userAction === util.DELETING)
+      return node.remove([util.WALL, util.WEIGHT]);
     if (settingSecondTarget) {
       let num = numTargets;
       setNumTargets(num + 1);
@@ -228,33 +229,32 @@ const Board = ({ openDialog }) => {
 
   const BFS = (withAnimation) => {
     const { startNode, graph } = util.generateGraph(nodeGrid);
-    const animations = graph.bfs(startNode, withAnimation);
-    return animations;
+    const algExecInfo = graph.bfs(startNode, withAnimation);
+    return algExecInfo;
   };
 
   const DFS = (withAnimation) => {
     const { startNode, graph } = util.generateGraph(nodeGrid);
-    const animations = graph.dfs(startNode, withAnimation);
-    return animations;
+    const algExecInfo = graph.dfs(startNode, withAnimation);
+    return algExecInfo;
   };
 
   const Dijkstra = (withAnimation) => {
     const { startNode, graph } = util.generateGraph(nodeGrid);
-    const animations = [];
-    graph.dijkstra(startNode, animations, hasSecondTarget, withAnimation);
-    return animations;
+    const algExecInfo = graph.dijkstra(startNode, withAnimation);
+    return algExecInfo;
   };
 
   const AStar = (withAnimation) => {
     const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
-    const animations = graph.aStar(startNode, targetNode, withAnimation);
-    return animations;
+    const algExecInfo = graph.aStar(startNode, targetNode, withAnimation);
+    return algExecInfo;
   };
 
   const DStar = (withAnimation) => {
     const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
-    const animations = graph.dStar(startNode, targetNode, withAnimation);
-    return animations;
+    const algExecInfo = graph.dStar(startNode, targetNode, withAnimation);
+    return algExecInfo;
   };
 
   const floydWarshall = () => {
@@ -268,37 +268,36 @@ const Board = ({ openDialog }) => {
 
   const bestFirstSearch = (withAnimation) => {
     const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
-    const animations = graph.bestFirstSearch(
+    const algExecInfo = graph.bestFirstSearch(
       startNode,
       targetNode,
       withAnimation
     );
-    return animations;
+    return algExecInfo;
   };
 
   const Prims = (withAnimation) => {
     const { startNode, graph, targetNode } = util.generateGraph(nodeGrid);
-    const animations = graph.Prims(startNode, targetNode, withAnimation);
-    return animations;
+    const algExecInfo = graph.Prims(startNode, targetNode, withAnimation);
+    return algExecInfo;
   };
 
   const Kruskal = () => {
     const { graph } = util.generateGraph(nodeGrid);
-    const animations = graph.kruskal();
-    return animations;
+    const algExecInfo = graph.kruskal();
+    return algExecInfo;
   };
 
   const bellmanFord = (withAnimation) => {
     const { graph, startNode, targetNode } = util.generateGraph(nodeGrid);
-    const animations = graph.bellmanFord(startNode, nodeGrid, withAnimation);
-    setDistance(targetNode.dist);
-    return animations;
+    const algExecInfo = graph.bellmanFord(startNode, targetNode, nodeGrid, withAnimation);
+    return algExecInfo;
   };
 
   const bidirectionalBFS = () => {
     const { graph, startNode, targetNode } = util.generateGraph(nodeGrid);
-    const animations = graph.bidirectionalBFS(startNode, targetNode);
-    return animations;
+    const algExecInfo = graph.bidirectionalBFS(startNode, targetNode);
+    return algExecInfo;
   };
 
   const drawPath = (startId, targetId) => {
@@ -362,20 +361,22 @@ const Board = ({ openDialog }) => {
    * @param {Node[]} animations
    * @param {string} algorithm
    */
-  const animate = (animations, algorithm) => {
+  const animate = (algExecInfo) => {
+    const { animations, distance, withAnimation } = algExecInfo;
+    if (!withAnimation) return;
     if (animations.length <= 0) return setIsAnimating(true);
-
     let count = 0;
     let targetNodeRef = null;
 
     const intervalId = setInterval(() => {
       const node = animations[count];
 
+      // Weight nodes do not get colored when markSearched is called
       !node.is(util.WEIGHT) ? node.markSearched() : node.markSearched2Done();
 
-      if (node.is(util.TARGET) || node.is(cts.SECONDARY_TARGET)) {
+      if (node.is(util.TARGET)) {
         if (algorithm !== util.FLOYD_WARSHALL) {
-          setDistance(node.dist);
+          setDistance(distance);
         }
 
         // Save the reference to the target node in Bellmand Ford's

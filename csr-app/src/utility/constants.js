@@ -56,6 +56,7 @@ ALG_TITLE[KRUSKAL] = "Kruskal's algorithm is used to find the Minimum Spanning T
 /* Miscellaneous */
 export const HORIZONTAL = "horizontal";
 export const VERTICAL = "vertical";
+export const UNK = "Unknown";
 
 /**
  * Generate a random integer between a range [min, max] (inclusive).
