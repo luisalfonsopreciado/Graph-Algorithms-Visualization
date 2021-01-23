@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import Node from "../utility/Node";
-import * as cts from "../utility/constants"
+import * as cts from "../utility/constants";
 
 const generateNodeGrid = (numRows, numCols) => {
   const nodesGrid = [];
@@ -64,6 +64,9 @@ const useNodeGrid = (rows, cols) => {
     }
   };
 
+  /**
+   *  Resets the distance and predecessors of each node in the nodeGrid.
+   */
   const resetDistance = () => {
     for (let row in nodeGrid) {
       for (let node of nodeGrid[row]) {

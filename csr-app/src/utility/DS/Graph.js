@@ -2,7 +2,8 @@ import { Queue } from "./Queue";
 import { DisjointSet } from "./DisjointSet";
 import { MinHeap } from "../index";
 import Node from "../Node";
-import * as cts from "../constants"
+import * as cts from "../constants";
+import AlgExecInfo from "../AlgExecInfo";
 
 /**
  * A graph ADT implementation
@@ -83,33 +84,46 @@ export class Graph {
     visited[startingNode] = true;
     q.enqueue(startingNode);
 
+    let dist = 0;
+    let minDistance = -1;
+
     // loop until queue is element
     while (!q.isEmpty()) {
-      // get the element from the queue
-      let getQueueElement = q.dequeue();
+      const size = q.size();
 
-      // passing the current vertex to callback funtion
-      // get the adjacent list for current vertex
-      let get_List = this.AdjList.get(getQueueElement);
+      for (let i = 0; i < size; i++) {
+        // get the element from the queue
+        let getQueueElement = q.dequeue();
 
-      // loop through the list and add the element to the
-      // queue if it is not processed yet
-      for (let n in get_List) {
-        let neigh = get_List[n];
+        // if Target update minDistance
+        if (getQueueElement.is(cts.TARGET)) minDistance = dist;
 
-        if (!visited[neigh]) {
-          neigh.predecessor = getQueueElement;
-          neigh.dist = 1 + getQueueElement.dist;
-          if (!withAnimation) neigh.markSearched2Done();
-          if (neigh.is(cts.TARGET) && !withAnimation) neigh.markShortestPath();
-          animations.push(neigh);
-          visited[neigh] = true;
-          q.enqueue(neigh);
+        // passing the current vertex to callback function
+        // get the adjacent list for current vertex
+        let get_List = this.AdjList.get(getQueueElement);
+
+        // loop through the list and add the element to the
+        // queue if it is not processed yet
+        for (let n in get_List) {
+          let neigh = get_List[n];
+
+          if (!visited[neigh]) {
+            neigh.predecessor = getQueueElement;
+            neigh.dist = 1 + getQueueElement.dist;
+            if (!withAnimation) neigh.markSearched2Done();
+            if (neigh.is(cts.TARGET) && !withAnimation)
+              neigh.markShortestPath();
+
+            animations.push(neigh);
+            visited[neigh] = true;
+            q.enqueue(neigh);
+          }
         }
       }
+      dist++;
     }
 
-    return animations;
+    return new AlgExecInfo(animations, minDistance, cts.BFS, withAnimation);
   }
 
   /**
@@ -122,12 +136,16 @@ export class Graph {
     if (!startingNode) return [];
     const animations = [];
 
-    let visited = [];
-    for (let i = 0; i < this.noOfVertices; i++) visited[i] = false;
+    let visited = {};
 
-    this.DFSUtil(startingNode, visited, animations, withAnimation);
+    const distance = this.DFSUtil(
+      startingNode,
+      visited,
+      animations,
+      withAnimation
+    );
 
-    return withAnimation ? animations : [];
+    return new AlgExecInfo(animations, distance, cts.DFS, withAnimation);
   }
 
   /**
@@ -142,23 +160,29 @@ export class Graph {
    */
   DFSUtil(vert, visited, animations, withAnimation) {
     visited[vert] = true;
+    let output = -1;
+    if (vert.is(cts.TARGET)) output = vert.dist;
 
-    let get_neighbours = this.AdjList.get(vert);
+    let neighbors = this.AdjList.get(vert);
 
-    for (let i in get_neighbours) {
-      let get_elem = get_neighbours[i];
-      get_elem.dist = vert.dist + 1;
-      if (!visited[get_elem]) {
-        get_elem.predecessor = vert;
-        if (!withAnimation) get_elem.markSearched2Done();
+    for (let neighbor of neighbors) {
+      neighbor.dist = vert.dist + 1;
+      if (!(neighbor in visited)) {
+        neighbor.predecessor = vert;
+        if (!withAnimation) neighbor.markSearched2Done();
 
-        if (get_elem.is(cts.TARGET) && !withAnimation) {
-          get_elem.markShortestPath();
+        if (neighbor.is(cts.TARGET) && !withAnimation) {
+          neighbor.markShortestPath();
         }
-        animations.push(get_elem);
-        this.DFSUtil(get_elem, visited, animations, withAnimation);
+        animations.push(neighbor);
+        output = Math.max(
+          this.DFSUtil(neighbor, visited, animations, withAnimation),
+          output
+        );
       }
     }
+
+    return output;
   }
 
   /**
@@ -170,9 +194,10 @@ export class Graph {
    * @param {*} hasSecond Boolean indicating if there is targets in the graph
    * @param {*} withAnimation Boolean indicating if animation is desired
    */
-  dijkstra(startNode, animations, hasSecond, withAnimation) {
+  dijkstra(startNode, withAnimation) {
     if (!startNode) return [];
-
+    // Animations array
+    const animations = [];
     // Visited set keeps track of the visited nodes, keep for when negative edges exists in the graph
     const visited = {};
 
@@ -181,6 +206,9 @@ export class Graph {
 
     heap.push(startNode);
 
+    // Min Distance from source to target
+    let minDistance = -1;
+
     while (!heap.isEmpty()) {
       // Get the node with lowest distance
       const currentNode = heap.pop();
@@ -188,7 +216,8 @@ export class Graph {
       // If we have found the target return the animations
       if (currentNode.is(cts.TARGET)) {
         if (!withAnimation) currentNode.markShortestPath();
-        return animations;
+        minDistance = currentNode.dist;
+        break;
       }
 
       // Get neighbors
@@ -220,8 +249,12 @@ export class Graph {
       }
     }
 
-    // We did not find the target
-    return animations;
+    return new AlgExecInfo(
+      animations,
+      minDistance,
+      cts.DIJKSTRA,
+      withAnimation
+    );
   }
 
   /**
@@ -249,6 +282,8 @@ export class Graph {
 
     heap.push(startNode);
 
+    let minDistance = -1;
+
     while (!heap.isEmpty()) {
       // Get node in the priority queue having the lowest f value
       const currentNode = heap.pop();
@@ -265,7 +300,8 @@ export class Graph {
 
       if (currentNode.is(cts.TARGET)) {
         if (!withAnimation) currentNode.markShortestPath();
-        return animations;
+        minDistance = currentNode.dist;
+        break;
       }
 
       //for each of its adjacent nodes...
@@ -297,7 +333,7 @@ export class Graph {
     }
 
     // We did not find the target
-    return animations;
+    return new AlgExecInfo(animations, minDistance, cts.ASTAR, withAnimation);
   }
 
   /**
@@ -337,6 +373,8 @@ export class Graph {
     // Insert start in priority queue
     heap.push(startNode);
 
+    let distance = -1;
+
     while (!heap.isEmpty()) {
       // Remove vertex with smallest cost
       const currentNode = heap.pop();
@@ -345,7 +383,8 @@ export class Graph {
       if (currentNode.is(cts.TARGET)) {
         animations.push(currentNode);
         if (!withAnimation) currentNode.markShortestPath();
-        return animations;
+        distance = currentNode.dist;
+        break;
       }
 
       let currentdist = currentNode.dist;
@@ -380,8 +419,7 @@ export class Graph {
       }
     }
 
-    // We did not find the target
-    return animations;
+    return new AlgExecInfo(animations, distance, cts.GREEDY_BFS, withAnimation);
   }
 
   /**
@@ -431,6 +469,8 @@ export class Graph {
     targetNode.dist = 0;
     queue.enqueue(targetNode);
 
+    let minDistance = -1;
+
     while (!queue.isEmpty()) {
       const currentNode = queue.dequeue();
       const adj = this.AdjList.get(currentNode); // get neighbors
@@ -444,16 +484,15 @@ export class Graph {
           if (neighbor === startNode) {
             if (!withAnimation) {
               neighbor.markShortestPath();
-              return [];
             }
-            return animations;
+            break;
           }
           queue.enqueue(neighbor);
         }
       }
     }
 
-    return animations;
+    return new AlgExecInfo(animations, minDistance, cts.DSTAR, withAnimation);
   }
 
   /**
@@ -493,7 +532,7 @@ export class Graph {
 
     if (!withAnimation) targetNode.markShortestPath();
 
-    return withAnimation ? animations : [];
+    return new AlgExecInfo(animations, cts.UNK, cts.PRIMS, withAnimation);
   }
 
   /**
@@ -541,7 +580,7 @@ export class Graph {
       }
     }
 
-    return animations;
+    return new AlgExecInfo(animations, cts.UNK, cts.KRUSKAL, true);
   }
 
   /**
@@ -550,7 +589,7 @@ export class Graph {
    * @param {*} nodeGrid Reference to node Grid
    * @param {*} withAnimation Boolean indicating if animations are desired
    */
-  bellmanFord(startNode, nodeGrid, withAnimation) {
+  bellmanFord(startNode, targetNode, nodeGrid, withAnimation) {
     if (startNode === null) return [];
     // Initialize startVertex by setting dist = 0
     startNode.dist = 0;
@@ -603,7 +642,13 @@ export class Graph {
       });
     }
 
-    return animations;
+    return new AlgExecInfo(
+      animations,
+      targetNode.dist,
+      cts.BELLMAN_FORD,
+      withAnimation,
+      containsNegativeCycle
+    );
   }
 
   /**
@@ -638,6 +683,11 @@ export class Graph {
       }
     }
 
-    return animations;
+    return new AlgExecInfo(
+      animations,
+      targetNode.dist,
+      cts.BIDIRECTIONAL_BFS,
+      true
+    );
   }
 }
