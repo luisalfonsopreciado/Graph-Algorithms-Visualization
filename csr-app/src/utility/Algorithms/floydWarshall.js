@@ -1,3 +1,4 @@
+import AlgExecInfo from "../AlgExecInfo";
 import * as cts from "../constants";
 /**
  * Run Floyd Warshall's All Pairs shortest paths algorithm on a nodeGrid
@@ -102,7 +103,14 @@ export const floydWarshall = (nodeGrid) => {
   // Update the distances on the start and target node so that the UI Updates
   distance = mtrx[startId][targetId];
 
-  return { mtrx, animations, distance, path };
+  return new AlgExecInfo(
+    animations,
+    distance,
+    cts.FLOYD_WARSHALL,
+    true,
+    containsNegativeCycle,
+    { mtrx, path }
+  );
 };
 
 /**

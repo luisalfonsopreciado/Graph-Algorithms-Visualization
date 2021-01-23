@@ -32,7 +32,7 @@ const Board = ({ openDialog }) => {
   const { algorithm } = useStore()[0];
   const classes = useStyles();
 
-  console.log("Board")
+  console.log("Board");
 
   const {
     nodeGrid,
@@ -247,12 +247,11 @@ const Board = ({ openDialog }) => {
   };
 
   const floydWarshall = () => {
-    const { animations, distance, mtrx, path } = util.floydWarshall(nodeGrid);
-    pathMtrx = path;
-    setDistance(distance);
-    setMatrix(mtrx);
-
-    return animations;
+    const algExecInfo = util.floydWarshall(nodeGrid);
+    pathMtrx = algExecInfo.kwargs.path;
+    setDistance(algExecInfo.distance);
+    setMatrix(algExecInfo.kwargs.mtrx);
+    return algExecInfo;
   };
 
   const bestFirstSearch = (withAnimation) => {
