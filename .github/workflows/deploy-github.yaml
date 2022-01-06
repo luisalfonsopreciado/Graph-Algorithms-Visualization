@@ -1,0 +1,15 @@
+name: deploy-react-app
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  deploy-application:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: git remote set-url origin https://git:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
+      - run: cd gui && npm install && CI=false npm run predeploy && npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
