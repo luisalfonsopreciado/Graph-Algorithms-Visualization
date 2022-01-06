@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0aed096c19d4887b5544f28ec6ced5f6",
+    "revision": "1325db8f482f2de531b8c55082a6fc08",
     "url": "/index.html"
   },
   {
-    "revision": "1c79c4f40df6800997e2",
-    "url": "/static/css/main.e4152fe1.chunk.css"
+    "revision": "5f0fd54cfe29c8179d5a",
+    "url": "/static/css/main.61925997.chunk.css"
   },
   {
     "revision": "37761aed0d018c870f43",
@@ -28,20 +28,24 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/14.451c8f04.chunk.js"
   },
   {
-    "revision": "a65fca1cc5cab220d7a6",
-    "url": "/static/js/15.1daec9aa.chunk.js"
+    "revision": "973855f65e715e9e1295",
+    "url": "/static/js/15.9a441aea.chunk.js"
   },
   {
-    "revision": "89a938dea9d6443dead0",
-    "url": "/static/js/16.cfdf2347.chunk.js"
+    "revision": "e725736a08bdd9101bcb",
+    "url": "/static/js/16.8a8e6c5d.chunk.js"
   },
   {
-    "revision": "6f96736768942374bb5b",
-    "url": "/static/js/2.c8c8379b.chunk.js"
+    "revision": "50f9283bcadd5022e6b6",
+    "url": "/static/js/17.4093cbc7.chunk.js"
+  },
+  {
+    "revision": "290dc1360047d0b54335",
+    "url": "/static/js/2.402feb52.chunk.js"
   },
   {
     "revision": "0749163b59fbee32225059cb60c18af6",
-    "url": "/static/js/2.c8c8379b.chunk.js.LICENSE.txt"
+    "url": "/static/js/2.402feb52.chunk.js.LICENSE.txt"
   },
   {
     "revision": "4fc48da42a3af71efab9",
@@ -72,12 +76,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/9.2a21d7af.chunk.js"
   },
   {
-    "revision": "1c79c4f40df6800997e2",
-    "url": "/static/js/main.56555cc7.chunk.js"
+    "revision": "5f0fd54cfe29c8179d5a",
+    "url": "/static/js/main.e70c5424.chunk.js"
   },
   {
-    "revision": "0b29ab9de1d18eb99a64",
-    "url": "/static/js/runtime-main.da25589b.js"
+    "revision": "d628a5cfa635592c683f",
+    "url": "/static/js/runtime-main.3021eb92.js"
   },
   {
     "revision": "483a2bf3f1b2e52d0558959cb482d5ae",
@@ -128,12 +132,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/Prim's Algorithm.49152480.md"
   },
   {
+    "revision": "d41d8cd98f00b204e9800998ecf8427e",
+    "url": "/static/media/Prim'sMazeAlgo.d41d8cd9.md"
+  },
+  {
     "revision": "983e48eb0123ef52854ad7ec15895dcf",
     "url": "/static/media/Random Maze.983e48eb.md"
   },
   {
     "revision": "77995fead1723bdeac9301c7749f3cab",
     "url": "/static/media/Recursive Division.77995fea.md"
+  },
+  {
+    "revision": "3d42897487f35639dfb0ba4fb8bac35c",
+    "url": "/static/media/negative-weight.3d428974.svg"
   },
   {
     "revision": "a563191d4cd89d04e09d7348395dba7f",
