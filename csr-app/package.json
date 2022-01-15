@@ -5,7 +5,7 @@
   "homepage": "https://graph-algorithms-visualization.vercel.app",
   "dependencies": {
     "@material-ui/core": "^4.12.3",
-    "marked": "^2.0.0",
+    "marked": "^4.0.10",
     "prop-types": "^15.8.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
